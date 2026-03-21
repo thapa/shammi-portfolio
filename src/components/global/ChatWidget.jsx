@@ -37,6 +37,7 @@ const ChatWidget = () => {
   const bottomRef = useRef(null)
   const inputRef = useRef(null)
   const textareaRef = useRef(null)
+  const summarySentRef = useRef(false)
 
   // Auto-scroll to latest message
   useEffect(() => {
@@ -56,6 +57,22 @@ const ChatWidget = () => {
     const el = e.target
     el.style.height = 'auto'
     el.style.height = `${Math.min(el.scrollHeight, 96)}px`
+  }
+
+  const sendSummary = (currentMessages, info) => {
+    if (summarySentRef.current) return
+    if (!currentMessages.some((m) => m.role === 'user')) return
+    summarySentRef.current = true
+    fetch('/api/chat-summary', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ messages: currentMessages, userInfo: info }),
+    }).catch(() => {})
+  }
+
+  const handleClose = () => {
+    if (stage === 'chat') sendSummary(messages, userInfo)
+    setIsOpen(false)
   }
 
   const handleFormChange = (e) =>
@@ -106,10 +123,13 @@ const ChatWidget = () => {
         body: JSON.stringify({ messages: updated, userInfo }),
       })
       const data = await res.json()
-      setMessages((prev) => [
-        ...prev,
-        { role: 'assistant', content: data.reply || 'Sorry, something went wrong.' },
-      ])
+      const aiMsg = { role: 'assistant', content: data.reply || 'Sorry, something went wrong.' }
+      const finalMessages = [...updated, aiMsg]
+      setMessages(finalMessages)
+
+      // Auto-send summary once AI wraps up conversation
+      const userTurns = finalMessages.filter((m) => m.role === 'user').length
+      if (userTurns >= 4) sendSummary(finalMessages, userInfo)
     } catch {
       setMessages((prev) => [
         ...prev,
@@ -155,7 +175,7 @@ const ChatWidget = () => {
               </div>
             </div>
             <button
-              onClick={() => setIsOpen(false)}
+              onClick={handleClose}
               className="w-8 h-8 rounded-full flex items-center justify-center text-neutral-500 hover:text-white hover:bg-white/10 transition-all"
               aria-label="Close chat"
             >
@@ -271,7 +291,7 @@ const ChatWidget = () => {
 
       {/* ── Floating toggle button ─────────────────────────────── */}
       <button
-        onClick={() => setIsOpen((o) => !o)}
+        onClick={() => isOpen ? handleClose() : setIsOpen(true)}
         className="fixed bottom-6 right-6 z-[9991] w-14 h-14 rounded-full bg-primary shadow-xl flex items-center justify-center hover:bg-primary-light hover:scale-110 transition-all"
         aria-label="Chat with Shammi's AI"
       >
