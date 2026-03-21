@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    @apply bg-white dark:bg-[#0E0E0E] text-neutral-900 dark:text-white;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+}
