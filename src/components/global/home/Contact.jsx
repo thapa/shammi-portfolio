@@ -56,15 +56,21 @@ const Contact = () => {
         body: JSON.stringify(form),
       })
 
-      const data = await res.json()
+      // Guard against empty / non-JSON responses (e.g. 404 when run locally without vercel dev)
+      const text = await res.text()
+      const data = text ? JSON.parse(text) : {}
 
-      if (!res.ok) throw new Error(data.error || 'Something went wrong')
+      if (!res.ok) throw new Error(data.error || `Server error ${res.status}`)
 
       setStatus('sent')
       setForm({ name: '', email: '', phone: '', budget: '', projectType: '' })
     } catch (err) {
       setStatus('error')
-      setErrorMsg(err.message)
+      setErrorMsg(
+        err.message.includes('JSON')
+          ? 'API not available locally — deploy to Vercel or run: vercel dev'
+          : err.message
+      )
     }
   }
 
