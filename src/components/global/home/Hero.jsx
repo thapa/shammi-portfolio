@@ -29,82 +29,96 @@ const Hero = () => {
       id="home"
       className="min-h-screen flex flex-col bg-white dark:bg-[#0E0E0E] pt-[73px] transition-colors duration-300 overflow-hidden"
     >
-      <div className="flex-1 max-w-7xl mx-auto px-6 w-full grid lg:grid-cols-2 gap-0 items-center py-12">
+      {/* ── Main content ───────────────────────────────────────────────── */}
+      <div className="relative flex-1 w-full">
 
-        {/* ── Left: text content ─────────────────────────────────────── */}
-        <div className="flex flex-col justify-center py-8">
+        {/* Spline background — fills the entire hero area */}
+        <div className="absolute inset-0 w-full h-full pointer-events-none">
+          <Suspense fallback={null}>
+            <Spline
+              scene="https://prod.spline.design/xZeonsrs0TQluk1G/scene.splinecode"
+              className="w-full h-full"
+            />
+          </Suspense>
+        </div>
+
+        {/* Text content — sits on top of the Spline background */}
+        <div className="relative z-10 max-w-7xl mx-auto px-6 w-full flex flex-col justify-center py-16 min-h-[calc(100vh-73px)]">
           {/* Badge */}
-          <div className="flex items-center gap-2.5 mb-10">
+          <div className="flex items-center gap-2.5 mb-12">
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
             <span className="text-xs font-semibold uppercase tracking-widest text-neutral-500 dark:text-neutral-400">
               Available for Freelance
             </span>
           </div>
 
-          {/* Name */}
-          <h1
-            className="font-display font-black leading-[0.9] tracking-tight text-neutral-900 dark:text-white"
-            style={{ fontSize: 'clamp(64px, 10vw, 140px)' }}
-          >
-            SHAMMI
-          </h1>
-          <h1
-            className="font-display font-black leading-[0.9] tracking-tight text-primary mb-10"
-            style={{ fontSize: 'clamp(64px, 10vw, 140px)' }}
-          >
-            THAPA
-          </h1>
+          {/* Name + Side content */}
+          <div className="grid lg:grid-cols-[1fr,320px] gap-12 items-end">
+            {/* Large display name */}
+            <div>
+              <h1
+                className="font-display font-black leading-[0.9] tracking-tight text-neutral-900 dark:text-white"
+                style={{ fontSize: 'clamp(72px, 14vw, 180px)' }}
+              >
+                SHAMMI
+              </h1>
+              <h1
+                className="font-display font-black leading-[0.9] tracking-tight text-primary"
+                style={{ fontSize: 'clamp(72px, 14vw, 180px)' }}
+              >
+                THAPA
+              </h1>
+            </div>
 
-          {/* Bio */}
-          <p className="text-neutral-600 dark:text-neutral-400 text-base leading-relaxed mb-8 max-w-sm">
-            WordPress &amp; Shopify Developer with 10+ years of experience.
-            Delivering pixel-perfect, high-performance websites for clients
-            worldwide.
-          </p>
-
-          {/* CTAs */}
-          <div className="flex flex-wrap gap-3 mb-8">
-            <a
-              href="#contact"
-              className="inline-flex items-center gap-2 bg-primary text-[#0E0E0E] text-sm font-bold px-6 py-3 rounded-full hover:bg-primary-light transition-colors"
-            >
-              Hire Me <HiArrowRight size={15} />
-            </a>
-            <a
-              href="/shammi-thapa-cv.pdf"
-              className="inline-flex items-center gap-2 border border-neutral-300 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 text-sm font-semibold px-6 py-3 rounded-full hover:border-neutral-900 dark:hover:border-white hover:text-neutral-900 dark:hover:text-white transition-colors"
-            >
-              <HiDownload size={15} /> Download CV
-            </a>
-          </div>
-
-          {/* Socials */}
-          <div className="flex gap-4 mb-12">
-            <a
-              href="https://github.com"
-              target="_blank"
-              rel="noreferrer"
-              className="text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors"
-            >
-              <FaGithub size={20} />
-            </a>
-            <a
-              href="https://linkedin.com"
-              target="_blank"
-              rel="noreferrer"
-              className="text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors"
-            >
-              <FaLinkedin size={20} />
-            </a>
+            {/* Side: bio + CTAs + socials */}
+            <div className="pb-3">
+              <p className="text-neutral-600 dark:text-neutral-400 text-base leading-relaxed mb-8">
+                WordPress &amp; Shopify Developer with 10+ years of experience.
+                Delivering pixel-perfect, high-performance websites for clients
+                worldwide.
+              </p>
+              <div className="flex flex-wrap gap-3 mb-8">
+                <a
+                  href="#contact"
+                  className="inline-flex items-center gap-2 bg-primary text-[#0E0E0E] text-sm font-bold px-6 py-3 rounded-full hover:bg-primary-light transition-colors"
+                >
+                  Hire Me <HiArrowRight size={15} />
+                </a>
+                <a
+                  href="/shammi-thapa-cv.pdf"
+                  className="inline-flex items-center gap-2 border border-neutral-300 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 text-sm font-semibold px-6 py-3 rounded-full hover:border-neutral-900 dark:hover:border-white hover:text-neutral-900 dark:hover:text-white transition-colors"
+                >
+                  <HiDownload size={15} /> Download CV
+                </a>
+              </div>
+              <div className="flex gap-4">
+                <a
+                  href="https://github.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors"
+                >
+                  <FaGithub size={20} />
+                </a>
+                <a
+                  href="https://linkedin.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors"
+                >
+                  <FaLinkedin size={20} />
+                </a>
+              </div>
+            </div>
           </div>
 
           {/* Stats row */}
-          <div className="flex flex-wrap gap-10 pt-8 border-t border-neutral-200 dark:border-neutral-800">
+          <div className="flex flex-wrap gap-12 mt-16 pt-10 border-t border-neutral-200 dark:border-neutral-800">
             {loading
               ? Array.from({ length: 3 }).map((_, i) => <StatSkeleton key={i} />)
               : stats.map((s) => (
                   <div key={s.id}>
-                    <p className="font-display text-3xl font-bold text-neutral-900 dark:text-white">
+                    <p className="font-display text-4xl font-bold text-neutral-900 dark:text-white">
                       {s.value}
                     </p>
                     <p className="text-sm text-neutral-500 dark:text-neutral-500 mt-1">
@@ -113,22 +127,6 @@ const Hero = () => {
                   </div>
                 ))}
           </div>
-        </div>
-
-        {/* ── Right: Spline 3D scene ─────────────────────────────────── */}
-        <div className="relative w-full h-[500px] lg:h-full min-h-[500px]">
-          <Suspense
-            fallback={
-              <div className="w-full h-full flex items-center justify-center">
-                <div className="w-16 h-16 rounded-full border-2 border-primary border-t-transparent animate-spin" />
-              </div>
-            }
-          >
-            <Spline
-              scene="https://prod.spline.design/pyozXnzrbtfBpaVP/scene.splinecode"
-              className="w-full h-full"
-            />
-          </Suspense>
         </div>
       </div>
 
