@@ -15,6 +15,10 @@ const fetchFromAPI = async (siteUrl, isMobile = false) => {
     format: 'webp',
     viewport_width: isMobile ? '390' : '1280',
     viewport_height: isMobile ? '844' : '800',
+    // Wait until network is fully idle — fixes lazy-loaded images showing as white
+    wait_until: 'networkidle2',
+    // Extra buffer for JS-driven lazy loads after network settles
+    delay: '3',
     block_cookie_banners: '1',
     block_ads: '1',
     block_chats: '1',
