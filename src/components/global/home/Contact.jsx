@@ -2,36 +2,70 @@ import { useState } from 'react'
 import { HiMail, HiPhone, HiLocationMarker, HiCheckCircle, HiArrowRight } from 'react-icons/hi'
 
 const contactInfo = [
-  {
-    Icon: HiMail,
-    label: 'Email',
-    value: 'thapa.shammi@gmail.com',
-    href: 'mailto:thapa.shammi@gmail.com',
-  },
-  {
-    Icon: HiPhone,
-    label: 'Phone',
-    value: '+91 9988191688',
-    href: 'tel:+919988191688',
-  },
-  {
-    Icon: HiLocationMarker,
-    label: 'Location',
-    value: 'India',
-    href: null,
-  },
+  { Icon: HiMail, label: 'Email', value: 'thapa.shammi@gmail.com', href: 'mailto:thapa.shammi@gmail.com' },
+  { Icon: HiPhone, label: 'Phone', value: '+91 9988191688', href: 'tel:+919988191688' },
+  { Icon: HiLocationMarker, label: 'Location', value: 'India', href: null },
 ]
 
+const budgetOptions = [
+  'Under $500',
+  '$500 – $1,000',
+  '$1,000 – $5,000',
+  '$5,000 – $10,000',
+  '$10,000+',
+]
+
+const projectTypeOptions = [
+  'WordPress Development',
+  'Shopify Development',
+  'Web Development',
+  'E-commerce Store',
+  'Website Redesign',
+  'Other',
+]
+
+const inputClass =
+  'w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none focus:border-primary transition-colors'
+
+const labelClass =
+  'text-xs font-bold uppercase tracking-widest text-neutral-500 block mb-2'
+
 const Contact = () => {
-  const [form, setForm] = useState({ name: '', email: '', message: '' })
-  const [sent, setSent] = useState(false)
+  const [form, setForm] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    budget: '',
+    projectType: '',
+  })
+  const [status, setStatus] = useState('idle') // idle | sending | sent | error
+  const [errorMsg, setErrorMsg] = useState('')
 
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value })
+  const handleChange = (e) =>
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    setSent(true)
-    setForm({ name: '', email: '', message: '' })
+    setStatus('sending')
+    setErrorMsg('')
+
+    try {
+      const res = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      })
+
+      const data = await res.json()
+
+      if (!res.ok) throw new Error(data.error || 'Something went wrong')
+
+      setStatus('sent')
+      setForm({ name: '', email: '', phone: '', budget: '', projectType: '' })
+    } catch (err) {
+      setStatus('error')
+      setErrorMsg(err.message)
+    }
   }
 
   return (
@@ -43,31 +77,23 @@ const Contact = () => {
             Get In Touch
           </p>
           <h2 className="font-display font-black leading-none text-white">
-            <span
-              className="block"
-              style={{ fontSize: 'clamp(56px, 10vw, 140px)' }}
-            >
+            <span className="block" style={{ fontSize: 'clamp(56px, 10vw, 140px)' }}>
               Get in
             </span>
-            <span
-              className="block text-primary"
-              style={{ fontSize: 'clamp(56px, 10vw, 140px)' }}
-            >
+            <span className="block text-primary" style={{ fontSize: 'clamp(56px, 10vw, 140px)' }}>
               touch.
             </span>
           </h2>
         </div>
 
-        {/* Content */}
         <div className="grid lg:grid-cols-2 gap-16 items-start">
-          {/* Left: info */}
+          {/* Left: contact info */}
           <div>
             <p className="text-neutral-400 text-lg leading-relaxed mb-10">
               I&apos;m available for freelance projects. Whether it&apos;s a new
               WordPress build, Shopify store, or anything web-related — let&apos;s
               talk!
             </p>
-
             <div className="flex flex-col gap-6">
               {contactInfo.map(({ Icon, label, value, href }) => (
                 <div key={label} className="flex items-center gap-4">
@@ -79,10 +105,7 @@ const Contact = () => {
                       {label}
                     </p>
                     {href ? (
-                      <a
-                        href={href}
-                        className="text-white hover:text-primary transition-colors font-medium"
-                      >
+                      <a href={href} className="text-white hover:text-primary transition-colors font-medium">
                         {value}
                       </a>
                     ) : (
@@ -96,7 +119,7 @@ const Contact = () => {
 
           {/* Right: form */}
           <div className="bg-white/5 border border-white/10 rounded-2xl p-8">
-            {sent ? (
+            {status === 'sent' ? (
               <div className="flex flex-col items-center justify-center py-12 text-center">
                 <HiCheckCircle size={48} className="text-primary mb-4" />
                 <h3 className="text-xl font-bold text-white mb-2">Message Sent!</h3>
@@ -104,7 +127,7 @@ const Contact = () => {
                   Thanks for reaching out. I&apos;ll get back to you soon.
                 </p>
                 <button
-                  onClick={() => setSent(false)}
+                  onClick={() => setStatus('idle')}
                   className="mt-6 text-sm text-primary font-semibold hover:underline cursor-pointer"
                 >
                   Send another message
@@ -112,10 +135,9 @@ const Contact = () => {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+                {/* Name */}
                 <div>
-                  <label className="text-xs font-bold uppercase tracking-widest text-neutral-500 block mb-2">
-                    Your Name
-                  </label>
+                  <label className={labelClass}>Your Name</label>
                   <input
                     type="text"
                     name="name"
@@ -123,13 +145,13 @@ const Contact = () => {
                     onChange={handleChange}
                     required
                     placeholder="John Doe"
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none focus:border-primary transition-colors"
+                    className={inputClass}
                   />
                 </div>
+
+                {/* Email */}
                 <div>
-                  <label className="text-xs font-bold uppercase tracking-widest text-neutral-500 block mb-2">
-                    Email Address
-                  </label>
+                  <label className={labelClass}>Email Address</label>
                   <input
                     type="email"
                     name="email"
@@ -137,28 +159,79 @@ const Contact = () => {
                     onChange={handleChange}
                     required
                     placeholder="john@example.com"
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none focus:border-primary transition-colors"
+                    className={inputClass}
                   />
                 </div>
+
+                {/* Phone */}
                 <div>
-                  <label className="text-xs font-bold uppercase tracking-widest text-neutral-500 block mb-2">
-                    Message
-                  </label>
-                  <textarea
-                    name="message"
-                    value={form.message}
+                  <label className={labelClass}>Phone Number</label>
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={form.phone}
                     onChange={handleChange}
                     required
-                    rows={5}
-                    placeholder="Tell me about your project..."
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none focus:border-primary transition-colors resize-none"
+                    placeholder="+1 234 567 8900"
+                    className={inputClass}
                   />
                 </div>
+
+                {/* Budget + Project Type — side by side on md+ */}
+                <div className="grid sm:grid-cols-2 gap-5">
+                  <div>
+                    <label className={labelClass}>Budget</label>
+                    <select
+                      name="budget"
+                      value={form.budget}
+                      onChange={handleChange}
+                      required
+                      className={`${inputClass} cursor-pointer`}
+                    >
+                      <option value="" disabled className="bg-neutral-900">
+                        Select budget
+                      </option>
+                      {budgetOptions.map((o) => (
+                        <option key={o} value={o} className="bg-neutral-900">
+                          {o}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className={labelClass}>Project Type</label>
+                    <select
+                      name="projectType"
+                      value={form.projectType}
+                      onChange={handleChange}
+                      required
+                      className={`${inputClass} cursor-pointer`}
+                    >
+                      <option value="" disabled className="bg-neutral-900">
+                        Select type
+                      </option>
+                      {projectTypeOptions.map((o) => (
+                        <option key={o} value={o} className="bg-neutral-900">
+                          {o}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
+                {/* Error message */}
+                {status === 'error' && (
+                  <p className="text-red-400 text-sm">{errorMsg}</p>
+                )}
+
+                {/* Submit */}
                 <button
                   type="submit"
-                  className="inline-flex items-center justify-center gap-2 bg-primary text-[#0E0E0E] text-sm font-bold px-6 py-3 rounded-full hover:bg-primary-light transition-colors cursor-pointer"
+                  disabled={status === 'sending'}
+                  className="inline-flex items-center justify-center gap-2 bg-primary text-[#0E0E0E] text-sm font-bold px-6 py-3 rounded-full hover:bg-primary-light transition-colors cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  Send Message <HiArrowRight size={16} />
+                  {status === 'sending' ? 'Sending…' : <>Send Message <HiArrowRight size={16} /></>}
                 </button>
               </form>
             )}
