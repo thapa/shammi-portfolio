@@ -36,7 +36,7 @@ const projectTypeOptions = [
 ]
 
 const inputClass =
-  'w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none focus:border-primary transition-colors'
+  'w-full bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 rounded-xl px-4 py-3 text-sm text-neutral-900 dark:text-white placeholder-neutral-400 dark:placeholder-neutral-600 focus:outline-none focus:border-primary transition-colors'
 
 const labelClass =
   'text-xs font-bold uppercase tracking-widest text-neutral-500 block mb-2'
@@ -130,15 +130,15 @@ const Contact = () => {
   }
 
   return (
-    <section ref={sectionRef} id="contact" className="bg-[#0E0E0E] py-24 md:py-32">
+    <section ref={sectionRef} id="contact" className="bg-white dark:bg-[#0E0E0E] py-24 md:py-32 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-6">
         {/* Large display heading */}
         <div className="mb-20">
-          <p ref={labelRef} className="text-xs font-bold uppercase tracking-widest text-neutral-600 mb-6">
+          <p ref={labelRef} className="text-xs font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-600 mb-6">
             Get In Touch
           </p>
           <h2 className="font-display font-black leading-none text-white">
-            <span ref={line1Ref} className="block" style={{ fontSize: 'clamp(56px, 10vw, 140px)' }}>
+            <span ref={line1Ref} className="block text-neutral-900 dark:text-white" style={{ fontSize: 'clamp(56px, 10vw, 140px)' }}>
               Get in
             </span>
             <span ref={line2Ref} className="block text-primary" style={{ fontSize: 'clamp(56px, 10vw, 140px)' }}>
@@ -150,7 +150,7 @@ const Contact = () => {
         <div className="grid lg:grid-cols-2 gap-16 items-start">
           {/* Left: contact info */}
           <div>
-            <p className="text-neutral-400 text-lg leading-relaxed mb-10">
+            <p className="text-neutral-500 dark:text-neutral-400 text-lg leading-relaxed mb-10">
               I&apos;m available for freelance projects. Whether it&apos;s a new
               WordPress build, Shopify store, or anything web-related — let&apos;s
               talk!
@@ -158,19 +158,19 @@ const Contact = () => {
             <div ref={infoRef} className="flex flex-col gap-6">
               {contactInfo.map(({ Icon, label, value, href }) => (
                 <div key={label} className="flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-full border border-neutral-800 flex items-center justify-center flex-shrink-0">
+                  <div className="w-10 h-10 rounded-full border border-neutral-200 dark:border-neutral-800 flex items-center justify-center flex-shrink-0">
                     <Icon size={16} className="text-neutral-400" />
                   </div>
                   <div>
-                    <p className="text-xs text-neutral-600 uppercase tracking-widest font-semibold mb-0.5">
+                    <p className="text-xs text-neutral-400 dark:text-neutral-600 uppercase tracking-widest font-semibold mb-0.5">
                       {label}
                     </p>
                     {href ? (
-                      <a href={href} className="text-white hover:text-primary transition-colors font-medium">
+                      <a href={href} className="text-neutral-900 dark:text-white hover:text-primary transition-colors font-medium">
                         {value}
                       </a>
                     ) : (
-                      <p className="text-white font-medium">{value}</p>
+                      <p className="text-neutral-900 dark:text-white font-medium">{value}</p>
                     )}
                   </div>
                 </div>
@@ -185,7 +185,7 @@ const Contact = () => {
                     target="_blank"
                     rel="noreferrer"
                     aria-label={label}
-                    className="w-10 h-10 rounded-full border border-neutral-800 flex items-center justify-center text-neutral-400 hover:border-primary hover:text-primary transition-colors"
+                    className="w-10 h-10 rounded-full border border-neutral-200 dark:border-neutral-800 flex items-center justify-center text-neutral-400 hover:border-primary hover:text-primary transition-colors"
                   >
                     <Icon size={16} />
                   </a>
@@ -195,12 +195,12 @@ const Contact = () => {
           </div>
 
           {/* Right: form */}
-          <div ref={formRef} className="bg-white/5 border border-white/10 rounded-2xl p-8">
+          <div ref={formRef} className="bg-neutral-50 dark:bg-white/5 border border-neutral-200 dark:border-white/10 rounded-2xl p-8">
             {status === 'sent' ? (
               <div className="flex flex-col items-center justify-center py-12 text-center">
                 <HiCheckCircle size={48} className="text-primary mb-4" />
-                <h3 className="text-xl font-bold text-white mb-2">Message Sent!</h3>
-                <p className="text-neutral-400 text-sm">
+                <h3 className="text-xl font-bold text-neutral-900 dark:text-white mb-2">Message Sent!</h3>
+                <p className="text-neutral-500 dark:text-neutral-400 text-sm">
                   Thanks for reaching out. I&apos;ll get back to you soon.
                 </p>
                 <button
@@ -261,11 +261,11 @@ const Contact = () => {
                       required
                       className={`${inputClass} cursor-pointer`}
                     >
-                      <option value="" disabled className="bg-neutral-900">
+                      <option value="" disabled className="bg-white dark:bg-neutral-900">
                         Select budget
                       </option>
                       {budgetOptions.map((o) => (
-                        <option key={o} value={o} className="bg-neutral-900">
+                        <option key={o} value={o} className="bg-white dark:bg-neutral-900">
                           {o}
                         </option>
                       ))}
@@ -281,11 +281,11 @@ const Contact = () => {
                       required
                       className={`${inputClass} cursor-pointer`}
                     >
-                      <option value="" disabled className="bg-neutral-900">
+                      <option value="" disabled className="bg-white dark:bg-neutral-900">
                         Select type
                       </option>
                       {projectTypeOptions.map((o) => (
-                        <option key={o} value={o} className="bg-neutral-900">
+                        <option key={o} value={o} className="bg-white dark:bg-neutral-900">
                           {o}
                         </option>
                       ))}
