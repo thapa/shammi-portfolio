@@ -8,11 +8,11 @@ import { gsap, ScrollTrigger, SplitText } from '../../../lib/gsap'
 const tabs = ['All', 'WordPress', 'Shopify']
 
 // ─── Screenshot image with loading + fallback ──────────────────────────────
-const ScreenshotImage = ({ src, loading, error, fallbackColor, fallbackTitle, className = '', objectPosition = 'top' }) => (
+const ScreenshotImage = ({ src, loading, error, fallbackTitle, className = '', objectPosition = 'top' }) => (
   <div className={`relative overflow-hidden bg-neutral-100 dark:bg-neutral-800 ${className}`}>
-    {/* Gradient fallback — always underneath */}
-    <div className={`absolute inset-0 bg-gradient-to-br ${fallbackColor} flex items-end p-4`}>
-      <span className="text-white/20 font-display font-bold text-2xl leading-none select-none">
+    {/* Neutral fallback — always underneath */}
+    <div className="absolute inset-0 bg-neutral-200 dark:bg-neutral-800 flex items-end p-4">
+      <span className="text-neutral-400 dark:text-neutral-600 font-display font-bold text-2xl leading-none select-none">
         {fallbackTitle}
       </span>
     </div>
@@ -140,7 +140,6 @@ const ProjectModal = ({ project: p, onClose }) => {
                   src={desktopSrc}
                   loading={desktopLoading}
                   error={desktopError}
-                  fallbackColor={p.color}
                   fallbackTitle={p.title}
                   className="w-full aspect-video rounded-xl border border-neutral-100 dark:border-neutral-800"
                   objectPosition="top"
@@ -157,7 +156,7 @@ const ProjectModal = ({ project: p, onClose }) => {
                     src={mobileSrc}
                     loading={mobileLoading}
                     error={mobileError}
-                    fallbackColor={p.color}
+            
                     fallbackTitle=""
                     className="rounded-[1.6rem] overflow-hidden aspect-[9/19]"
                     objectPosition="top"
@@ -210,7 +209,7 @@ const ProjectCard = ({ project: p, onClick }) => {
         src={imgSrc}
         loading={imgLoading}
         error={imgError}
-        fallbackColor={p.color}
+
         fallbackTitle={p.title}
         className="aspect-[3/2] w-full"
         objectPosition="top"
