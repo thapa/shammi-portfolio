@@ -30,8 +30,8 @@ const CustomCursor = () => {
 
     // Ring follows with smooth lag
     const animate = () => {
-      ringX += (mouseX - ringX) * 0.1
-      ringY += (mouseY - ringY) * 0.1
+      ringX += (mouseX - ringX) * 0.18
+      ringY += (mouseY - ringY) * 0.18
       ring.style.transform = `translate(${ringX}px, ${ringY}px) translate(-50%, -50%)`
       rafId = requestAnimationFrame(animate)
     }
