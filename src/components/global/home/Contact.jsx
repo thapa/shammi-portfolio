@@ -1,11 +1,21 @@
 import { useState, useEffect, useRef } from 'react'
 import { HiMail, HiPhone, HiLocationMarker, HiCheckCircle, HiArrowRight } from 'react-icons/hi'
+import { FaGithub, FaLinkedin, FaInstagram, FaYoutube } from 'react-icons/fa'
+import { FaXTwitter } from 'react-icons/fa6'
 import { gsap, SplitText } from '../../../lib/gsap'
 
 const contactInfo = [
   { Icon: HiMail, label: 'Email', value: 'thapa.shammi@gmail.com', href: 'mailto:thapa.shammi@gmail.com' },
   { Icon: HiPhone, label: 'Phone', value: '+91 9988191688', href: 'tel:+919988191688' },
   { Icon: HiLocationMarker, label: 'Location', value: 'India', href: null },
+]
+
+const socials = [
+  { Icon: FaGithub,    label: 'GitHub',    href: 'https://github.com/shammithapa' },
+  { Icon: FaLinkedin,  label: 'LinkedIn',  href: 'https://linkedin.com/in/shammithapa' },
+  { Icon: FaXTwitter,  label: 'X',         href: 'https://x.com/shammithapa' },
+  { Icon: FaInstagram, label: 'Instagram', href: 'https://instagram.com/shammithapa' },
+  { Icon: FaYoutube,   label: 'YouTube',   href: 'https://youtube.com/@shammithapa' },
 ]
 
 const budgetOptions = [
@@ -165,6 +175,22 @@ const Contact = () => {
                   </div>
                 </div>
               ))}
+
+              {/* Social icons */}
+              <div className="flex items-center gap-3 pt-2">
+                {socials.map(({ Icon, label, href }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={label}
+                    className="w-10 h-10 rounded-full border border-neutral-800 flex items-center justify-center text-neutral-400 hover:border-primary hover:text-primary transition-colors"
+                  >
+                    <Icon size={16} />
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
 
