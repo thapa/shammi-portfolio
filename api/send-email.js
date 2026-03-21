@@ -104,7 +104,7 @@ export default async function handler(req, res) {
                     <!-- Footer -->
                     <tr>
                       <td style="background:#f9f9f9;padding:24px 40px;border-top:1px solid #f0f0f0;">
-                        <p style="margin:0;color:#999;font-size:12px;">Sent from your portfolio contact form · <a href="https://shammiportfolio.vercel.app" style="color:#999;">shammiportfolio.vercel.app</a></p>
+                        <p style="margin:0;color:#999;font-size:12px;">Sent from your portfolio contact form · <a href="https://shammi.vercel.app" style="color:#999;">shammi.vercel.app</a></p>
                       </td>
                     </tr>
 
