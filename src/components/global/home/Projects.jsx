@@ -201,6 +201,7 @@ const ProjectCard = ({ project: p, onClick }) => {
   return (
     <button
       onClick={onClick}
+      data-cursor="view"
       className="group text-left rounded-2xl overflow-hidden border border-neutral-100 dark:border-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-700 transition-all hover:shadow-lg dark:hover:shadow-neutral-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary w-full"
     >
       {/* 3:2 preview */}

@@ -12,3 +12,10 @@
     transition: background-color 0.3s ease, color 0.3s ease;
   }
 }
+
+/* Hide native cursor on mouse devices — custom cursor takes over */
+@media (pointer: fine) {
+  *, *::before, *::after {
+    cursor: none !important;
+  }
+}

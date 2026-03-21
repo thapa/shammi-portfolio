@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { ContentProvider } from './context/ContentContext'
+import CustomCursor from './components/global/CustomCursor'
 import Header from './components/global/Header'
 import Hero from './components/global/home/Hero'
 import About from './components/global/home/About'
@@ -32,6 +33,7 @@ function App() {
 
   return (
     <ContentProvider>
+      <CustomCursor />
       <Header isDark={dark} toggleTheme={toggleTheme} />
       <main>
         <Hero />
