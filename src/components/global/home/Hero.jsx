@@ -29,10 +29,9 @@ const Hero = () => {
       id="home"
       className="min-h-screen flex flex-col bg-white dark:bg-[#0E0E0E] pt-[73px] transition-colors duration-300 overflow-hidden"
     >
-      {/* ── Main content ───────────────────────────────────────────────── */}
       <div className="relative flex-1 w-full">
 
-        {/* Spline background — fills the entire hero area */}
+        {/* Spline background — transparent, sits behind all content */}
         <div className="absolute inset-0 w-full h-full pointer-events-none">
           <Suspense fallback={null}>
             <Spline
@@ -42,7 +41,7 @@ const Hero = () => {
           </Suspense>
         </div>
 
-        {/* Text content — sits on top of the Spline background */}
+        {/* Text content — layered on top */}
         <div className="relative z-10 max-w-7xl mx-auto px-6 w-full flex flex-col justify-center py-16 min-h-[calc(100vh-73px)]">
           {/* Badge */}
           <div className="flex items-center gap-2.5 mb-12">
@@ -54,7 +53,6 @@ const Hero = () => {
 
           {/* Name + Side content */}
           <div className="grid lg:grid-cols-[1fr,320px] gap-12 items-end">
-            {/* Large display name */}
             <div>
               <h1
                 className="font-display font-black leading-[0.9] tracking-tight text-neutral-900 dark:text-white"
@@ -130,7 +128,7 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* ── Marquee stripe ─────────────────────────────────────────────── */}
+      {/* Marquee stripe */}
       <div className="border-t border-neutral-200 dark:border-neutral-800 overflow-hidden">
         <div className="flex animate-marquee whitespace-nowrap py-4">
           {[...stripe, ...stripe, ...stripe, ...stripe].map((item, i) => (
