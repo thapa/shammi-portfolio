@@ -1,70 +1,40 @@
-import { supabase } from './supabase'
-
-const API_KEY = import.meta.env.VITE_SCREENSHOTBASE_API_KEY
-const ENDPOINT = 'https://api.screenshotbase.com/v1/take'
-const BUCKET = 'project-screenshots'
-
-// In-memory caches
+// In-memory caches — persist for the browser session
 const desktopCache = new Map()
 const mobileCache = new Map()
 const inFlight = new Map()
 
-const fetchFromAPI = async (siteUrl, isMobile = false) => {
-  const params = new URLSearchParams({
-    url: siteUrl,
-    format: 'webp',
-    viewport_width: isMobile ? '390' : '1280',
-    viewport_height: isMobile ? '844' : '800',
-    // Wait until network is fully idle — fixes lazy-loaded images showing as white
-    wait_until: 'networkidle2',
-    // Extra buffer for JS-driven lazy loads after network settles
-    delay: '3',
-    block_cookie_banners: '1',
-    block_ads: '1',
-    block_chats: '1',
+// Call our Vercel serverless function (avoids CORS + keeps API key server-side)
+const fetchViaServer = async (projectId, url, type) => {
+  const res = await fetch('/api/screenshot', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ projectId, url, type }),
   })
-
-  const response = await fetch(`${ENDPOINT}?${params}`, {
-    headers: { apikey: API_KEY },
-  })
-
-  if (!response.ok) throw new Error(`ScreenshotBase error: ${response.status}`)
-  return response.blob()
-}
-
-const uploadAndSave = async (projectId, blob, fileName, dbField) => {
-  const { error } = await supabase.storage
-    .from(BUCKET)
-    .upload(fileName, blob, { contentType: 'image/webp', upsert: true })
-
-  if (error) throw error
-
-  const { data: { publicUrl } } = supabase.storage
-    .from(BUCKET)
-    .getPublicUrl(fileName)
-
-  await supabase
-    .from('projects')
-    .update({ [dbField]: publicUrl })
-    .eq('id', projectId)
-
-  return publicUrl
+  if (!res.ok) {
+    const data = await res.json().catch(() => ({}))
+    throw new Error(data.error || `Screenshot API error ${res.status}`)
+  }
+  const data = await res.json()
+  return data.url
 }
 
 export const getOrFetchScreenshot = async (project) => {
+  // Already have a saved URL → use it
   if (project.screenshot_url) {
     desktopCache.set(project.id, project.screenshot_url)
     return project.screenshot_url
   }
+
+  // Session cache hit
   if (desktopCache.has(project.id)) return desktopCache.get(project.id)
 
+  // Deduplicate concurrent calls for the same project
   const key = `desktop_${project.id}`
   if (inFlight.has(key)) return inFlight.get(key)
 
   const promise = (async () => {
     try {
-      const blob = await fetchFromAPI(project.url, false)
-      const url = await uploadAndSave(project.id, blob, `${project.id}.webp`, 'screenshot_url')
+      const url = await fetchViaServer(project.id, project.url, 'desktop')
       desktopCache.set(project.id, url)
       return url
     } finally {
@@ -81,6 +51,7 @@ export const getOrFetchMobileScreenshot = async (project) => {
     mobileCache.set(project.id, project.mobile_screenshot_url)
     return project.mobile_screenshot_url
   }
+
   if (mobileCache.has(project.id)) return mobileCache.get(project.id)
 
   const key = `mobile_${project.id}`
@@ -88,8 +59,7 @@ export const getOrFetchMobileScreenshot = async (project) => {
 
   const promise = (async () => {
     try {
-      const blob = await fetchFromAPI(project.url, true)
-      const url = await uploadAndSave(project.id, blob, `${project.id}-mobile.webp`, 'mobile_screenshot_url')
+      const url = await fetchViaServer(project.id, project.url, 'mobile')
       mobileCache.set(project.id, url)
       return url
     } finally {
