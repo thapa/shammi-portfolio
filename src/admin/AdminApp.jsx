@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import ProjectsPanel from './panels/ProjectsPanel'
 import TablePanel from './panels/TablePanel'
 
@@ -55,6 +55,11 @@ const LoginGate = ({ onAuth }) => {
 const AdminApp = () => {
   const [authed, setAuthed] = useState(() => sessionStorage.getItem('admin_auth') === '1')
   const [active, setActive] = useState('projects')
+
+  useEffect(() => {
+    document.body.classList.add('is-admin')
+    return () => document.body.classList.remove('is-admin')
+  }, [])
 
   if (!authed) return (
     <LoginGate onAuth={() => { sessionStorage.setItem('admin_auth', '1'); setAuthed(true) }} />
