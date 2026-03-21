@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { ContentProvider } from './context/ContentContext'
+import { ScrollTrigger } from './lib/gsap'
 import CustomCursor from './components/global/CustomCursor'
 import Header from './components/global/Header'
 import Hero from './components/global/home/Hero'
@@ -9,6 +10,7 @@ import Process from './components/global/home/Process'
 import Projects from './components/global/home/Projects'
 import Contact from './components/global/home/Contact'
 import Footer from './components/global/Footer'
+import ChatWidget from './components/global/ChatWidget'
 
 function App() {
   const [dark, setDark] = useState(() => {
@@ -31,6 +33,12 @@ function App() {
 
   const toggleTheme = () => setDark((d) => !d)
 
+  // Refresh ScrollTrigger after fonts and layout settle
+  useEffect(() => {
+    const id = setTimeout(() => ScrollTrigger.refresh(), 500)
+    return () => clearTimeout(id)
+  }, [])
+
   return (
     <ContentProvider>
       <CustomCursor />
@@ -44,6 +52,7 @@ function App() {
         <Contact />
       </main>
       <Footer />
+      <ChatWidget />
     </ContentProvider>
   )
 }

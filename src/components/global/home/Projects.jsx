@@ -1,8 +1,9 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { createPortal } from 'react-dom'
 import { HiExternalLink, HiX } from 'react-icons/hi'
 import { useContent } from '../../../context/ContentContext'
 import { getOrFetchScreenshot, getOrFetchMobileScreenshot } from '../../../lib/screenshotbase'
+import { gsap, ScrollTrigger, SplitText } from '../../../lib/gsap'
 
 const tabs = ['All', 'WordPress', 'Shopify']
 
@@ -253,23 +254,69 @@ const Projects = () => {
   const [selected, setSelected] = useState(null)
   const { projects, loading } = useContent()
 
+  const sectionRef = useRef(null)
+  const labelRef = useRef(null)
+  const headingRef = useRef(null)
+  const gridRef = useRef(null)
+
   const filtered =
     active === 'All' ? projects : projects.filter((p) => p.category === active)
 
   const handleClose = useCallback(() => setSelected(null), [])
 
+  // Heading + tabs
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const st = { start: 'top 82%', once: true }
+
+      gsap.from(labelRef.current, {
+        y: 16, opacity: 0, duration: 0.6, ease: 'power3.out',
+        scrollTrigger: { trigger: labelRef.current, ...st },
+      })
+
+      const split = new SplitText(headingRef.current, { type: 'words' })
+      gsap.from(split.words, {
+        y: 48, opacity: 0, duration: 0.8, stagger: 0.06, ease: 'power3.out',
+        scrollTrigger: { trigger: headingRef.current, ...st },
+      })
+
+    }, sectionRef)
+
+    return () => ctx.revert()
+  }, [])
+
+  // Cards — animate when data is ready (grid already in view)
+  useEffect(() => {
+    if (loading || !gridRef.current) return
+
+    const cards = Array.from(gridRef.current.children)
+    if (!cards.length) return
+
+    gsap.fromTo(
+      cards,
+      { y: 48, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.7, stagger: 0.08, ease: 'power3.out', delay: 0.1 }
+    )
+
+    return () => gsap.killTweensOf(cards)
+  }, [loading])
+
   return (
     <section
+      ref={sectionRef}
       id="projects"
       className="bg-white dark:bg-[#0E0E0E] py-24 md:py-32 transition-colors duration-300"
     >
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-12">
           <div>
-            <p className="text-xs font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-600 mb-4">
+            <p ref={labelRef} className="text-xs font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-600 mb-4">
               Portfolio
             </p>
-            <h2 className="font-display text-5xl md:text-6xl font-bold text-neutral-900 dark:text-white leading-tight">
+            <h2
+              ref={headingRef}
+              className="font-display text-5xl md:text-6xl font-bold text-neutral-900 dark:text-white leading-tight"
+            >
               Showcasing My Most
               <br />
               Recent Projects
@@ -295,7 +342,7 @@ const Projects = () => {
         {loading ? (
           <ProjectSkeleton />
         ) : (
-          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-5">
+          <div ref={gridRef} className="grid sm:grid-cols-2 md:grid-cols-3 gap-5">
             {filtered.map((p) => (
               <ProjectCard
                 key={p.id}

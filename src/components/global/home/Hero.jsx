@@ -1,7 +1,8 @@
-import { Suspense, lazy } from 'react'
+import { Suspense, lazy, useEffect, useRef } from 'react'
 import { FaGithub, FaLinkedin } from 'react-icons/fa'
 import { HiDownload, HiArrowRight } from 'react-icons/hi'
 import { useContent } from '../../../context/ContentContext'
+import { gsap, SplitText } from '../../../lib/gsap'
 
 const Spline = lazy(() => import('@splinetool/react-spline'))
 
@@ -24,6 +25,29 @@ const StatSkeleton = () => (
 const Hero = () => {
   const { stats, loading } = useContent()
 
+  const shammiRef = useRef(null)
+  const thapaRef = useRef(null)
+  const badgeRef = useRef(null)
+  const sideRef = useRef(null)
+  const statsRef = useRef(null)
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const splitShammi = new SplitText(shammiRef.current, { type: 'chars' })
+      const splitThapa = new SplitText(thapaRef.current, { type: 'chars' })
+
+      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
+
+      tl.from(splitShammi.chars, { y: 100, opacity: 0, duration: 0.9, stagger: 0.04 })
+        .from(splitThapa.chars, { y: 100, opacity: 0, duration: 0.9, stagger: 0.04 }, '-=0.65')
+        .from(badgeRef.current, { y: 24, opacity: 0, duration: 0.6 }, '-=0.4')
+        .from(sideRef.current, { y: 32, opacity: 0, duration: 0.7 }, '-=0.35')
+        .from(statsRef.current, { y: 24, opacity: 0, duration: 0.6 }, '-=0.3')
+    })
+
+    return () => ctx.revert()
+  }, [])
+
   return (
     <section
       id="home"
@@ -39,12 +63,14 @@ const Hero = () => {
               className="w-full h-full"
             />
           </Suspense>
+          {/* Cover Spline watermark badge */}
+          <div className="absolute bottom-0 right-0 w-44 h-14 bg-white dark:bg-[#0E0E0E]" />
         </div>
 
         {/* Text content — layered on top */}
         <div className="relative z-10 max-w-7xl mx-auto px-6 w-full flex flex-col justify-center py-16 min-h-[calc(100vh-73px)]">
           {/* Badge */}
-          <div className="flex items-center gap-2.5 mb-12">
+          <div ref={badgeRef} className="flex items-center gap-2.5 mb-12">
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
             <span className="text-xs font-semibold uppercase tracking-widest text-neutral-500 dark:text-neutral-400">
               Available for Freelance
@@ -55,12 +81,14 @@ const Hero = () => {
           <div className="grid lg:grid-cols-[1fr,320px] gap-12 items-end">
             <div>
               <h1
+                ref={shammiRef}
                 className="font-display font-black leading-[0.9] tracking-tight text-neutral-900 dark:text-white"
                 style={{ fontSize: 'clamp(72px, 14vw, 180px)' }}
               >
                 SHAMMI
               </h1>
               <h1
+                ref={thapaRef}
                 className="font-display font-black leading-[0.9] tracking-tight text-primary"
                 style={{ fontSize: 'clamp(72px, 14vw, 180px)' }}
               >
@@ -69,7 +97,7 @@ const Hero = () => {
             </div>
 
             {/* Side: bio + CTAs + socials */}
-            <div className="pb-3">
+            <div ref={sideRef} className="pb-3">
               <p className="text-neutral-600 dark:text-neutral-400 text-base leading-relaxed mb-8">
                 WordPress &amp; Shopify Developer with 10+ years of experience.
                 Delivering pixel-perfect, high-performance websites for clients
@@ -111,7 +139,7 @@ const Hero = () => {
           </div>
 
           {/* Stats row */}
-          <div className="flex flex-wrap gap-12 mt-16 pt-10 border-t border-neutral-200 dark:border-neutral-800">
+          <div ref={statsRef} className="flex flex-wrap gap-12 mt-16 pt-10 border-t border-neutral-200 dark:border-neutral-800">
             {loading
               ? Array.from({ length: 3 }).map((_, i) => <StatSkeleton key={i} />)
               : stats.map((s) => (

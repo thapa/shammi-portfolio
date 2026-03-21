@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { HiMail, HiPhone, HiLocationMarker, HiCheckCircle, HiArrowRight } from 'react-icons/hi'
+import { gsap, SplitText } from '../../../lib/gsap'
 
 const contactInfo = [
   { Icon: HiMail, label: 'Email', value: 'thapa.shammi@gmail.com', href: 'mailto:thapa.shammi@gmail.com' },
@@ -41,6 +42,51 @@ const Contact = () => {
   const [status, setStatus] = useState('idle') // idle | sending | sent | error
   const [errorMsg, setErrorMsg] = useState('')
 
+  const sectionRef = useRef(null)
+  const labelRef = useRef(null)
+  const line1Ref = useRef(null)
+  const line2Ref = useRef(null)
+  const infoRef = useRef(null)
+  const formRef = useRef(null)
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const st = { start: 'top 82%', once: true }
+
+      gsap.from(labelRef.current, {
+        y: 16, opacity: 0, duration: 0.6, ease: 'power3.out',
+        scrollTrigger: { trigger: labelRef.current, ...st },
+      })
+
+      // Big display chars
+      const split1 = new SplitText(line1Ref.current, { type: 'chars' })
+      const split2 = new SplitText(line2Ref.current, { type: 'chars' })
+
+      const tl = gsap.timeline({
+        scrollTrigger: { trigger: line1Ref.current, ...st },
+      })
+      tl.from(split1.chars, { y: 80, opacity: 0, duration: 0.8, stagger: 0.025, ease: 'power3.out' })
+        .from(split2.chars, { y: 80, opacity: 0, duration: 0.8, stagger: 0.025, ease: 'power3.out' }, '-=0.55')
+
+      // Contact info items
+      const infoItems = infoRef.current?.children
+      if (infoItems?.length) {
+        gsap.from(infoItems, {
+          x: -28, opacity: 0, duration: 0.6, stagger: 0.12, ease: 'power3.out',
+          scrollTrigger: { trigger: infoRef.current, start: 'top 85%', once: true },
+        })
+      }
+
+      // Form panel
+      gsap.from(formRef.current, {
+        y: 40, opacity: 0, duration: 0.8, ease: 'power3.out',
+        scrollTrigger: { trigger: formRef.current, start: 'top 85%', once: true },
+      })
+    }, sectionRef)
+
+    return () => ctx.revert()
+  }, [])
+
   const handleChange = (e) =>
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
 
@@ -56,7 +102,6 @@ const Contact = () => {
         body: JSON.stringify(form),
       })
 
-      // Guard against empty / non-JSON responses (e.g. 404 when run locally without vercel dev)
       const text = await res.text()
       const data = text ? JSON.parse(text) : {}
 
@@ -75,18 +120,18 @@ const Contact = () => {
   }
 
   return (
-    <section id="contact" className="bg-[#0E0E0E] py-24 md:py-32">
+    <section ref={sectionRef} id="contact" className="bg-[#0E0E0E] py-24 md:py-32">
       <div className="max-w-7xl mx-auto px-6">
         {/* Large display heading */}
         <div className="mb-20">
-          <p className="text-xs font-bold uppercase tracking-widest text-neutral-600 mb-6">
+          <p ref={labelRef} className="text-xs font-bold uppercase tracking-widest text-neutral-600 mb-6">
             Get In Touch
           </p>
           <h2 className="font-display font-black leading-none text-white">
-            <span className="block" style={{ fontSize: 'clamp(56px, 10vw, 140px)' }}>
+            <span ref={line1Ref} className="block" style={{ fontSize: 'clamp(56px, 10vw, 140px)' }}>
               Get in
             </span>
-            <span className="block text-primary" style={{ fontSize: 'clamp(56px, 10vw, 140px)' }}>
+            <span ref={line2Ref} className="block text-primary" style={{ fontSize: 'clamp(56px, 10vw, 140px)' }}>
               touch.
             </span>
           </h2>
@@ -100,7 +145,7 @@ const Contact = () => {
               WordPress build, Shopify store, or anything web-related — let&apos;s
               talk!
             </p>
-            <div className="flex flex-col gap-6">
+            <div ref={infoRef} className="flex flex-col gap-6">
               {contactInfo.map(({ Icon, label, value, href }) => (
                 <div key={label} className="flex items-center gap-4">
                   <div className="w-10 h-10 rounded-full border border-neutral-800 flex items-center justify-center flex-shrink-0">
@@ -124,7 +169,7 @@ const Contact = () => {
           </div>
 
           {/* Right: form */}
-          <div className="bg-white/5 border border-white/10 rounded-2xl p-8">
+          <div ref={formRef} className="bg-white/5 border border-white/10 rounded-2xl p-8">
             {status === 'sent' ? (
               <div className="flex flex-col items-center justify-center py-12 text-center">
                 <HiCheckCircle size={48} className="text-primary mb-4" />
@@ -141,7 +186,6 @@ const Contact = () => {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-                {/* Name */}
                 <div>
                   <label className={labelClass}>Your Name</label>
                   <input
@@ -155,7 +199,6 @@ const Contact = () => {
                   />
                 </div>
 
-                {/* Email */}
                 <div>
                   <label className={labelClass}>Email Address</label>
                   <input
@@ -169,7 +212,6 @@ const Contact = () => {
                   />
                 </div>
 
-                {/* Phone */}
                 <div>
                   <label className={labelClass}>Phone Number</label>
                   <input
@@ -183,7 +225,6 @@ const Contact = () => {
                   />
                 </div>
 
-                {/* Budget + Project Type — side by side on md+ */}
                 <div className="grid sm:grid-cols-2 gap-5">
                   <div>
                     <label className={labelClass}>Budget</label>
@@ -226,12 +267,10 @@ const Contact = () => {
                   </div>
                 </div>
 
-                {/* Error message */}
                 {status === 'error' && (
                   <p className="text-red-400 text-sm">{errorMsg}</p>
                 )}
 
-                {/* Submit */}
                 <button
                   type="submit"
                   disabled={status === 'sending'}
