@@ -6,31 +6,37 @@ const EMPTY = { title: '', category: 'WordPress', url: '', description: '', tech
 const CATEGORIES = ['WordPress', 'Shopify']
 
 // ── Screenshot status badge ───────────────────────────────────────────────────
-const SsBadge = ({ status }) => {
-  const map = {
-    idle:       { text: '—',          cls: 'text-neutral-600' },
-    generating: { text: 'Generating…', cls: 'text-yellow-400 animate-pulse' },
-    done:       { text: '✓ Done',     cls: 'text-green-400' },
-    error:      { text: '✗ Failed',   cls: 'text-red-400' },
-  }
-  const { text, cls } = map[status] || map.idle
-  return <span className={`text-xs font-medium ${cls}`}>{text}</span>
+const SsBadge = ({ status, errorMsg }) => {
+  if (status === 'idle')       return <span className="text-xs font-medium text-neutral-600">—</span>
+  if (status === 'generating') return <span className="text-xs font-medium text-yellow-400 animate-pulse">Generating…</span>
+  if (status === 'done')       return <span className="text-xs font-medium text-green-400">✓ Done</span>
+  if (status === 'error')      return (
+    <span className="text-xs font-medium text-red-400" title={errorMsg || 'Unknown error'}>
+      ✗ Failed{errorMsg ? ` — ${errorMsg}` : ''}
+    </span>
+  )
+  return null
 }
 
 // ── Generate screenshots (desktop + mobile) ───────────────────────────────────
 const generateScreenshots = async (projectId, url, onStatus) => {
   for (const type of ['desktop', 'mobile']) {
-    onStatus(type, 'generating')
+    onStatus(type, 'generating', null)
     try {
       const res = await fetch('/api/screenshot', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ projectId, url, type }),
       })
-      if (!res.ok) throw new Error()
-      onStatus(type, 'done')
-    } catch {
-      onStatus(type, 'error')
+      if (!res.ok) {
+        let msg = `HTTP ${res.status}`
+        try { const j = await res.json(); msg = j.error || msg } catch {}
+        onStatus(type, 'error', msg)
+      } else {
+        onStatus(type, 'done', null)
+      }
+    } catch (err) {
+      onStatus(type, 'error', err.message || 'Network error')
     }
   }
 }
@@ -44,9 +50,25 @@ const ProjectModal = ({ project, onClose, onSaved }) => {
       : EMPTY
   )
   const [saving, setSaving] = useState(false)
-  const [ssStatus, setSsStatus] = useState({ desktop: 'idle', mobile: 'idle' })
+  const [generating, setGenerating] = useState(false)
+  const [ssStatus, setSsStatus] = useState({ desktop: { status: 'idle' }, mobile: { status: 'idle' } })
 
   const set = (k, v) => setForm(p => ({ ...p, [k]: v }))
+
+  const generateDescription = async () => {
+    if (!form.title) return
+    setGenerating(true)
+    try {
+      const res = await fetch('/api/generate-description', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title: form.title, url: form.url, techStack: form.tech_stack }),
+      })
+      const data = await res.json()
+      if (data.description) set('description', data.description)
+    } catch {}
+    setGenerating(false)
+  }
 
   const handleSave = async (e) => {
     e.preventDefault()
@@ -75,8 +97,8 @@ const ProjectModal = ({ project, onClose, onSaved }) => {
     if (savedId && payload.url) {
       const urlChanged = !isEdit || form.url.trim() !== project.url
       if (!isEdit || urlChanged) {
-        generateScreenshots(savedId, payload.url, (type, status) => {
-          setSsStatus(prev => ({ ...prev, [type]: status }))
+        generateScreenshots(savedId, payload.url, (type, status, errorMsg) => {
+          setSsStatus(prev => ({ ...prev, [type]: { status, errorMsg } }))
         })
       }
     }
@@ -112,7 +134,21 @@ const ProjectModal = ({ project, onClose, onSaved }) => {
           </div>
 
           <div>
-            <label className="admin-label">Description</label>
+            <div className="flex items-center justify-between mb-2">
+              <label className="admin-label !mb-0">Description</label>
+              <button
+                type="button"
+                onClick={generateDescription}
+                disabled={generating || !form.title}
+                className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1 rounded-full bg-primary/15 text-primary hover:bg-primary/25 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+              >
+                {generating ? (
+                  <><span className="animate-spin inline-block w-3 h-3 border border-primary border-t-transparent rounded-full" /> Generating…</>
+                ) : (
+                  <>✨ AI Generate</>
+                )}
+              </button>
+            </div>
             <textarea className="admin-input resize-none" rows={3} value={form.description} onChange={e => set('description', e.target.value)} placeholder="Brief project description…" />
           </div>
 
@@ -122,15 +158,15 @@ const ProjectModal = ({ project, onClose, onSaved }) => {
           </div>
 
           {/* Screenshot status */}
-          {(ssStatus.desktop !== 'idle' || ssStatus.mobile !== 'idle') && (
-            <div className="bg-neutral-800 rounded-xl p-4 flex gap-6">
+          {(ssStatus.desktop.status !== 'idle' || ssStatus.mobile.status !== 'idle') && (
+            <div className="bg-neutral-800 rounded-xl p-4 flex flex-col gap-3">
               <div>
                 <p className="text-xs text-neutral-500 mb-1">Desktop</p>
-                <SsBadge status={ssStatus.desktop} />
+                <SsBadge status={ssStatus.desktop.status} errorMsg={ssStatus.desktop.errorMsg} />
               </div>
               <div>
                 <p className="text-xs text-neutral-500 mb-1">Mobile</p>
-                <SsBadge status={ssStatus.mobile} />
+                <SsBadge status={ssStatus.mobile.status} errorMsg={ssStatus.mobile.errorMsg} />
               </div>
             </div>
           )}
@@ -176,9 +212,9 @@ const ProjectsPanel = () => {
   }
 
   const regenerate = async (project) => {
-    setRegen(prev => ({ ...prev, [project.id]: { desktop: 'generating', mobile: 'idle' } }))
-    await generateScreenshots(project.id, project.url, (type, status) => {
-      setRegen(prev => ({ ...prev, [project.id]: { ...prev[project.id], [type]: status } }))
+    setRegen(prev => ({ ...prev, [project.id]: { desktop: { status: 'generating' }, mobile: { status: 'idle' } } }))
+    await generateScreenshots(project.id, project.url, (type, status, errorMsg) => {
+      setRegen(prev => ({ ...prev, [project.id]: { ...prev[project.id], [type]: { status, errorMsg } } }))
     })
   }
 
@@ -233,7 +269,7 @@ const ProjectsPanel = () => {
                       <div className="flex flex-col gap-0.5">
                         <div className="flex items-center gap-2">
                           <span className="text-xs text-neutral-600 w-14">Desktop</span>
-                          {rs.desktop ? <SsBadge status={rs.desktop} /> : (
+                          {rs.desktop ? <SsBadge status={rs.desktop.status} errorMsg={rs.desktop.errorMsg} /> : (
                             <span className={`text-xs ${p.screenshot_url ? 'text-green-400' : 'text-neutral-600'}`}>
                               {p.screenshot_url ? '✓ Saved' : 'None'}
                             </span>
@@ -241,7 +277,7 @@ const ProjectsPanel = () => {
                         </div>
                         <div className="flex items-center gap-2">
                           <span className="text-xs text-neutral-600 w-14">Mobile</span>
-                          {rs.mobile ? <SsBadge status={rs.mobile} /> : (
+                          {rs.mobile ? <SsBadge status={rs.mobile.status} errorMsg={rs.mobile.errorMsg} /> : (
                             <span className={`text-xs ${p.mobile_screenshot_url ? 'text-green-400' : 'text-neutral-600'}`}>
                               {p.mobile_screenshot_url ? '✓ Saved' : 'None'}
                             </span>
