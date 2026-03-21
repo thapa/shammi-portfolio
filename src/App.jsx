@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { ContentProvider } from './context/ContentContext'
 import { ScrollTrigger } from './lib/gsap'
 import CustomCursor from './components/global/CustomCursor'
@@ -11,8 +12,10 @@ import Projects from './components/global/home/Projects'
 import Contact from './components/global/home/Contact'
 import Footer from './components/global/Footer'
 import ChatWidget from './components/global/ChatWidget'
+import AdminApp from './admin/AdminApp'
 
-function App() {
+// ── Portfolio site ────────────────────────────────────────────────────────────
+function Portfolio() {
   const [dark, setDark] = useState(() => {
     if (typeof window === 'undefined') return false
     const saved = localStorage.getItem('theme')
@@ -33,7 +36,6 @@ function App() {
 
   const toggleTheme = () => setDark((d) => !d)
 
-  // Refresh ScrollTrigger after fonts and layout settle
   useEffect(() => {
     const id = setTimeout(() => ScrollTrigger.refresh(), 500)
     return () => clearTimeout(id)
@@ -54,6 +56,18 @@ function App() {
       <Footer />
       <ChatWidget />
     </ContentProvider>
+  )
+}
+
+// ── Root with routing ─────────────────────────────────────────────────────────
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/admin/*" element={<AdminApp />} />
+        <Route path="/*" element={<Portfolio />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 

@@ -13,6 +13,20 @@
   }
 }
 
+/* ── Admin panel utility classes ── */
+.admin-label {
+  @apply text-xs font-bold uppercase tracking-widest text-neutral-500 block mb-2;
+}
+.admin-input {
+  @apply w-full bg-neutral-800 border border-neutral-700 rounded-xl px-4 py-2.5 text-sm text-white placeholder-neutral-600 focus:outline-none focus:border-primary transition-colors;
+}
+.admin-th {
+  @apply px-4 py-3 text-left text-xs font-bold uppercase tracking-widest text-neutral-600;
+}
+.admin-td {
+  @apply px-4 py-3 text-sm text-neutral-400;
+}
+
 /* Hide native cursor on mouse devices — custom cursor takes over */
 @media (pointer: fine) {
   *, *::before, *::after {
