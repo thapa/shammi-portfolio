@@ -80,12 +80,13 @@ const Services = () => {
     <section
       ref={sectionRef}
       id="services"
-      className="bg-white dark:bg-[#0E0E0E] py-24 md:py-32 transition-colors duration-300"
+      className="relative overflow-hidden bg-white dark:bg-[#0E0E0E] py-24 md:py-32 transition-colors duration-300"
     >
+
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16">
           <div>
-            <p ref={labelRef} className="text-xs font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-600 mb-4">
+            <p ref={labelRef} className="text-xs font-bold uppercase tracking-widest text-neutral-500 dark:text-neutral-400 mb-4">
               What I Do
             </p>
             <h2
@@ -130,7 +131,7 @@ const Services = () => {
                     ))}
                   </div>
                 </div>
-                <div className="mt-1 w-10 h-10 rounded-full border border-neutral-200 dark:border-neutral-700 flex items-center justify-center text-neutral-400 group-hover:bg-primary group-hover:border-primary group-hover:text-[#0E0E0E] transition-all flex-shrink-0">
+                <div className="mt-1 w-10 h-10 rounded-full border border-neutral-200 dark:border-neutral-700 flex items-center justify-center text-neutral-400 group-hover:bg-primary group-hover:border-primary group-hover:text-white transition-all flex-shrink-0">
                   <HiArrowRight size={16} />
                 </div>
               </div>

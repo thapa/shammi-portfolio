@@ -12,7 +12,7 @@ const ScreenshotImage = ({ src, loading, error, fallbackTitle, className = '', o
   <div className={`relative overflow-hidden bg-neutral-100 dark:bg-neutral-800 ${className}`}>
     {/* Neutral fallback — always underneath */}
     <div className="absolute inset-0 bg-neutral-200 dark:bg-neutral-800 flex items-end p-4">
-      <span className="text-neutral-400 dark:text-neutral-600 font-display font-bold text-2xl leading-none select-none">
+      <span className="text-neutral-500 dark:text-neutral-400 font-display font-bold text-2xl leading-none select-none">
         {fallbackTitle}
       </span>
     </div>
@@ -21,6 +21,7 @@ const ScreenshotImage = ({ src, loading, error, fallbackTitle, className = '', o
       <img
         src={src ?? undefined}
         alt={fallbackTitle}
+        loading="lazy"
         className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${src && !loading ? 'opacity-100' : 'opacity-0'}`}
         style={{ objectPosition }}
       />
@@ -85,7 +86,7 @@ const ProjectModal = ({ project: p, onClose }) => {
         {/* Header */}
         <div className="flex items-start justify-between gap-4 p-6 md:p-8 border-b border-neutral-100 dark:border-neutral-800">
           <div>
-            <span className="inline-block text-xs font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-600 mb-2">
+            <span className="inline-block text-xs font-bold uppercase tracking-widest text-neutral-500 dark:text-neutral-400 mb-2">
               {p.category}
             </span>
             <h2 className="font-display text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white leading-tight">
@@ -111,7 +112,7 @@ const ProjectModal = ({ project: p, onClose }) => {
           {/* Tech Stack */}
           {p.tech_stack?.length > 0 && (
             <div>
-              <p className="text-xs font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-600 mb-3">
+              <p className="text-xs font-bold uppercase tracking-widest text-neutral-500 dark:text-neutral-400 mb-3">
                 Tech Stack
               </p>
               <div className="flex flex-wrap gap-2">
@@ -129,13 +130,13 @@ const ProjectModal = ({ project: p, onClose }) => {
 
           {/* Screenshots */}
           <div>
-            <p className="text-xs font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-600 mb-4">
+            <p className="text-xs font-bold uppercase tracking-widest text-neutral-500 dark:text-neutral-400 mb-4">
               Screenshots
             </p>
             <div className="grid grid-cols-1 md:grid-cols-[1fr,200px] gap-4 items-start">
               {/* Desktop */}
               <div>
-                <p className="text-xs text-neutral-400 dark:text-neutral-600 mb-2 font-medium">Desktop</p>
+                <p className="text-xs text-neutral-500 dark:text-neutral-400 mb-2 font-medium">Desktop</p>
                 <ScreenshotImage
                   src={desktopSrc}
                   loading={desktopLoading}
@@ -147,7 +148,7 @@ const ProjectModal = ({ project: p, onClose }) => {
               </div>
               {/* Mobile */}
               <div>
-                <p className="text-xs text-neutral-400 dark:text-neutral-600 mb-2 font-medium">Mobile</p>
+                <p className="text-xs text-neutral-500 dark:text-neutral-400 mb-2 font-medium">Mobile</p>
                 <div className="relative mx-auto w-[140px] md:w-full">
                   {/* Phone frame */}
                   <div className="absolute inset-0 rounded-[2rem] border-[6px] border-neutral-900 dark:border-neutral-700 z-10 pointer-events-none shadow-xl" />
@@ -172,7 +173,7 @@ const ProjectModal = ({ project: p, onClose }) => {
               href={p.url}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 bg-primary text-[#0E0E0E] text-sm font-bold px-6 py-3 rounded-full hover:bg-primary-light transition-colors"
+              className="inline-flex items-center gap-2 bg-primary text-white text-sm font-bold px-6 py-3 rounded-full hover:bg-primary-light transition-colors"
             >
               Visit Live Site <HiExternalLink size={15} />
             </a>
@@ -217,7 +218,7 @@ const ProjectCard = ({ project: p, onClick }) => {
 
       {/* Info */}
       <div className="p-5 bg-white dark:bg-neutral-900 transition-colors">
-        <span className="text-xs font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-600">
+        <span className="text-xs font-bold uppercase tracking-widest text-neutral-500 dark:text-neutral-400">
           {p.category}
         </span>
         <h3 className="font-semibold text-neutral-900 dark:text-white mt-1 mb-1 group-hover:text-primary transition-colors">
@@ -304,12 +305,23 @@ const Projects = () => {
     <section
       ref={sectionRef}
       id="projects"
-      className="bg-white dark:bg-[#0E0E0E] py-24 md:py-32 transition-colors duration-300"
+      className="relative overflow-hidden bg-white dark:bg-[#0E0E0E] py-24 md:py-32 transition-colors duration-300"
     >
+      {/* BG decorations */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div
+          className="absolute inset-0 opacity-[0.025] dark:opacity-[0.035]"
+          style={{
+            backgroundImage: 'linear-gradient(#5c51fe 1px, transparent 1px), linear-gradient(90deg, #5c51fe 1px, transparent 1px)',
+            backgroundSize: '72px 72px',
+          }}
+        />
+      </div>
+
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-12">
           <div>
-            <p ref={labelRef} className="text-xs font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-600 mb-4">
+            <p ref={labelRef} className="text-xs font-bold uppercase tracking-widest text-neutral-500 dark:text-neutral-400 mb-4">
               Portfolio
             </p>
             <h2
@@ -326,9 +338,10 @@ const Projects = () => {
               <button
                 key={tab}
                 onClick={() => setActive(tab)}
+                aria-pressed={active === tab}
                 className={`px-5 py-2 rounded-full text-sm font-semibold transition-all cursor-pointer ${
                   active === tab
-                    ? 'bg-primary text-[#0E0E0E]'
+                    ? 'bg-primary text-white'
                     : 'border border-neutral-200 dark:border-neutral-700 text-neutral-600 dark:text-neutral-400 hover:border-neutral-400 dark:hover:border-neutral-500'
                 }`}
               >
@@ -340,6 +353,10 @@ const Projects = () => {
 
         {loading ? (
           <ProjectSkeleton />
+        ) : filtered.length === 0 ? (
+          <div className="flex flex-col items-center justify-center py-24 text-center">
+            <p className="text-neutral-500 dark:text-neutral-500 text-sm">No projects in this category yet.</p>
+          </div>
         ) : (
           <div ref={gridRef} className="grid sm:grid-cols-2 md:grid-cols-3 gap-5">
             {filtered.map((p) => (

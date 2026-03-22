@@ -8,8 +8,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#D9FB69',
-        'primary-light': '#ECFCD5',
+        primary: '#5c51fe',
+        'primary-light': '#4a3fe0',
         'primary-dark': '#0E0E0E',
       },
       fontFamily: {
@@ -18,11 +18,21 @@ export default {
       },
       animation: {
         marquee: 'marquee 30s linear infinite',
+        'scroll-up': 'scrollUp 22s linear infinite',
+        'scroll-down': 'scrollDown 22s linear infinite',
       },
       keyframes: {
         marquee: {
           '0%': { transform: 'translateX(0)' },
           '100%': { transform: 'translateX(-50%)' },
+        },
+        scrollUp: {
+          '0%': { transform: 'translateY(0)' },
+          '100%': { transform: 'translateY(-50%)' },
+        },
+        scrollDown: {
+          '0%': { transform: 'translateY(-50%)' },
+          '100%': { transform: 'translateY(0)' },
         },
       },
     },

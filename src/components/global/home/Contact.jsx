@@ -39,7 +39,7 @@ const inputClass =
   'w-full bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 rounded-xl px-4 py-3 text-sm text-neutral-900 dark:text-white placeholder-neutral-400 dark:placeholder-neutral-600 focus:outline-none focus:border-primary transition-colors'
 
 const labelClass =
-  'text-xs font-bold uppercase tracking-widest text-neutral-500 block mb-2'
+  'text-xs font-bold uppercase tracking-widest text-neutral-600 dark:text-neutral-400 block mb-2'
 
 const Contact = () => {
   const [form, setForm] = useState({
@@ -130,11 +130,22 @@ const Contact = () => {
   }
 
   return (
-    <section ref={sectionRef} id="contact" className="bg-white dark:bg-[#0E0E0E] py-24 md:py-32 transition-colors duration-300">
+    <section ref={sectionRef} id="contact" className="relative overflow-hidden bg-white dark:bg-[#0E0E0E] py-24 md:py-32 transition-colors duration-300">
+      {/* BG decorations */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div
+          className="absolute inset-0 opacity-[0.025] dark:opacity-[0.035]"
+          style={{
+            backgroundImage: 'linear-gradient(#5c51fe 1px, transparent 1px), linear-gradient(90deg, #5c51fe 1px, transparent 1px)',
+            backgroundSize: '72px 72px',
+          }}
+        />
+      </div>
+
       <div className="max-w-7xl mx-auto px-6">
         {/* Large display heading */}
         <div className="mb-20">
-          <p ref={labelRef} className="text-xs font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-600 mb-6">
+          <p ref={labelRef} className="text-xs font-bold uppercase tracking-widest text-neutral-500 dark:text-neutral-400 mb-6">
             Get In Touch
           </p>
           <h2 className="font-display font-black leading-none text-white">
@@ -158,11 +169,11 @@ const Contact = () => {
             <div ref={infoRef} className="flex flex-col gap-6">
               {contactInfo.map(({ Icon, label, value, href }) => (
                 <div key={label} className="flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-full border border-neutral-200 dark:border-neutral-800 flex items-center justify-center flex-shrink-0">
+                  <div className="w-11 h-11 rounded-full border border-neutral-200 dark:border-neutral-800 flex items-center justify-center flex-shrink-0">
                     <Icon size={16} className="text-neutral-400" />
                   </div>
                   <div>
-                    <p className="text-xs text-neutral-400 dark:text-neutral-600 uppercase tracking-widest font-semibold mb-0.5">
+                    <p className="text-xs text-neutral-500 dark:text-neutral-400 uppercase tracking-widest font-semibold mb-0.5">
                       {label}
                     </p>
                     {href ? (
@@ -185,7 +196,7 @@ const Contact = () => {
                     target="_blank"
                     rel="noreferrer"
                     aria-label={label}
-                    className="w-10 h-10 rounded-full border border-neutral-200 dark:border-neutral-800 flex items-center justify-center text-neutral-400 hover:border-primary hover:text-primary transition-colors"
+                    className="w-11 h-11 rounded-full border border-neutral-200 dark:border-neutral-800 flex items-center justify-center text-neutral-400 hover:border-primary hover:text-primary transition-colors"
                   >
                     <Icon size={16} />
                   </a>
@@ -213,8 +224,9 @@ const Contact = () => {
             ) : (
               <form onSubmit={handleSubmit} className="flex flex-col gap-5">
                 <div>
-                  <label className={labelClass}>Your Name</label>
+                  <label htmlFor="contact-name" className={labelClass}>Your Name</label>
                   <input
+                    id="contact-name"
                     type="text"
                     name="name"
                     value={form.name}
@@ -226,8 +238,9 @@ const Contact = () => {
                 </div>
 
                 <div>
-                  <label className={labelClass}>Email Address</label>
+                  <label htmlFor="contact-email" className={labelClass}>Email Address</label>
                   <input
+                    id="contact-email"
                     type="email"
                     name="email"
                     value={form.email}
@@ -239,8 +252,9 @@ const Contact = () => {
                 </div>
 
                 <div>
-                  <label className={labelClass}>Phone Number</label>
+                  <label htmlFor="contact-phone" className={labelClass}>Phone Number</label>
                   <input
+                    id="contact-phone"
                     type="tel"
                     name="phone"
                     value={form.phone}
@@ -253,8 +267,9 @@ const Contact = () => {
 
                 <div className="grid sm:grid-cols-2 gap-5">
                   <div>
-                    <label className={labelClass}>Budget</label>
+                    <label htmlFor="contact-budget" className={labelClass}>Budget</label>
                     <select
+                      id="contact-budget"
                       name="budget"
                       value={form.budget}
                       onChange={handleChange}
@@ -273,8 +288,9 @@ const Contact = () => {
                   </div>
 
                   <div>
-                    <label className={labelClass}>Project Type</label>
+                    <label htmlFor="contact-type" className={labelClass}>Project Type</label>
                     <select
+                      id="contact-type"
                       name="projectType"
                       value={form.projectType}
                       onChange={handleChange}
@@ -294,13 +310,13 @@ const Contact = () => {
                 </div>
 
                 {status === 'error' && (
-                  <p className="text-red-400 text-sm">{errorMsg}</p>
+                  <p className="text-red-600 dark:text-red-400 text-sm">{errorMsg}</p>
                 )}
 
                 <button
                   type="submit"
                   disabled={status === 'sending'}
-                  className="inline-flex items-center justify-center gap-2 bg-primary text-[#0E0E0E] text-sm font-bold px-6 py-3 rounded-full hover:bg-primary-light transition-colors cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
+                  className="inline-flex items-center justify-center gap-2 bg-primary text-white text-sm font-bold px-6 py-3 rounded-full hover:bg-primary-light transition-colors cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
                 >
                   {status === 'sending' ? 'Sending…' : <>Send Message <HiArrowRight size={16} /></>}
                 </button>

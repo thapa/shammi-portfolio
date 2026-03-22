@@ -175,7 +175,7 @@ const ProjectModal = ({ project, onClose, onSaved }) => {
             <button
               type="submit"
               disabled={saving}
-              className="flex-1 bg-primary text-[#0E0E0E] font-bold text-sm py-2.5 rounded-full hover:bg-primary-light transition-colors disabled:opacity-60"
+              className="flex-1 bg-primary text-white font-bold text-sm py-2.5 rounded-full hover:bg-primary-light transition-colors disabled:opacity-60"
             >
               {saving ? 'Saving…' : isEdit ? 'Save Changes' : 'Add Project'}
             </button>
@@ -228,7 +228,7 @@ const ProjectsPanel = () => {
         </div>
         <button
           onClick={() => setModal('add')}
-          className="inline-flex items-center gap-2 bg-primary text-[#0E0E0E] font-bold text-sm px-5 py-2.5 rounded-full hover:bg-primary-light transition-colors"
+          className="inline-flex items-center gap-2 bg-primary text-white font-bold text-sm px-5 py-2.5 rounded-full hover:bg-primary-light transition-colors"
         >
           <HiPlus size={16} /> Add Project
         </button>

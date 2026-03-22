@@ -68,8 +68,8 @@ const CustomCursor = () => {
       } else if (next === 'view') {
         ring.style.width = '80px'
         ring.style.height = '80px'
-        ring.style.backgroundColor = '#D9FB69'
-        ring.style.borderColor = '#D9FB69'
+        ring.style.backgroundColor = '#5c51fe'
+        ring.style.borderColor = '#5c51fe'
         ring.style.opacity = '1'
         dot.style.opacity = '0'
         label.style.opacity = '1'

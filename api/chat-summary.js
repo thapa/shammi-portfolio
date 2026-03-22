@@ -66,7 +66,7 @@ export default async function handler(req, res) {
           <td style="padding: 6px 0; text-align: ${isUser ? 'right' : 'left'};">
             <span style="
               display: inline-block;
-              background: ${isUser ? '#D9FB69' : '#f0f0f0'};
+              background: ${isUser ? '#5c51fe' : '#f0f0f0'};
               color: #0E0E0E;
               padding: 10px 16px;
               border-radius: 14px;
@@ -106,7 +106,7 @@ export default async function handler(req, res) {
                     <!-- Header -->
                     <tr>
                       <td style="background:#0E0E0E;padding:32px 40px;">
-                        <p style="margin:0;color:#D9FB69;font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;">New Chat Lead</p>
+                        <p style="margin:0;color:#5c51fe;font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;">New Chat Lead</p>
                         <h1 style="margin:8px 0 0;color:#fff;font-size:26px;font-weight:800;line-height:1.2;">
                           ${userInfo.name || 'Someone'} wants to connect
                         </h1>
@@ -147,7 +147,7 @@ export default async function handler(req, res) {
                     <tr>
                       <td style="padding:28px 40px 0;">
                         <p style="margin:0 0 10px;color:#999;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">AI Summary</p>
-                        <div style="background:#f7fde8;border-left:3px solid #D9FB69;padding:16px 20px;border-radius:8px;">
+                        <div style="background:#efedff;border-left:3px solid #5c51fe;padding:16px 20px;border-radius:8px;">
                           <p style="margin:0;color:#0E0E0E;font-size:14px;line-height:1.6;">${summary}</p>
                         </div>
                       </td>

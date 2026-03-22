@@ -40,14 +40,14 @@ const Header = ({ isDark, toggleTheme }) => {
         <div className="flex items-center gap-3">
           <button
             onClick={toggleTheme}
-            className="w-9 h-9 rounded-full border border-neutral-200 dark:border-neutral-700 flex items-center justify-center text-neutral-500 dark:text-neutral-400 hover:border-neutral-400 dark:hover:border-neutral-500 transition-colors"
+            className="w-11 h-11 rounded-full border border-neutral-200 dark:border-neutral-700 flex items-center justify-center text-neutral-500 dark:text-neutral-400 hover:border-neutral-400 dark:hover:border-neutral-500 transition-colors"
             aria-label="Toggle theme"
           >
             {isDark ? <HiSun size={16} /> : <HiMoon size={16} />}
           </button>
           <a
             href="#contact"
-            className="hidden md:inline-flex bg-primary text-[#0E0E0E] text-sm font-bold px-5 py-2.5 rounded-full hover:bg-primary-light transition-colors"
+            className="hidden md:inline-flex bg-primary text-white text-sm font-bold px-5 py-2.5 rounded-full hover:bg-primary-light transition-colors"
           >
             Hire Me
           </a>
@@ -76,7 +76,7 @@ const Header = ({ isDark, toggleTheme }) => {
           ))}
           <a
             href="#contact"
-            className="bg-primary text-[#0E0E0E] text-sm font-bold px-5 py-2.5 rounded-full text-center"
+            className="bg-primary text-white text-sm font-bold px-5 py-2.5 rounded-full text-center hover:bg-primary-light transition-colors"
             onClick={() => setMenuOpen(false)}
           >
             Hire Me

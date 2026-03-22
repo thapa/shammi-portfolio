@@ -232,7 +232,7 @@ const ChatWidget = () => {
                 <button
                   type="submit"
                   disabled={formSaving}
-                  className="inline-flex items-center justify-center gap-2 w-full bg-primary text-[#0E0E0E] text-sm font-bold py-3 rounded-full hover:bg-primary-light transition-colors disabled:opacity-60"
+                  className="inline-flex items-center justify-center gap-2 w-full bg-primary text-white text-sm font-bold py-3 rounded-full hover:bg-primary-light transition-colors disabled:opacity-60"
                 >
                   {formSaving ? 'Starting…' : <>Start Chat <HiArrowRight size={15} /></>}
                 </button>
@@ -250,7 +250,7 @@ const ChatWidget = () => {
                     <div
                       className={`max-w-[82%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
                         msg.role === 'user'
-                          ? 'bg-primary text-[#0E0E0E] font-medium rounded-br-sm'
+                          ? 'bg-primary text-white font-medium rounded-br-sm'
                           : 'bg-neutral-900 text-neutral-200 rounded-bl-sm border border-white/5'
                       }`}
                     >
@@ -281,7 +281,7 @@ const ChatWidget = () => {
                   className="w-10 h-10 rounded-full bg-primary flex items-center justify-center flex-shrink-0 hover:bg-primary-light transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                   aria-label="Send message"
                 >
-                  <HiArrowRight size={16} className="text-[#0E0E0E]" />
+                  <HiArrowRight size={16} className="text-white" />
                 </button>
               </div>
             </>
@@ -292,13 +292,13 @@ const ChatWidget = () => {
       {/* ── Floating toggle button ─────────────────────────────── */}
       <button
         onClick={() => isOpen ? handleClose() : setIsOpen(true)}
-        className="fixed bottom-6 right-6 z-[9991] w-14 h-14 rounded-full bg-primary shadow-xl flex items-center justify-center hover:bg-primary-light hover:scale-110 transition-all"
+        className="fixed bottom-6 right-6 z-[9991] w-14 h-14 rounded-full bg-primary shadow-xl flex items-center justify-center hover:bg-primary-light transition-colors"
         aria-label="Chat with Shammi's AI"
       >
         {isOpen ? (
-          <HiX size={22} className="text-[#0E0E0E]" />
+          <HiX size={22} className="text-white" />
         ) : (
-          <HiChatBubbleLeftRight size={22} className="text-[#0E0E0E]" />
+          <HiChatBubbleLeftRight size={22} className="text-white" />
         )}
       </button>
     </>

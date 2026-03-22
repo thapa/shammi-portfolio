@@ -106,7 +106,7 @@ const Hero = () => {
               <div className="flex flex-wrap gap-3 mb-8">
                 <a
                   href="#contact"
-                  className="inline-flex items-center gap-2 bg-primary text-[#0E0E0E] text-sm font-bold px-6 py-3 rounded-full hover:bg-primary-light transition-colors"
+                  className="inline-flex items-center gap-2 bg-primary text-white text-sm font-bold px-6 py-3 rounded-full hover:bg-primary-light transition-colors"
                 >
                   Hire Me <HiArrowRight size={15} />
                 </a>
@@ -119,17 +119,19 @@ const Hero = () => {
               </div>
               <div className="flex gap-4">
                 <a
-                  href="https://github.com"
+                  href="https://github.com/shammithapa"
                   target="_blank"
                   rel="noreferrer"
+                  aria-label="GitHub"
                   className="text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors"
                 >
                   <FaGithub size={20} />
                 </a>
                 <a
-                  href="https://linkedin.com"
+                  href="https://linkedin.com/in/shammithapa"
                   target="_blank"
                   rel="noreferrer"
+                  aria-label="LinkedIn"
                   className="text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors"
                 >
                   <FaLinkedin size={20} />

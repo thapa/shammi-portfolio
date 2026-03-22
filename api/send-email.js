@@ -35,7 +35,7 @@ export default async function handler(req, res) {
                     <!-- Header -->
                     <tr>
                       <td style="background:#0E0E0E;padding:32px 40px;">
-                        <p style="margin:0;color:#D9FB69;font-size:13px;font-weight:700;letter-spacing:3px;text-transform:uppercase;">New Inquiry</p>
+                        <p style="margin:0;color:#5c51fe;font-size:13px;font-weight:700;letter-spacing:3px;text-transform:uppercase;">New Inquiry</p>
                         <h1 style="margin:8px 0 0;color:#ffffff;font-size:28px;font-weight:800;line-height:1.2;">${projectType}</h1>
                       </td>
                     </tr>
@@ -79,7 +79,7 @@ export default async function handler(req, res) {
                             <td style="padding:24px 0;">
                               <p style="margin:0 0 4px;color:#999;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">Project Type</p>
                               <p style="margin:0;">
-                                <span style="display:inline-block;background:#D9FB69;color:#0E0E0E;font-size:13px;font-weight:700;padding:6px 14px;border-radius:100px;">${projectType}</span>
+                                <span style="display:inline-block;background:#5c51fe;color:#0E0E0E;font-size:13px;font-weight:700;padding:6px 14px;border-radius:100px;">${projectType}</span>
                               </p>
                             </td>
                           </tr>

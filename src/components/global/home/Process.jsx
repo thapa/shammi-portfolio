@@ -77,12 +77,23 @@ const Process = () => {
   return (
     <section
       ref={sectionRef}
-      className="bg-neutral-50 dark:bg-neutral-900 py-24 md:py-32 transition-colors duration-300"
+      className="relative overflow-hidden bg-neutral-50 dark:bg-neutral-900 py-24 md:py-32 transition-colors duration-300"
     >
+      {/* BG decorations */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div
+          className="absolute inset-0 opacity-[0.025] dark:opacity-[0.035]"
+          style={{
+            backgroundImage: 'linear-gradient(#5c51fe 1px, transparent 1px), linear-gradient(90deg, #5c51fe 1px, transparent 1px)',
+            backgroundSize: '72px 72px',
+          }}
+        />
+      </div>
+
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-20">
           <div>
-            <p ref={labelRef} className="text-xs font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-600 mb-4">
+            <p ref={labelRef} className="text-xs font-bold uppercase tracking-widest text-neutral-500 dark:text-neutral-400 mb-4">
               How I Work
             </p>
             <h2

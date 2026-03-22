@@ -2,7 +2,7 @@ const Button = ({ label, href, icon: Icon, variant = 'primary', onClick, type = 
   const base =
     'inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-sm transition-all duration-200 cursor-pointer'
   const variants = {
-    primary: 'bg-primary text-[#0E0E0E] hover:bg-primary-light',
+    primary: 'bg-primary text-white hover:bg-primary-light',
     outline:
       'border border-neutral-300 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 hover:border-neutral-900 dark:hover:border-white hover:text-neutral-900 dark:hover:text-white',
     'outline-dark':

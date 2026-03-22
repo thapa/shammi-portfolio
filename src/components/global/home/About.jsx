@@ -102,10 +102,21 @@ const About = () => {
     <section
       ref={sectionRef}
       id="about"
-      className="bg-neutral-50 dark:bg-neutral-900 py-24 md:py-32 transition-colors duration-300"
+      className="relative overflow-hidden bg-neutral-50 dark:bg-neutral-900 py-24 md:py-32 transition-colors duration-300"
     >
+      {/* BG decorations */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div
+          className="absolute inset-0 opacity-[0.025] dark:opacity-[0.035]"
+          style={{
+            backgroundImage: 'linear-gradient(#5c51fe 1px, transparent 1px), linear-gradient(90deg, #5c51fe 1px, transparent 1px)',
+            backgroundSize: '72px 72px',
+          }}
+        />
+      </div>
+
       <div className="max-w-7xl mx-auto px-6">
-        <p ref={labelRef} className="text-xs font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-600 mb-4">
+        <p ref={labelRef} className="text-xs font-bold uppercase tracking-widest text-neutral-500 dark:text-neutral-400 mb-4">
           About Me
         </p>
 
@@ -133,7 +144,7 @@ const About = () => {
             </p>
 
             <div>
-              <p ref={skillsLabelRef} className="text-xs font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-600 mb-3">
+              <p ref={skillsLabelRef} className="text-xs font-bold uppercase tracking-widest text-neutral-500 dark:text-neutral-400 mb-3">
                 Skills &amp; Tech
               </p>
               {loading ? (
@@ -155,7 +166,7 @@ const About = () => {
 
           {/* Right: experience timeline */}
           <div>
-            <p ref={expLabelRef} className="text-xs font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-600 mb-6">
+            <p ref={expLabelRef} className="text-xs font-bold uppercase tracking-widest text-neutral-500 dark:text-neutral-400 mb-6">
               Experience
             </p>
             {loading ? (
@@ -172,7 +183,7 @@ const About = () => {
                         <p className="font-semibold text-neutral-900 dark:text-white">{t.role}</p>
                         <p className="text-sm text-primary font-medium">{t.company}</p>
                       </div>
-                      <span className="text-xs text-neutral-400 dark:text-neutral-600 shrink-0 pt-0.5">
+                      <span className="text-xs text-neutral-500 dark:text-neutral-400 shrink-0 pt-0.5">
                         {t.period}
                       </span>
                     </div>

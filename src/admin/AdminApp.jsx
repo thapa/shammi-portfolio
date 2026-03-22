@@ -41,7 +41,7 @@ const LoginGate = ({ onAuth }) => {
           {error && <p className="text-red-400 text-xs">Incorrect password</p>}
           <button
             type="submit"
-            className="bg-primary text-[#0E0E0E] font-bold text-sm py-3 rounded-full hover:bg-primary-light transition-colors"
+            className="bg-primary text-white font-bold text-sm py-3 rounded-full hover:bg-primary-light transition-colors"
           >
             Sign In
           </button>

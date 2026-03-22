@@ -5,6 +5,8 @@ import { ScrollTrigger } from './lib/gsap'
 import CustomCursor from './components/global/CustomCursor'
 import Header from './components/global/Header'
 import Hero from './components/global/home/Hero'
+import Hero2 from './components/global/home/Hero2'
+import TechPartners from './components/global/home/TechPartners'
 import About from './components/global/home/About'
 import Services from './components/global/home/Services'
 import Process from './components/global/home/Process'
@@ -47,9 +49,12 @@ function Portfolio() {
       <Header isDark={dark} toggleTheme={toggleTheme} />
       <main>
         <Hero />
+        <Hero2 />        
         <About />
         <Services />
         <Process />
+        <TechPartners />
+               
         <Projects />
         <Contact />
       </main>
