@@ -48,13 +48,12 @@ function Portfolio() {
       <CustomCursor />
       <Header isDark={dark} toggleTheme={toggleTheme} />
       <main>
-        <Hero />
+        {/* <Hero /> */}
         <Hero2 />        
         <About />
         <Services />
         <Process />
-        <TechPartners />
-               
+        <TechPartners />               
         <Projects />
         <Contact />
       </main>
