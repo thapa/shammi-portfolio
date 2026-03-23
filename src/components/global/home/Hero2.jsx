@@ -127,15 +127,15 @@ const Hero2 = () => {
         <div className="flex-1 flex flex-col items-center justify-center px-8 py-20 text-center relative z-10">
           {/* Partner badges */}
           <div className="flex items-center gap-4 mb-8 flex-wrap justify-center">
-            <div className="flex items-center gap-2 px-4 py-2 rounded-full border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900">
-              <SiShopify size={15} className="text-[#5c51fe]" />
-              <span className="text-xs font-semibold text-neutral-600 dark:text-neutral-400 uppercase tracking-widest">
+            <div className="flex items-center gap-2 px-4 py-2 rounded-full border border-primary/20 bg-primary/5 dark:bg-primary/10">
+              <SiShopify size={15} className="text-primary" />
+              <span className="text-xs font-semibold text-primary uppercase tracking-widest">
                 Shopify Partner
               </span>
             </div>
-            <div className="flex items-center gap-2 px-4 py-2 rounded-full border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900">
-              <SiWordpress size={15} className="text-[#21759b]" />
-              <span className="text-xs font-semibold text-neutral-600 dark:text-neutral-400 uppercase tracking-widest">
+            <div className="flex items-center gap-2 px-4 py-2 rounded-full border border-primary/20 bg-primary/5 dark:bg-primary/10">
+              <SiWordpress size={15} className="text-primary" />
+              <span className="text-xs font-semibold text-primary uppercase tracking-widest">
                 WordPress Expert
               </span>
             </div>
@@ -161,7 +161,7 @@ const Hero2 = () => {
           {/* CTA */}
           <a
             href="#contact"
-            className="inline-flex items-center gap-2.5 border-2 border-neutral-900 dark:border-white text-neutral-900 dark:text-white text-sm font-bold px-8 py-3.5 rounded-full hover:bg-neutral-900 hover:text-white dark:hover:bg-white dark:hover:text-[#0E0E0E] transition-all duration-200 uppercase tracking-widest"
+            className="inline-flex items-center gap-2.5 bg-primary text-white text-sm font-bold px-8 py-3.5 rounded-full hover:bg-primary-light shadow-lg shadow-primary/30 hover:shadow-primary/50 transition-all duration-200 uppercase tracking-widest"
           >
             Discuss Your Project <HiArrowRight size={15} />
           </a>
@@ -169,17 +169,17 @@ const Hero2 = () => {
           {/* Stats */}
           <div className="flex items-center gap-10 mt-14 pt-10 border-t border-neutral-200 dark:border-neutral-800">
             <div className="text-center">
-              <p className="font-display text-3xl font-bold text-neutral-900 dark:text-white">200+</p>
+              <p className="font-display text-3xl font-bold text-primary">200+</p>
               <p className="text-xs text-neutral-400 mt-1 uppercase tracking-widest">Projects</p>
             </div>
             <div className="w-px h-10 bg-neutral-200 dark:bg-neutral-800" />
             <div className="text-center">
-              <p className="font-display text-3xl font-bold text-neutral-900 dark:text-white">10+</p>
+              <p className="font-display text-3xl font-bold text-primary">10+</p>
               <p className="text-xs text-neutral-400 mt-1 uppercase tracking-widest">Years Exp</p>
             </div>
             <div className="w-px h-10 bg-neutral-200 dark:bg-neutral-800" />
             <div className="text-center">
-              <p className="font-display text-3xl font-bold text-neutral-900 dark:text-white">100%</p>
+              <p className="font-display text-3xl font-bold text-primary">100%</p>
               <p className="text-xs text-neutral-400 mt-1 uppercase tracking-widest">Satisfaction</p>
             </div>
           </div>

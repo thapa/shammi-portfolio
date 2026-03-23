@@ -110,7 +110,7 @@ const Services = () => {
                 key={s.id}
                 className="group border-b border-neutral-200 dark:border-neutral-800 py-8 grid md:grid-cols-[64px,1fr,auto] gap-6 items-start -mx-6 px-6 hover:bg-neutral-50 dark:hover:bg-neutral-900 transition-colors cursor-default"
               >
-                <span className="font-display text-sm font-bold text-neutral-300 dark:text-neutral-700 pt-1">
+                <span className="font-display text-sm font-bold text-primary/40 dark:text-primary/30 pt-1 group-hover:text-primary/70 transition-colors">
                   {s.num}
                 </span>
                 <div>
@@ -124,7 +124,7 @@ const Services = () => {
                     {s.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="bg-primary/20 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-400 text-xs font-medium px-3 py-1 rounded-full"
+                        className="bg-primary/10 dark:bg-primary/10 text-primary dark:text-primary/80 border border-primary/20 text-xs font-medium px-3 py-1 rounded-full"
                       >
                         {tag}
                       </span>

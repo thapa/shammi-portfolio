@@ -53,7 +53,7 @@ const CustomCursor = () => {
         ring.style.width = '36px'
         ring.style.height = '36px'
         ring.style.backgroundColor = 'transparent'
-        ring.style.borderColor = 'rgba(217,251,105,0.5)'
+        ring.style.borderColor = 'rgba(92,81,254,0.5)'
         ring.style.opacity = '1'
         dot.style.opacity = '1'
         label.style.opacity = '0'
@@ -61,7 +61,7 @@ const CustomCursor = () => {
         ring.style.width = '52px'
         ring.style.height = '52px'
         ring.style.backgroundColor = 'transparent'
-        ring.style.borderColor = 'rgba(217,251,105,0.9)'
+        ring.style.borderColor = 'rgba(92,81,254,0.9)'
         ring.style.opacity = '1'
         dot.style.opacity = '0'
         label.style.opacity = '0'
@@ -121,7 +121,7 @@ const CustomCursor = () => {
         style={{
           transform: 'translate(-200px, -200px) translate(-50%, -50%)',
           transition: 'opacity 0.15s ease',
-          boxShadow: '0 0 6px rgba(217,251,105,0.6)',
+          boxShadow: '0 0 8px rgba(92,81,254,0.6)',
         }}
       />
 
@@ -132,7 +132,7 @@ const CustomCursor = () => {
         style={{
           width: '36px',
           height: '36px',
-          borderColor: 'rgba(217,251,105,0.5)',
+          borderColor: 'rgba(92,81,254,0.9)',
           backgroundColor: 'transparent',
           transform: 'translate(-200px, -200px) translate(-50%, -50%)',
           transition:

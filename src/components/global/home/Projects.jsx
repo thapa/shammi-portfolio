@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { createPortal } from 'react-dom'
-import { HiExternalLink, HiX } from 'react-icons/hi'
+import { HiExternalLink, HiX, HiArrowRight } from 'react-icons/hi'
 import { useContent } from '../../../context/ContentContext'
 import { getOrFetchScreenshot, getOrFetchMobileScreenshot } from '../../../lib/screenshotbase'
 import { gsap, ScrollTrigger, SplitText } from '../../../lib/gsap'
@@ -86,7 +86,7 @@ const ProjectModal = ({ project: p, onClose }) => {
         {/* Header */}
         <div className="flex items-start justify-between gap-4 p-6 md:p-8 border-b border-neutral-100 dark:border-neutral-800">
           <div>
-            <span className="inline-block text-xs font-bold uppercase tracking-widest text-neutral-500 dark:text-neutral-400 mb-2">
+            <span className="inline-block text-[10px] font-bold uppercase tracking-widest bg-primary/10 text-primary border border-primary/20 px-2.5 py-1 rounded-full mb-3">
               {p.category}
             </span>
             <h2 className="font-display text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white leading-tight">
@@ -203,30 +203,62 @@ const ProjectCard = ({ project: p, onClick }) => {
     <button
       onClick={onClick}
       data-cursor="view"
-      className="group text-left rounded-2xl overflow-hidden border border-neutral-100 dark:border-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-700 transition-all hover:shadow-lg dark:hover:shadow-neutral-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary w-full"
+      className="group relative text-left rounded-2xl overflow-hidden bg-white dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800 hover:border-primary/30 dark:hover:border-primary/30 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/8 dark:hover:shadow-primary/10 transition-all duration-300 ease-out cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-primary w-full"
     >
-      {/* 3:2 preview */}
-      <ScreenshotImage
-        src={imgSrc}
-        loading={imgLoading}
-        error={imgError}
+      {/* Corner accent squares — appear on hover (inspired by 21st.dev dark grid) */}
+      <span className="pointer-events-none absolute -left-px -top-px w-2.5 h-2.5 bg-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20" />
+      <span className="pointer-events-none absolute -right-px -top-px w-2.5 h-2.5 bg-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20" />
+      <span className="pointer-events-none absolute -left-px -bottom-px w-2.5 h-2.5 bg-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20" />
+      <span className="pointer-events-none absolute -right-px -bottom-px w-2.5 h-2.5 bg-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20" />
 
-        fallbackTitle={p.title}
-        className="aspect-[3/2] w-full"
-        objectPosition="top"
-      />
+      {/* Image area with zoom + overlay */}
+      <div className="relative aspect-[3.5/2] overflow-hidden bg-neutral-100 dark:bg-neutral-800">
+        {/* Fallback title */}
+        <div className="absolute inset-0 flex items-end p-4 z-0">
+          <span className="text-neutral-400 dark:text-neutral-600 font-display font-bold text-2xl leading-none select-none">
+            {p.title}
+          </span>
+        </div>
 
-      {/* Info */}
-      <div className="p-5 bg-white dark:bg-neutral-900 transition-colors">
-        <span className="text-xs font-bold uppercase tracking-widest text-neutral-500 dark:text-neutral-400">
+        {/* Screenshot with zoom */}
+        {!imgError && (
+          <img
+            src={imgSrc ?? undefined}
+            alt={p.title}
+            loading="lazy"
+            className={`absolute inset-0 w-full h-full object-cover object-top transition-all duration-500 group-hover:scale-105 ${imgSrc && !imgLoading ? 'opacity-100' : 'opacity-0'}`}
+          />
+        )}
+
+        {/* Shimmer */}
+        {imgLoading && (
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-pulse" />
+        )}
+
+        {/* Bottom gradient overlay */}
+        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/60 to-transparent z-10 pointer-events-none" />
+
+        {/* Category badge — on top of image */}
+        <span className="absolute bottom-3 left-3 z-10 text-[10px] font-bold uppercase tracking-widest bg-white/15 backdrop-blur-sm text-white border border-white/25 px-2.5 py-1 rounded-full">
           {p.category}
         </span>
-        <h3 className="font-semibold text-neutral-900 dark:text-white mt-1 mb-1 group-hover:text-primary transition-colors">
-          {p.title}
-        </h3>
-        <p className="text-xs text-neutral-500 dark:text-neutral-500 line-clamp-2 leading-relaxed">
-          {p.description}
-        </p>
+      </div>
+
+      {/* Info */}
+      <div className="p-5 flex flex-col gap-3">
+        <div>
+          <h3 className="font-semibold text-neutral-900 dark:text-white text-base leading-snug group-hover:text-primary transition-colors duration-200">
+            {p.title}
+          </h3>
+          <p className="text-xs text-neutral-500 dark:text-neutral-400 line-clamp-2 leading-relaxed mt-1.5">
+            {p.description}
+          </p>
+        </div>
+
+        {/* CTA row */}
+        <div className="flex items-center gap-1 text-xs font-semibold text-primary opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0 transition-all duration-200">
+          View Project <HiArrowRight size={12} />
+        </div>
       </div>
     </button>
   )
@@ -234,14 +266,14 @@ const ProjectCard = ({ project: p, onClick }) => {
 
 // ─── Skeletons ─────────────────────────────────────────────────────────────
 const ProjectSkeleton = () => (
-  <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-5">
+  <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
     {Array.from({ length: 6 }).map((_, i) => (
-      <div key={i} className="rounded-2xl overflow-hidden border border-neutral-100 dark:border-neutral-800">
-        <div className="aspect-[3/2] bg-neutral-200 dark:bg-neutral-800 animate-pulse" />
-        <div className="p-5 bg-white dark:bg-neutral-900">
-          <div className="h-3 w-16 bg-neutral-200 dark:bg-neutral-800 rounded animate-pulse mb-2" />
-          <div className="h-5 w-32 bg-neutral-200 dark:bg-neutral-800 rounded animate-pulse mb-2" />
-          <div className="h-3 w-full bg-neutral-100 dark:bg-neutral-800 rounded animate-pulse" />
+      <div key={i} className="rounded-2xl overflow-hidden bg-white dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800">
+        <div className="aspect-[3.5/2] bg-neutral-200 dark:bg-neutral-800 animate-pulse" />
+        <div className="p-5">
+          <div className="h-4 w-36 bg-neutral-200 dark:bg-neutral-800 rounded-lg animate-pulse mb-2" />
+          <div className="h-3 w-full bg-neutral-100 dark:bg-neutral-800 rounded animate-pulse mb-1" />
+          <div className="h-3 w-3/4 bg-neutral-100 dark:bg-neutral-800 rounded animate-pulse" />
         </div>
       </div>
     ))}
@@ -318,10 +350,13 @@ const Projects = () => {
         />
       </div>
 
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-12">
+      {/* Ambient glow behind heading */}
+      <div className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-primary/5 blur-3xl rounded-full" />
+
+      <div className="max-w-7xl mx-auto px-6 relative">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-14">
           <div>
-            <p ref={labelRef} className="text-xs font-bold uppercase tracking-widest text-neutral-500 dark:text-neutral-400 mb-4">
+            <p ref={labelRef} className="text-xs font-bold uppercase tracking-widest text-primary mb-4">
               Portfolio
             </p>
             <h2
@@ -333,16 +368,18 @@ const Projects = () => {
               Recent Projects
             </h2>
           </div>
-          <div className="flex gap-2 flex-shrink-0">
+
+          {/* Filter tab group */}
+          <div className="flex flex-shrink-0 bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-full p-1 gap-1">
             {tabs.map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActive(tab)}
                 aria-pressed={active === tab}
-                className={`px-5 py-2 rounded-full text-sm font-semibold transition-all cursor-pointer ${
+                className={`px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200 cursor-pointer ${
                   active === tab
-                    ? 'bg-primary text-white'
-                    : 'border border-neutral-200 dark:border-neutral-700 text-neutral-600 dark:text-neutral-400 hover:border-neutral-400 dark:hover:border-neutral-500'
+                    ? 'bg-primary text-white shadow-md shadow-primary/30'
+                    : 'text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white'
                 }`}
               >
                 {tab}
@@ -358,7 +395,7 @@ const Projects = () => {
             <p className="text-neutral-500 dark:text-neutral-500 text-sm">No projects in this category yet.</p>
           </div>
         ) : (
-          <div ref={gridRef} className="grid sm:grid-cols-2 md:grid-cols-3 gap-5">
+          <div ref={gridRef} className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
             {filtered.map((p) => (
               <ProjectCard
                 key={p.id}

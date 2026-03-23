@@ -154,7 +154,7 @@ const About = () => {
                   {skills.map((s) => (
                     <span
                       key={s.id}
-                      className="border border-neutral-200 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 text-sm font-medium px-3 py-1.5 rounded-full hover:border-primary hover:text-neutral-900 dark:hover:text-white transition-colors cursor-default"
+                      className="border border-neutral-200 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 text-sm font-medium px-3 py-1.5 rounded-full hover:border-primary hover:bg-primary/8 hover:text-primary dark:hover:border-primary dark:hover:text-primary transition-all duration-200 cursor-default"
                     >
                       {s.name}
                     </span>

@@ -169,8 +169,8 @@ const Contact = () => {
             <div ref={infoRef} className="flex flex-col gap-6">
               {contactInfo.map(({ Icon, label, value, href }) => (
                 <div key={label} className="flex items-center gap-4">
-                  <div className="w-11 h-11 rounded-full border border-neutral-200 dark:border-neutral-800 flex items-center justify-center flex-shrink-0">
-                    <Icon size={16} className="text-neutral-400" />
+                  <div className="w-11 h-11 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center flex-shrink-0">
+                    <Icon size={16} className="text-primary" />
                   </div>
                   <div>
                     <p className="text-xs text-neutral-500 dark:text-neutral-400 uppercase tracking-widest font-semibold mb-0.5">
@@ -196,7 +196,7 @@ const Contact = () => {
                     target="_blank"
                     rel="noreferrer"
                     aria-label={label}
-                    className="w-11 h-11 rounded-full border border-neutral-200 dark:border-neutral-800 flex items-center justify-center text-neutral-400 hover:border-primary hover:text-primary transition-colors"
+                    className="w-11 h-11 rounded-full border border-neutral-200 dark:border-neutral-800 flex items-center justify-center text-neutral-400 hover:bg-primary/10 hover:border-primary/40 hover:text-primary transition-all duration-200"
                   >
                     <Icon size={16} />
                   </a>
@@ -206,7 +206,7 @@ const Contact = () => {
           </div>
 
           {/* Right: form */}
-          <div ref={formRef} className="bg-neutral-50 dark:bg-white/5 border border-neutral-200 dark:border-white/10 rounded-2xl p-8">
+          <div ref={formRef} className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl p-8 shadow-sm dark:shadow-none">
             {status === 'sent' ? (
               <div className="flex flex-col items-center justify-center py-12 text-center">
                 <HiCheckCircle size={48} className="text-primary mb-4" />

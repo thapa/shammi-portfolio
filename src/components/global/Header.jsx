@@ -13,7 +13,7 @@ const Header = ({ isDark, toggleTheme }) => {
   const [menuOpen, setMenuOpen] = useState(false)
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white dark:bg-[#0E0E0E] border-b border-neutral-200 dark:border-neutral-800 transition-colors duration-300">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 dark:bg-[#0E0E0E]/90 backdrop-blur-md border-b border-neutral-200/60 dark:border-neutral-800/60 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
         {/* Logo */}
         <a
