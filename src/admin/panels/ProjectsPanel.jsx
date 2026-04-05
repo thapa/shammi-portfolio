@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { supabase } from '../../lib/supabase'
 import { HiPlus, HiPencil, HiTrash, HiRefresh, HiCheck, HiX, HiExternalLink } from 'react-icons/hi'
 
@@ -52,8 +52,24 @@ const ProjectModal = ({ project, onClose, onSaved }) => {
   const [saving, setSaving] = useState(false)
   const [generating, setGenerating] = useState(false)
   const [ssStatus, setSsStatus] = useState({ desktop: { status: 'idle' }, mobile: { status: 'idle' } })
+  const [thumbnailFile, setThumbnailFile] = useState(null)
+  const [thumbnailPreview, setThumbnailPreview] = useState(isEdit ? project?.thumbnail_url : null)
+  const fileInputRef = useRef(null)
 
   const set = (k, v) => setForm(p => ({ ...p, [k]: v }))
+
+  const handleThumbnailChange = (e) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    setThumbnailFile(file)
+    setThumbnailPreview(URL.createObjectURL(file))
+  }
+
+  const removeThumbnail = () => {
+    setThumbnailFile(null)
+    setThumbnailPreview(null)
+    if (fileInputRef.current) fileInputRef.current.value = ''
+  }
 
   const generateDescription = async () => {
     if (!form.title) return
@@ -84,17 +100,35 @@ const ProjectModal = ({ project, onClose, onSaved }) => {
 
     let savedId = project?.id
     if (isEdit) {
+      // Upload thumbnail now (ID is known)
+      if (thumbnailFile) {
+        const ext = thumbnailFile.name.split('.').pop()
+        const path = `${savedId}/custom-thumbnail.${ext}`
+        await supabase.storage.from('project-screenshots').upload(path, thumbnailFile, { upsert: true })
+        const { data: urlData } = supabase.storage.from('project-screenshots').getPublicUrl(path)
+        payload.thumbnail_url = urlData.publicUrl
+      } else if (thumbnailPreview === null && project?.thumbnail_url) {
+        payload.thumbnail_url = null
+      }
       await supabase.from('projects').update(payload).eq('id', project.id)
     } else {
       const { data } = await supabase.from('projects').insert(payload).select('id').single()
       savedId = data?.id
+      // Upload thumbnail after insert (now we have the ID)
+      if (savedId && thumbnailFile) {
+        const ext = thumbnailFile.name.split('.').pop()
+        const path = `${savedId}/custom-thumbnail.${ext}`
+        await supabase.storage.from('project-screenshots').upload(path, thumbnailFile, { upsert: true })
+        const { data: urlData } = supabase.storage.from('project-screenshots').getPublicUrl(path)
+        await supabase.from('projects').update({ thumbnail_url: urlData.publicUrl }).eq('id', savedId)
+      }
     }
 
     setSaving(false)
     onSaved()
 
-    // Auto-generate screenshots if URL is set
-    if (savedId && payload.url) {
+    // Auto-generate screenshots only if no custom thumbnail and URL changed
+    if (savedId && payload.url && !thumbnailFile) {
       const urlChanged = !isEdit || form.url.trim() !== project.url
       if (!isEdit || urlChanged) {
         generateScreenshots(savedId, payload.url, (type, status, errorMsg) => {
@@ -131,6 +165,40 @@ const ProjectModal = ({ project, onClose, onSaved }) => {
           <div>
             <label className="admin-label">URL</label>
             <input required type="url" className="admin-input" value={form.url} onChange={e => set('url', e.target.value)} placeholder="https://example.com" />
+          </div>
+
+          {/* Custom thumbnail */}
+          <div>
+            <label className="admin-label">Custom Thumbnail</label>
+            {thumbnailPreview ? (
+              <div className="relative rounded-xl overflow-hidden border border-neutral-700 bg-neutral-800">
+                <img src={thumbnailPreview} alt="Thumbnail preview" className="w-full h-36 object-cover" />
+                <button
+                  type="button"
+                  onClick={removeThumbnail}
+                  className="absolute top-2 right-2 w-7 h-7 rounded-full bg-black/60 hover:bg-black/80 flex items-center justify-center text-white transition-colors"
+                >
+                  <HiX size={14} />
+                </button>
+              </div>
+            ) : (
+              <button
+                type="button"
+                onClick={() => fileInputRef.current?.click()}
+                className="w-full h-24 rounded-xl border-2 border-dashed border-neutral-700 hover:border-primary/60 hover:bg-primary/5 transition-colors flex flex-col items-center justify-center gap-1.5 text-neutral-500 hover:text-primary"
+              >
+                <span className="text-lg">+</span>
+                <span className="text-xs font-medium">Upload image</span>
+              </button>
+            )}
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={handleThumbnailChange}
+            />
+            <p className="text-xs text-neutral-600 mt-1.5">Overrides auto-generated desktop screenshot</p>
           </div>
 
           <div>
@@ -267,6 +335,12 @@ const ProjectsPanel = () => {
                     </td>
                     <td className="admin-td">
                       <div className="flex flex-col gap-0.5">
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs text-neutral-600 w-14">Thumbnail</span>
+                          <span className={`text-xs ${p.thumbnail_url ? 'text-green-400' : 'text-neutral-600'}`}>
+                            {p.thumbnail_url ? '✓ Custom' : 'None'}
+                          </span>
+                        </div>
                         <div className="flex items-center gap-2">
                           <span className="text-xs text-neutral-600 w-14">Desktop</span>
                           {rs.desktop ? <SsBadge status={rs.desktop.status} errorMsg={rs.desktop.errorMsg} /> : (

@@ -192,6 +192,11 @@ const ProjectCard = ({ project: p, onClick }) => {
   const [imgError, setImgError] = useState(false)
 
   useEffect(() => {
+    if (p.thumbnail_url) {
+      setImgSrc(p.thumbnail_url)
+      setImgLoading(false)
+      return
+    }
     let cancelled = false
     getOrFetchScreenshot(p)
       .then((src) => { if (!cancelled) { setImgSrc(src); setImgLoading(false) } })
@@ -212,7 +217,7 @@ const ProjectCard = ({ project: p, onClick }) => {
       <span className="pointer-events-none absolute -right-px -bottom-px w-2.5 h-2.5 bg-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20" />
 
       {/* Image area with zoom + overlay */}
-      <div className="relative aspect-[3.5/2] overflow-hidden bg-neutral-100 dark:bg-neutral-800">
+      <div className="relative aspect-[4/3] overflow-hidden bg-neutral-100 dark:bg-neutral-800">
         {/* Fallback title */}
         <div className="absolute inset-0 flex items-end p-4 z-0">
           <span className="text-neutral-400 dark:text-neutral-600 font-display font-bold text-2xl leading-none select-none">
@@ -226,7 +231,7 @@ const ProjectCard = ({ project: p, onClick }) => {
             src={imgSrc ?? undefined}
             alt={p.title}
             loading="lazy"
-            className={`absolute inset-0 w-full h-full object-cover object-top transition-all duration-500 group-hover:scale-105 ${imgSrc && !imgLoading ? 'opacity-100' : 'opacity-0'}`}
+            className={`absolute inset-0 w-full h-full object-cover object-center transition-all duration-500 group-hover:scale-105 ${imgSrc && !imgLoading ? 'opacity-100' : 'opacity-0'}`}
           />
         )}
 
@@ -269,7 +274,7 @@ const ProjectSkeleton = () => (
   <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
     {Array.from({ length: 6 }).map((_, i) => (
       <div key={i} className="rounded-2xl overflow-hidden bg-white dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800">
-        <div className="aspect-[3.5/2] bg-neutral-200 dark:bg-neutral-800 animate-pulse" />
+        <div className="aspect-[4/3] bg-neutral-200 dark:bg-neutral-800 animate-pulse" />
         <div className="p-5">
           <div className="h-4 w-36 bg-neutral-200 dark:bg-neutral-800 rounded-lg animate-pulse mb-2" />
           <div className="h-3 w-full bg-neutral-100 dark:bg-neutral-800 rounded animate-pulse mb-1" />
