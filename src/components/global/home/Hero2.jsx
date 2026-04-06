@@ -145,17 +145,13 @@ const Hero2 = () => {
           <h2
             className="font-display font-black text-neutral-900 dark:text-white leading-tight mb-6"
             style={{ fontSize: 'clamp(36px, 5vw, 68px)' }}
-          >
-            Custom Web{' '}
-            <span className="text-primary">Development.</span>
-            <br />
-            Built for Growth.
+          > <span className="text-primary">Build</span> sites that convert. <br/>Not just look pretty.
+           
           </h2>
 
           {/* Subtitle */}
           <p className="text-neutral-500 dark:text-neutral-400 text-base leading-relaxed max-w-sm mb-10">
-            Trusted by brands and agencies to deliver practical, effective,
-            business-focused web solutions.
+            Custom builds, performance optimization, and conversion-focused development. 200+ projects delivered since 2012.
           </p>
 
           {/* CTA */}
@@ -163,24 +159,24 @@ const Hero2 = () => {
             href="#contact"
             className="inline-flex items-center gap-2.5 bg-primary text-white text-sm font-bold px-8 py-3.5 rounded-full hover:bg-primary-light shadow-lg shadow-primary/30 hover:shadow-primary/50 transition-all duration-200 uppercase tracking-widest"
           >
-            Discuss Your Project <HiArrowRight size={15} />
+            Start a Project <HiArrowRight size={15} />
           </a>
 
           {/* Stats */}
           <div className="flex items-center gap-10 mt-14 pt-10 border-t border-neutral-200 dark:border-neutral-800">
             <div className="text-center">
               <p className="font-display text-3xl font-bold text-primary">200+</p>
-              <p className="text-xs text-neutral-400 mt-1 uppercase tracking-widest">Projects</p>
+              <p className="text-xs text-neutral-400 mt-1 uppercase tracking-widest">Projects Delivered</p>
+            </div>
+            <div className="w-px h-10 bg-neutral-200 dark:bg-neutral-800" />
+            <div className="text-center">
+              <p className="font-display text-3xl font-bold text-primary">12+</p>
+              <p className="text-xs text-neutral-400 mt-1 uppercase tracking-widest">Years Experience</p>
             </div>
             <div className="w-px h-10 bg-neutral-200 dark:bg-neutral-800" />
             <div className="text-center">
               <p className="font-display text-3xl font-bold text-primary">10+</p>
-              <p className="text-xs text-neutral-400 mt-1 uppercase tracking-widest">Years Exp</p>
-            </div>
-            <div className="w-px h-10 bg-neutral-200 dark:bg-neutral-800" />
-            <div className="text-center">
-              <p className="font-display text-3xl font-bold text-primary">100%</p>
-              <p className="text-xs text-neutral-400 mt-1 uppercase tracking-widest">Satisfaction</p>
+              <p className="text-xs text-neutral-400 mt-1 uppercase tracking-widest">Countries</p>
             </div>
           </div>
         </div>

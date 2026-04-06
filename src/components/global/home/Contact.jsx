@@ -144,16 +144,16 @@ const Contact = () => {
 
       <div className="max-w-7xl mx-auto px-6">
         {/* Large display heading */}
-        <div className="mb-20">
+        <div className="mb-10">
           <p ref={labelRef} className="text-xs font-bold uppercase tracking-widest text-neutral-500 dark:text-neutral-400 mb-6">
             Get In Touch
           </p>
           <h2 className="font-display font-black leading-none text-white">
-            <span ref={line1Ref} className="block text-neutral-900 dark:text-white" style={{ fontSize: 'clamp(56px, 10vw, 140px)' }}>
-              Get in
+            <span ref={line1Ref} className="block text-neutral-900 dark:text-white" style={{ fontSize: 'clamp(36px, 5vw, 68px)' }}>
+              Have a project 
             </span>
-            <span ref={line2Ref} className="block text-primary" style={{ fontSize: 'clamp(56px, 10vw, 140px)' }}>
-              touch.
+            <span ref={line2Ref} className="block text-primary" style={{ fontSize: 'clamp(36px, 5vw, 68px)' }}>
+              in mind?
             </span>
           </h2>
         </div>
@@ -162,9 +162,7 @@ const Contact = () => {
           {/* Left: contact info */}
           <div>
             <p className="text-neutral-500 dark:text-neutral-400 text-lg leading-relaxed mb-10">
-              I&apos;m available for freelance projects. Whether it&apos;s a new
-              WordPress build, Shopify store, or anything web-related — let&apos;s
-              talk!
+               Send me the details and I will get back to you within 24 hours.
             </p>
             <div ref={infoRef} className="flex flex-col gap-6">
               {contactInfo.map(({ Icon, label, value, href }) => (
