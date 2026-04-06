@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '../../lib/supabase'
-import { HiPlus, HiPencil, HiTrash, HiX } from 'react-icons/hi'
+import { HiPlus, HiPencil, HiTrash, HiX, HiChevronUp, HiChevronDown } from 'react-icons/hi'
 
 // ── Generic row modal ─────────────────────────────────────────────────────────
 const RowModal = ({ row, fields, title, onClose, onSaved, table }) => {
@@ -99,11 +99,12 @@ const TablePanel = ({ table, title, fields, displayCols }) => {
   const [rows, setRows] = useState([])
   const [loading, setLoading] = useState(true)
   const [modal, setModal] = useState(null)
+  const [moving, setMoving] = useState(null)
 
   const load = async () => {
     setLoading(true)
-    const { data } = await supabase.from(table).select('*').order('id', { ascending: true })
-    setRows(data || [])
+    const { data } = await supabase.from(table).select('*').order('display_order', { ascending: true })
+    setRows((data || []).map((r, i) => ({ ...r, display_order: i + 1 })))
     setLoading(false)
   }
 
@@ -119,6 +120,21 @@ const TablePanel = ({ table, title, fields, displayCols }) => {
     const v = row[col]
     if (Array.isArray(v)) return v.join(', ')
     return v ?? '—'
+  }
+
+  const moveRow = async (index, dir) => {
+    const j = index + dir
+    setMoving(index)
+    const updated = [...rows]
+    ;[updated[index], updated[j]] = [updated[j], updated[index]]
+    updated[index] = { ...updated[index], display_order: index + 1 }
+    updated[j] = { ...updated[j], display_order: j + 1 }
+    setRows(updated)
+    await Promise.all([
+      supabase.from(table).update({ display_order: index + 1 }).eq('id', updated[index].id),
+      supabase.from(table).update({ display_order: j + 1 }).eq('id', updated[j].id),
+    ])
+    setMoving(null)
   }
 
   return (
@@ -147,6 +163,7 @@ const TablePanel = ({ table, title, fields, displayCols }) => {
           <table className="w-full">
             <thead>
               <tr className="border-b border-neutral-800">
+                <th className="admin-th w-16">Order</th>
                 {displayCols.map(col => (
                   <th key={col} className="admin-th capitalize">{col.replace(/_/g, ' ')}</th>
                 ))}
@@ -154,33 +171,56 @@ const TablePanel = ({ table, title, fields, displayCols }) => {
               </tr>
             </thead>
             <tbody>
-              {rows.map((row, i) => (
-                <tr key={row.id} className="border-b border-neutral-800/50 hover:bg-neutral-800/30 transition-colors">
-                  {displayCols.map((col, ci) => (
-                    <td key={col} className={`admin-td ${ci === 0 ? 'text-white font-medium' : 'text-neutral-400'}`}>
-                      <span className="line-clamp-1">{displayValue(row, col)}</span>
+              {rows.map((row, index) => {
+                const isSaving = moving === index || moving === index - 1 || moving === index + 1
+                return (
+                  <tr key={row.id} className="border-b border-neutral-800/50 hover:bg-neutral-800/30 transition-colors">
+                    <td className="admin-td">
+                      <div className="flex flex-col gap-0.5">
+                        <button
+                          onClick={() => moveRow(index, -1)}
+                          disabled={index === 0 || isSaving}
+                          className="w-6 h-6 rounded flex items-center justify-center text-neutral-500 hover:text-white hover:bg-neutral-700 transition-colors disabled:opacity-25 disabled:cursor-not-allowed"
+                          title="Move up"
+                        >
+                          <HiChevronUp size={14} />
+                        </button>
+                        <button
+                          onClick={() => moveRow(index, 1)}
+                          disabled={index === rows.length - 1 || isSaving}
+                          className="w-6 h-6 rounded flex items-center justify-center text-neutral-500 hover:text-white hover:bg-neutral-700 transition-colors disabled:opacity-25 disabled:cursor-not-allowed"
+                          title="Move down"
+                        >
+                          <HiChevronDown size={14} />
+                        </button>
+                      </div>
                     </td>
-                  ))}
-                  <td className="admin-td">
-                    <div className="flex items-center gap-1">
-                      <button
-                        onClick={() => setModal(row)}
-                        className="w-8 h-8 rounded-lg flex items-center justify-center text-neutral-500 hover:text-white hover:bg-neutral-700 transition-colors"
-                        title="Edit"
-                      >
-                        <HiPencil size={14} />
-                      </button>
-                      <button
-                        onClick={() => deleteRow(row.id)}
-                        className="w-8 h-8 rounded-lg flex items-center justify-center text-neutral-500 hover:text-red-400 hover:bg-neutral-700 transition-colors"
-                        title="Delete"
-                      >
-                        <HiTrash size={14} />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
+                    {displayCols.map((col, ci) => (
+                      <td key={col} className={`admin-td ${ci === 0 ? 'text-white font-medium' : 'text-neutral-400'}`}>
+                        <span className="line-clamp-1">{displayValue(row, col)}</span>
+                      </td>
+                    ))}
+                    <td className="admin-td">
+                      <div className="flex items-center gap-1">
+                        <button
+                          onClick={() => setModal(row)}
+                          className="w-8 h-8 rounded-lg flex items-center justify-center text-neutral-500 hover:text-white hover:bg-neutral-700 transition-colors"
+                          title="Edit"
+                        >
+                          <HiPencil size={14} />
+                        </button>
+                        <button
+                          onClick={() => deleteRow(row.id)}
+                          className="w-8 h-8 rounded-lg flex items-center justify-center text-neutral-500 hover:text-red-400 hover:bg-neutral-700 transition-colors"
+                          title="Delete"
+                        >
+                          <HiTrash size={14} />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                )
+              })}
             </tbody>
           </table>
         )}

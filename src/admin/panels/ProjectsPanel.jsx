@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { supabase } from '../../lib/supabase'
-import { HiPlus, HiPencil, HiTrash, HiRefresh, HiCheck, HiX, HiExternalLink } from 'react-icons/hi'
+import { HiPlus, HiPencil, HiTrash, HiRefresh, HiCheck, HiX, HiExternalLink, HiChevronUp, HiChevronDown } from 'react-icons/hi'
 
 const EMPTY = { title: '', category: 'WordPress', url: '', description: '', tech_stack: '' }
 const CATEGORIES = ['WordPress', 'Shopify']
@@ -263,11 +263,12 @@ const ProjectsPanel = () => {
   const [loading, setLoading] = useState(true)
   const [modal, setModal] = useState(null) // null | 'add' | project obj
   const [regen, setRegen] = useState({})   // { [id]: { desktop, mobile } }
+  const [moving, setMoving] = useState(null) // index currently being saved
 
   const load = async () => {
     setLoading(true)
-    const { data } = await supabase.from('projects').select('*').order('created_at', { ascending: false })
-    setProjects(data || [])
+    const { data } = await supabase.from('projects').select('*').order('display_order', { ascending: true })
+    setProjects((data || []).map((p, i) => ({ ...p, display_order: i + 1 })))
     setLoading(false)
   }
 
@@ -284,6 +285,21 @@ const ProjectsPanel = () => {
     await generateScreenshots(project.id, project.url, (type, status, errorMsg) => {
       setRegen(prev => ({ ...prev, [project.id]: { ...prev[project.id], [type]: { status, errorMsg } } }))
     })
+  }
+
+  const moveProject = async (index, dir) => {
+    const j = index + dir
+    setMoving(index)
+    const updated = [...projects]
+    ;[updated[index], updated[j]] = [updated[j], updated[index]]
+    updated[index] = { ...updated[index], display_order: index + 1 }
+    updated[j] = { ...updated[j], display_order: j + 1 }
+    setProjects(updated)
+    await Promise.all([
+      supabase.from('projects').update({ display_order: index + 1 }).eq('id', updated[index].id),
+      supabase.from('projects').update({ display_order: j + 1 }).eq('id', updated[j].id),
+    ])
+    setMoving(null)
   }
 
   return (
@@ -312,6 +328,7 @@ const ProjectsPanel = () => {
           <table className="w-full">
             <thead>
               <tr className="border-b border-neutral-800">
+                <th className="admin-th w-16">Order</th>
                 <th className="admin-th">Title</th>
                 <th className="admin-th">Category</th>
                 <th className="admin-th">URL</th>
@@ -320,10 +337,31 @@ const ProjectsPanel = () => {
               </tr>
             </thead>
             <tbody>
-              {projects.map(p => {
+              {projects.map((p, index) => {
                 const rs = regen[p.id] || {}
+                const isSaving = moving === index || moving === index - 1 || moving === index + 1
                 return (
                   <tr key={p.id} className="border-b border-neutral-800/50 hover:bg-neutral-800/30 transition-colors">
+                    <td className="admin-td">
+                      <div className="flex flex-col gap-0.5">
+                        <button
+                          onClick={() => moveProject(index, -1)}
+                          disabled={index === 0 || isSaving}
+                          className="w-6 h-6 rounded flex items-center justify-center text-neutral-500 hover:text-white hover:bg-neutral-700 transition-colors disabled:opacity-25 disabled:cursor-not-allowed"
+                          title="Move up"
+                        >
+                          <HiChevronUp size={14} />
+                        </button>
+                        <button
+                          onClick={() => moveProject(index, 1)}
+                          disabled={index === projects.length - 1 || isSaving}
+                          className="w-6 h-6 rounded flex items-center justify-center text-neutral-500 hover:text-white hover:bg-neutral-700 transition-colors disabled:opacity-25 disabled:cursor-not-allowed"
+                          title="Move down"
+                        >
+                          <HiChevronDown size={14} />
+                        </button>
+                      </div>
+                    </td>
                     <td className="admin-td font-medium text-white">{p.title}</td>
                     <td className="admin-td">
                       <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-neutral-800 text-neutral-400">{p.category}</span>
