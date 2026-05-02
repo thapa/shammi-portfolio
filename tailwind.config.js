@@ -8,13 +8,17 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#5c51fe',
-        'primary-light': '#4a3fe0',
-        'primary-dark': '#0E0E0E',
+        /* Design system accent — cold teal (OKLCH mapped to hex fallback) */
+        accent: 'var(--ds-accent)',
+        surface: 'var(--ds-bg-surface)',
+        elevated: 'var(--ds-bg-elevated)',
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
-        display: ['"Playfair Display"', 'Georgia', 'serif'],
+        sans: ['"Space Grotesk"', '"Helvetica Neue"', 'Arial', 'sans-serif'],
+        display: ['"Michroma"', '"Space Grotesk"', 'sans-serif'],
+      },
+      borderColor: {
+        DEFAULT: 'var(--ds-border)',
       },
       animation: {
         marquee: 'marquee 30s linear infinite',

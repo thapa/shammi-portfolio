@@ -49,11 +49,11 @@ function Portfolio() {
       <Header isDark={dark} toggleTheme={toggleTheme} />
       <main>
         {/* <Hero /> */}
-        <Hero2 />        
+        <Hero2 />
         <About />
         <Services />
         <Process />
-        <TechPartners />               
+        <TechPartners />
         <Projects />
         <Contact />
       </main>

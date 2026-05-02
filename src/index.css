@@ -1,30 +1,294 @@
+/* ── Self-hosted Michroma (heading font) ── */
+@font-face {
+  font-family: 'Michroma';
+  src: url('/fonts/Michroma.woff2') format('woff2'),
+       url('/fonts/Michroma.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ── Design System Tokens (OKLCH) ── */
 @layer base {
+  :root {
+    /* Surface */
+    --ds-bg:          oklch(96% 0.006 220);
+    --ds-bg-surface:  oklch(91% 0.008 220);
+    --ds-bg-elevated: oklch(86% 0.009 220);
+    /* Text */
+    --ds-text-1:      oklch(18% 0.012 220);
+    --ds-text-2:      oklch(38% 0.012 220);
+    --ds-text-3:      oklch(50% 0.01 220);
+    /* Accent */
+    --ds-accent:      oklch(48% 0.145 195);
+    /* Border */
+    --ds-border:      oklch(78% 0.01 220);
+    /* Hero grid */
+    --hero-grid:      oklch(67% 0.012 220 / 0.2);
+    /* Easing */
+    --ease-expo:  cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .dark {
+    --ds-bg:          oklch(14% 0.005 220);
+    --ds-bg-surface:  oklch(17% 0.005 220);
+    --ds-bg-elevated: oklch(21% 0.005 220);
+    --ds-text-1:      oklch(88% 0.005 220);
+    --ds-text-2:      oklch(68% 0.005 220);
+    --ds-text-3:      oklch(55% 0.005 220);
+    --ds-accent:      oklch(70% 0.185 195);
+    --ds-border:      oklch(26% 0.005 220);
+    --hero-grid:      oklch(75% 0.01 220 / 0.08);
+  }
+
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
+
   body {
-    font-family: 'Inter', system-ui, sans-serif;
-    @apply bg-white dark:bg-[#0E0E0E] text-neutral-900 dark:text-white;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    font-family: 'Space Grotesk', 'Helvetica Neue', Arial, sans-serif;
+    background: var(--ds-bg);
+    color: var(--ds-text-1);
+    line-height: 1.6;
+    font-size: 1rem;
+    overflow-x: hidden;
+    font-optical-sizing: auto;
+    transition: background 240ms var(--ease-quart), color 240ms var(--ease-quart);
+  }
+
+  /* Focus styles — accent ring */
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid var(--ds-accent);
+    outline-offset: 3px;
+  }
+
+  /* ── Grain Texture Effect (from HTML prototype) ── */
+  .grain-bg {
+    position: relative;
+  }
+  .grain-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23g)'/%3E%3C/svg%3E");
+    background-size: 200px 200px;
+    opacity: 0.035;
+    mix-blend-mode: soft-light;
+  }
+  :root:not(.dark) .grain-bg::after {
+    opacity: 0.055;
+  }
+
+  /* ── Dot Matrix Effect (from HTML services section) ── */
+  .dot-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-image: radial-gradient(circle, var(--ds-accent) 1.5px, transparent 1.5px);
+    background-size: 26px 26px;
+    opacity: 0.18;
+  }
+
+  /* ── Liquid Glass Effect ── */
+  .liquid-glass {
+    background: color-mix(in srgb, var(--ds-text-1) 4%, transparent);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid color-mix(in srgb, var(--ds-text-1) 8%, transparent);
+    box-shadow: 
+      inset 0 1px 0 0 color-mix(in srgb, var(--ds-text-1) 4%, transparent),
+      0 8px 32px 0 rgba(0, 0, 0, 0.06);
+  }
+
+  /* ── Scrollbar Hide ── */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
   }
 }
 
 /* ── Admin panel utility classes ── */
 .admin-label {
-  @apply text-xs font-bold uppercase tracking-widest text-neutral-500 block mb-2;
+  @apply text-xs font-bold uppercase tracking-widest block mb-2;
+  color: var(--ds-text-3);
 }
 .admin-input {
-  @apply w-full bg-neutral-800 border border-neutral-700 rounded-xl px-4 py-2.5 text-sm text-white placeholder-neutral-600 focus:outline-none focus:border-primary transition-colors;
+  @apply w-full rounded-none px-4 py-2.5 text-sm placeholder-neutral-600 focus:outline-none transition-colors;
+  background: var(--ds-bg-surface);
+  border: 1px solid var(--ds-border);
+  color: var(--ds-text-1);
+}
+.admin-input:focus {
+  border-color: var(--ds-accent);
 }
 .admin-th {
-  @apply px-4 py-3 text-left text-xs font-bold uppercase tracking-widest text-neutral-600;
+  @apply px-4 py-3 text-left text-xs font-bold uppercase tracking-widest;
+  color: var(--ds-text-3);
 }
 .admin-td {
-  @apply px-4 py-3 text-sm text-neutral-400;
+  @apply px-4 py-3 text-sm;
+  color: var(--ds-text-2);
+}
+
+/* ── Button: Primary CTA ── */
+@property --outline-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes button-outline-spin {
+  to { --outline-angle: 360deg; }
+}
+
+@layer components {
+  .btn-primary {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-family: 'Michroma', 'Hanken Grotesk', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ds-bg);
+    background: var(--ds-accent);
+    padding: 14px 28px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 200ms var(--ease-quart), opacity 150ms;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+  }
+
+  .btn-primary:active {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .btn-primary::after {
+    content: '';
+    position: absolute;
+    inset: -5px;
+    padding: 1px;
+    opacity: 0;
+    pointer-events: none;
+    background: conic-gradient(from var(--outline-angle), transparent 0 72%, var(--ds-accent) 78% 100%);
+    -webkit-mask: linear-gradient(var(--ds-bg) 0 0) content-box, linear-gradient(var(--ds-bg) 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(var(--ds-bg) 0 0) content-box, linear-gradient(var(--ds-bg) 0 0);
+    mask-composite: exclude;
+    transition: opacity 160ms var(--ease-quart);
+  }
+
+  .btn-primary:hover::after,
+  .btn-primary:focus-visible::after {
+    opacity: 1;
+    animation: button-outline-spin 920ms linear infinite;
+  }
+
+  /* Section label — consistent across all sections */
+  .section-label {
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ds-accent);
+  }
+
+  /* Section heading */
+  .section-heading {
+    font-family: 'Michroma', 'Space Grotesk', sans-serif;
+    font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--ds-text-1);
+  }
+
+  /* Standard body text styles */
+  .body-text {
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    color: var(--ds-text-2);
+    max-width: 65ch;
+    text-wrap: pretty;
+  }
+
+  .lead-text {
+    font-size: clamp(1rem, 1.6vw, 1.125rem);
+    line-height: 1.7;
+    color: var(--ds-text-2);
+    max-width: 56ch;
+    text-wrap: pretty;
+  }
+
+  /* Form inputs */
+  .form-input {
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-size: 0.9375rem;
+    color: var(--ds-text-1);
+    background: var(--ds-bg-surface);
+    border: 1px solid var(--ds-border);
+    padding: 13px 16px;
+    outline: none;
+    transition: border-color 200ms;
+    width: 100%;
+    -webkit-appearance: none;
+    border-radius: 0;
+  }
+  .form-input:focus { border-color: var(--ds-accent); }
+  .form-input::placeholder { color: var(--ds-text-3); }
+}
+
+/* ── Hero: ascending metrics ── */
+.hero-metric {
+  position: absolute;
+  bottom: -2.5em;
+  left: var(--mx, 10%);
+  font-family: 'Hanken Grotesk', sans-serif;
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ds-accent);
+  opacity: 0.17;
+  animation: hero-ascend 14s linear var(--md, 0s) infinite;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  pointer-events: none;
+}
+@keyframes hero-ascend {
+  from { transform: translateY(0); }
+  to   { transform: translateY(calc(-100vh - 60px)); }
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
 }
 
 /* Pause all animations for users who prefer reduced motion */

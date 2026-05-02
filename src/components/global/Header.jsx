@@ -1,26 +1,41 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { HiMenu, HiX, HiSun, HiMoon } from 'react-icons/hi'
 
 const navLinks = [
-  { label: 'Home', href: '#home' },
   { label: 'About', href: '#about' },
   { label: 'Services', href: '#services' },
-  { label: 'Projects', href: '#projects' },
+  { label: 'Work', href: '#projects' },
   { label: 'Contact', href: '#contact' },
 ]
 
 const Header = ({ isDark, toggleTheme }) => {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 dark:bg-[#0E0E0E]/90 backdrop-blur-md border-b border-neutral-200/60 dark:border-neutral-800/60 transition-colors duration-300">
-      <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+    <header
+      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+      style={{
+        background: scrolled ? 'var(--ds-bg)' : 'transparent',
+        opacity: scrolled ? 0.96 : 1,
+        borderBottom: scrolled ? '1px solid var(--ds-border)' : '1px solid transparent',
+        backdropFilter: scrolled ? 'blur(12px)' : 'none',
+      }}
+    >
+      <div className="max-w-[1200px] mx-auto px-6 md:px-10 flex items-center justify-between" style={{ height: '76px' }}>
         {/* Logo */}
         <a
           href="#home"
-          className="font-display text-xl font-bold text-neutral-900 dark:text-white tracking-tight"
+          className="font-display text-xs tracking-[0.12em] uppercase"
+          style={{ color: 'var(--ds-text-1)' }}
         >
-          Shammi.
+          Shammi Thapa
         </a>
 
         {/* Desktop Nav */}
@@ -29,7 +44,10 @@ const Header = ({ isDark, toggleTheme }) => {
             <a
               key={link.href}
               href={link.href}
-              className="text-sm text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors"
+              className="font-display text-[0.75rem] tracking-[0.04em] transition-colors duration-150"
+              style={{ color: 'var(--ds-text-3)' }}
+              onMouseEnter={(e) => e.target.style.color = 'var(--ds-text-1)'}
+              onMouseLeave={(e) => e.target.style.color = 'var(--ds-text-3)'}
             >
               {link.label}
             </a>
@@ -40,19 +58,25 @@ const Header = ({ isDark, toggleTheme }) => {
         <div className="flex items-center gap-3">
           <button
             onClick={toggleTheme}
-            className="w-11 h-11 rounded-full border border-neutral-200 dark:border-neutral-700 flex items-center justify-center text-neutral-500 dark:text-neutral-400 hover:border-neutral-400 dark:hover:border-neutral-500 transition-colors"
+            className="w-10 h-10 flex items-center justify-center transition-colors duration-150"
+            style={{
+              border: '1px solid var(--ds-border)',
+              color: 'var(--ds-text-3)',
+              background: 'transparent',
+            }}
             aria-label="Toggle theme"
           >
-            {isDark ? <HiSun size={16} /> : <HiMoon size={16} />}
+            {isDark ? <HiSun size={15} /> : <HiMoon size={15} />}
           </button>
           <a
             href="#contact"
-            className="hidden md:inline-flex bg-primary text-white text-sm font-bold px-5 py-2.5 rounded-full hover:bg-primary-light transition-colors"
+            className="hidden md:inline-flex btn-primary"
           >
             Hire Me
           </a>
           <button
-            className="md:hidden text-neutral-900 dark:text-white"
+            className="md:hidden"
+            style={{ color: 'var(--ds-text-1)' }}
             onClick={() => setMenuOpen((o) => !o)}
             aria-label="Toggle menu"
           >
@@ -63,12 +87,19 @@ const Header = ({ isDark, toggleTheme }) => {
 
       {/* Mobile menu */}
       {menuOpen && (
-        <div className="md:hidden bg-white dark:bg-[#0E0E0E] border-t border-neutral-200 dark:border-neutral-800 px-6 py-6 flex flex-col gap-5">
+        <div
+          className="md:hidden px-6 py-6 flex flex-col gap-5"
+          style={{
+            background: 'var(--ds-bg)',
+            borderTop: '1px solid var(--ds-border)',
+          }}
+        >
           {navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="text-sm font-medium text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white transition-colors"
+              className="text-sm font-medium transition-colors"
+              style={{ color: 'var(--ds-text-2)' }}
               onClick={() => setMenuOpen(false)}
             >
               {link.label}
@@ -76,7 +107,7 @@ const Header = ({ isDark, toggleTheme }) => {
           ))}
           <a
             href="#contact"
-            className="bg-primary text-white text-sm font-bold px-5 py-2.5 rounded-full text-center hover:bg-primary-light transition-colors"
+            className="btn-primary w-full text-center"
             onClick={() => setMenuOpen(false)}
           >
             Hire Me

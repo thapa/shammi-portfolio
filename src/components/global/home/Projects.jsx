@@ -9,14 +9,12 @@ const tabs = ['All', 'WordPress', 'Shopify']
 
 // ─── Screenshot image with loading + fallback ──────────────────────────────
 const ScreenshotImage = ({ src, loading, error, fallbackTitle, className = '', objectPosition = 'top' }) => (
-  <div className={`relative overflow-hidden bg-neutral-100 dark:bg-neutral-800 ${className}`}>
-    {/* Neutral fallback — always underneath */}
-    <div className="absolute inset-0 bg-neutral-200 dark:bg-neutral-800 flex items-end p-4">
-      <span className="text-neutral-500 dark:text-neutral-400 font-display font-bold text-2xl leading-none select-none">
+  <div className={`relative overflow-hidden ${className}`} style={{ background: 'var(--ds-bg-elevated)' }}>
+    <div className="absolute inset-0 flex items-end p-4">
+      <span className="font-display text-2xl leading-none select-none" style={{ color: 'var(--ds-text-3)', opacity: 0.3 }}>
         {fallbackTitle}
       </span>
     </div>
-    {/* Screenshot fades in once loaded */}
     {!error && (
       <img
         src={src ?? undefined}
@@ -26,9 +24,8 @@ const ScreenshotImage = ({ src, loading, error, fallbackTitle, className = '', o
         style={{ objectPosition }}
       />
     )}
-    {/* Shimmer while loading */}
     {loading && (
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-pulse" />
+      <div className="absolute inset-0 animate-pulse" style={{ background: 'var(--ds-bg-elevated)' }} />
     )}
   </div>
 )
@@ -43,20 +40,17 @@ const ProjectModal = ({ project: p, onClose }) => {
   const [mobileLoading, setMobileLoading] = useState(true)
   const [mobileError, setMobileError] = useState(false)
 
-  // Close on Escape
   useEffect(() => {
     const handler = (e) => { if (e.key === 'Escape') onClose() }
     window.addEventListener('keydown', handler)
     return () => window.removeEventListener('keydown', handler)
   }, [onClose])
 
-  // Lock body scroll
   useEffect(() => {
     document.body.style.overflow = 'hidden'
     return () => { document.body.style.overflow = '' }
   }, [])
 
-  // Fetch desktop screenshot
   useEffect(() => {
     let cancelled = false
     getOrFetchScreenshot(p)
@@ -65,7 +59,6 @@ const ProjectModal = ({ project: p, onClose }) => {
     return () => { cancelled = true }
   }, [p.id])
 
-  // Fetch mobile screenshot
   useEffect(() => {
     let cancelled = false
     getOrFetchMobileScreenshot(p)
@@ -76,26 +69,35 @@ const ProjectModal = ({ project: p, onClose }) => {
 
   return createPortal(
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8 bg-black/75 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8"
+      style={{ background: 'oklch(9% 0.008 220 / 0.8)', backdropFilter: 'blur(4px)' }}
       onClick={onClose}
     >
       <div
-        className="bg-white dark:bg-neutral-900 rounded-2xl w-full max-w-5xl max-h-[90vh] overflow-y-auto shadow-2xl"
+        className="w-full max-w-5xl max-h-[90vh] overflow-y-auto"
+        style={{
+          background: 'var(--ds-bg-surface)',
+          border: '1px solid var(--ds-border)',
+        }}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-start justify-between gap-4 p-6 md:p-8 border-b border-neutral-100 dark:border-neutral-800">
+        <div className="flex items-start justify-between gap-4 p-6 md:p-8" style={{ borderBottom: '1px solid var(--ds-border)' }}>
           <div>
-            <span className="inline-block text-[10px] font-bold uppercase tracking-widest bg-primary/10 text-primary border border-primary/20 px-2.5 py-1 rounded-full mb-3">
+            <span
+              className="inline-block text-[10px] font-medium uppercase tracking-widest px-2.5 py-1 mb-3"
+              style={{ color: 'var(--ds-accent)', border: '1px solid var(--ds-border)' }}
+            >
               {p.category}
             </span>
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white leading-tight">
+            <h2 className="section-heading">
               {p.title}
             </h2>
           </div>
           <button
             onClick={onClose}
-            className="w-9 h-9 rounded-full border border-neutral-200 dark:border-neutral-700 flex items-center justify-center text-neutral-500 hover:border-neutral-400 dark:hover:border-neutral-500 transition-colors flex-shrink-0 mt-1"
+            className="w-9 h-9 flex items-center justify-center flex-shrink-0 mt-1 transition-colors"
+            style={{ border: '1px solid var(--ds-border)', color: 'var(--ds-text-3)' }}
             aria-label="Close"
           >
             <HiX size={16} />
@@ -104,22 +106,19 @@ const ProjectModal = ({ project: p, onClose }) => {
 
         {/* Body */}
         <div className="p-6 md:p-8 flex flex-col gap-8">
-          {/* Description */}
-          <p className="text-neutral-600 dark:text-neutral-400 text-base leading-relaxed">
+          <p className="body-text">
             {p.description}
           </p>
 
-          {/* Tech Stack */}
           {p.tech_stack?.length > 0 && (
             <div>
-              <p className="text-xs font-bold uppercase tracking-widest text-neutral-500 dark:text-neutral-400 mb-3">
-                Tech Stack
-              </p>
+              <p className="section-label mb-3">Tech Stack</p>
               <div className="flex flex-wrap gap-2">
                 {p.tech_stack.map((tech) => (
                   <span
                     key={tech}
-                    className="border border-neutral-200 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 text-sm font-medium px-3 py-1.5 rounded-full"
+                    className="text-sm font-medium px-3 py-1.5"
+                    style={{ border: '1px solid var(--ds-border)', color: 'var(--ds-text-2)' }}
                   >
                     {tech}
                   </span>
@@ -128,38 +127,29 @@ const ProjectModal = ({ project: p, onClose }) => {
             </div>
           )}
 
-          {/* Screenshots */}
           <div>
-            <p className="text-xs font-bold uppercase tracking-widest text-neutral-500 dark:text-neutral-400 mb-4">
-              Screenshots
-            </p>
+            <p className="section-label mb-4">Screenshots</p>
             <div className="grid grid-cols-1 md:grid-cols-[1fr,200px] gap-4 items-start">
-              {/* Desktop */}
               <div>
-                <p className="text-xs text-neutral-500 dark:text-neutral-400 mb-2 font-medium">Desktop</p>
+                <p className="text-xs font-medium mb-2" style={{ color: 'var(--ds-text-3)' }}>Desktop</p>
                 <ScreenshotImage
                   src={desktopSrc}
                   loading={desktopLoading}
                   error={desktopError}
                   fallbackTitle={p.title}
-                  className="w-full aspect-video rounded-xl border border-neutral-100 dark:border-neutral-800"
+                  className="w-full aspect-video"
                   objectPosition="top"
                 />
               </div>
-              {/* Mobile */}
               <div>
-                <p className="text-xs text-neutral-500 dark:text-neutral-400 mb-2 font-medium">Mobile</p>
+                <p className="text-xs font-medium mb-2" style={{ color: 'var(--ds-text-3)' }}>Mobile</p>
                 <div className="relative mx-auto w-[140px] md:w-full">
-                  {/* Phone frame */}
-                  <div className="absolute inset-0 rounded-[2rem] border-[6px] border-neutral-900 dark:border-neutral-700 z-10 pointer-events-none shadow-xl" />
-                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-16 h-4 bg-neutral-900 dark:bg-neutral-700 rounded-b-xl z-20 pointer-events-none" />
                   <ScreenshotImage
                     src={mobileSrc}
                     loading={mobileLoading}
                     error={mobileError}
-            
                     fallbackTitle=""
-                    className="rounded-[1.6rem] overflow-hidden aspect-[9/19]"
+                    className="overflow-hidden aspect-[9/19]"
                     objectPosition="top"
                   />
                 </div>
@@ -167,13 +157,12 @@ const ProjectModal = ({ project: p, onClose }) => {
             </div>
           </div>
 
-          {/* Footer action */}
-          <div className="pt-2 border-t border-neutral-100 dark:border-neutral-800">
+          <div className="pt-2" style={{ borderTop: '1px solid var(--ds-border)' }}>
             <a
               href={p.url}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 bg-primary text-white text-sm font-bold px-6 py-3 rounded-full hover:bg-primary-light transition-colors"
+              className="btn-primary"
             >
               Visit Live Site <HiExternalLink size={15} />
             </a>
@@ -208,60 +197,74 @@ const ProjectCard = ({ project: p, onClick }) => {
     <button
       onClick={onClick}
       data-cursor="view"
-      className="group relative text-left rounded-2xl overflow-hidden bg-white dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800 hover:border-primary/30 dark:hover:border-primary/30 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/8 dark:hover:shadow-primary/10 transition-all duration-300 ease-out cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-primary w-full"
+      className="group relative text-left overflow-hidden transition-all duration-300 ease-out cursor-pointer focus:outline-none w-full"
+      style={{
+        background: 'var(--ds-bg-surface)',
+        border: '1px solid var(--ds-border)',
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.borderColor = 'var(--ds-accent)'
+        e.currentTarget.style.transform = 'translateY(-3px)'
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.borderColor = 'var(--ds-border)'
+        e.currentTarget.style.transform = 'translateY(0)'
+      }}
     >
-      {/* Corner accent squares — appear on hover (inspired by 21st.dev dark grid) */}
-      <span className="pointer-events-none absolute -left-px -top-px w-2.5 h-2.5 bg-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20" />
-      <span className="pointer-events-none absolute -right-px -top-px w-2.5 h-2.5 bg-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20" />
-      <span className="pointer-events-none absolute -left-px -bottom-px w-2.5 h-2.5 bg-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20" />
-      <span className="pointer-events-none absolute -right-px -bottom-px w-2.5 h-2.5 bg-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20" />
-
-      {/* Image area with zoom + overlay */}
-      <div className="relative aspect-[4/3] overflow-hidden bg-neutral-100 dark:bg-neutral-800">
-        {/* Fallback title */}
+      {/* Image area */}
+      <div className="relative aspect-[4/3] overflow-hidden" style={{ background: 'var(--ds-bg-elevated)' }}>
         <div className="absolute inset-0 flex items-end p-4 z-0">
-          <span className="text-neutral-400 dark:text-neutral-600 font-display font-bold text-2xl leading-none select-none">
+          <span className="font-display text-2xl leading-none select-none" style={{ color: 'var(--ds-text-3)', opacity: 0.2 }}>
             {p.title}
           </span>
         </div>
 
-        {/* Screenshot with zoom */}
         {!imgError && (
           <img
             src={imgSrc ?? undefined}
             alt={p.title}
             loading="lazy"
-            className={`absolute inset-0 w-full h-full object-cover object-center transition-all duration-500 group-hover:scale-105 ${imgSrc && !imgLoading ? 'opacity-100' : 'opacity-0'}`}
+            className={`absolute inset-0 w-full h-full object-cover object-center transition-all duration-500 group-hover:scale-[1.03] ${imgSrc && !imgLoading ? 'opacity-100' : 'opacity-0'}`}
           />
         )}
 
-        {/* Shimmer */}
         {imgLoading && (
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-pulse" />
+          <div className="absolute inset-0 animate-pulse" style={{ background: 'var(--ds-bg-elevated)' }} />
         )}
 
-        {/* Bottom gradient overlay */}
-        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/60 to-transparent z-10 pointer-events-none" />
-
-        {/* Category badge — on top of image */}
-        <span className="absolute bottom-3 left-3 z-10 text-[10px] font-bold uppercase tracking-widest bg-white/15 backdrop-blur-sm text-white border border-white/25 px-2.5 py-1 rounded-full">
-          {p.category}
-        </span>
+        {/* Overlay on hover */}
+        <div
+          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-280 flex flex-col justify-end p-5"
+          style={{ background: 'oklch(9% 0.008 220 / 0.78)' }}
+        >
+          <span className="text-[0.6875rem] font-medium tracking-widest uppercase mb-1.5" style={{ color: 'var(--ds-accent)' }}>
+            {p.category}
+          </span>
+          <span className="text-base" style={{ color: 'oklch(93% 0.005 220)' }}>
+            {p.title}
+          </span>
+        </div>
       </div>
 
       {/* Info */}
       <div className="p-5 flex flex-col gap-3">
         <div>
-          <h3 className="font-semibold text-neutral-900 dark:text-white text-base leading-snug group-hover:text-primary transition-colors duration-200">
+          <h3
+            className="font-medium text-base leading-snug transition-colors duration-200"
+            style={{ color: 'var(--ds-text-1)' }}
+          >
             {p.title}
           </h3>
-          <p className="text-xs text-neutral-500 dark:text-neutral-400 line-clamp-2 leading-relaxed mt-1.5">
+          <p className="text-xs line-clamp-2 leading-relaxed mt-1.5" style={{ color: 'var(--ds-text-3)' }}>
             {p.description}
           </p>
         </div>
 
         {/* CTA row */}
-        <div className="flex items-center gap-1 text-xs font-semibold text-primary opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0 transition-all duration-200">
+        <div
+          className="flex items-center gap-1 text-xs font-medium opacity-0 group-hover:opacity-100 transition-all duration-200"
+          style={{ color: 'var(--ds-accent)' }}
+        >
           View Project <HiArrowRight size={12} />
         </div>
       </div>
@@ -271,14 +274,14 @@ const ProjectCard = ({ project: p, onClick }) => {
 
 // ─── Skeletons ─────────────────────────────────────────────────────────────
 const ProjectSkeleton = () => (
-  <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+  <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-3">
     {Array.from({ length: 6 }).map((_, i) => (
-      <div key={i} className="rounded-2xl overflow-hidden bg-white dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800">
-        <div className="aspect-[4/3] bg-neutral-200 dark:bg-neutral-800 animate-pulse" />
+      <div key={i} className="overflow-hidden" style={{ border: '1px solid var(--ds-border)', background: 'var(--ds-bg-surface)' }}>
+        <div className="aspect-[4/3] animate-pulse" style={{ background: 'var(--ds-bg-elevated)' }} />
         <div className="p-5">
-          <div className="h-4 w-36 bg-neutral-200 dark:bg-neutral-800 rounded-lg animate-pulse mb-2" />
-          <div className="h-3 w-full bg-neutral-100 dark:bg-neutral-800 rounded animate-pulse mb-1" />
-          <div className="h-3 w-3/4 bg-neutral-100 dark:bg-neutral-800 rounded animate-pulse" />
+          <div className="h-4 w-36 animate-pulse mb-2" style={{ background: 'var(--ds-bg-elevated)' }} />
+          <div className="h-3 w-full animate-pulse mb-1" style={{ background: 'var(--ds-bg-elevated)' }} />
+          <div className="h-3 w-3/4 animate-pulse" style={{ background: 'var(--ds-bg-elevated)' }} />
         </div>
       </div>
     ))}
@@ -301,7 +304,6 @@ const Projects = () => {
 
   const handleClose = useCallback(() => setSelected(null), [])
 
-  // Heading + tabs
   useEffect(() => {
     const ctx = gsap.context(() => {
       const st = { start: 'top 82%', once: true }
@@ -322,7 +324,6 @@ const Projects = () => {
     return () => ctx.revert()
   }, [])
 
-  // Cards — animate when data is ready (grid already in view)
   useEffect(() => {
     if (loading || !gridRef.current) return
 
@@ -342,50 +343,33 @@ const Projects = () => {
     <section
       ref={sectionRef}
       id="projects"
-      className="relative overflow-hidden bg-white dark:bg-[#0E0E0E] py-24 md:py-32 transition-colors duration-300"
+      className="relative overflow-hidden py-24 md:py-32 transition-colors duration-300"
+      style={{ background: 'var(--ds-bg)', borderTop: '1px solid var(--ds-border)' }}
     >
-      {/* BG decorations */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div
-          className="absolute inset-0 opacity-[0.025] dark:opacity-[0.035]"
-          style={{
-            backgroundImage: 'linear-gradient(#5c51fe 1px, transparent 1px), linear-gradient(90deg, #5c51fe 1px, transparent 1px)',
-            backgroundSize: '72px 72px',
-          }}
-        />
-      </div>
-
-      {/* Ambient glow behind heading */}
-      <div className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-primary/5 blur-3xl rounded-full" />
-
-      <div className="max-w-7xl mx-auto px-6 relative">
+      <div className="max-w-[1200px] mx-auto px-6 md:px-10 relative">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-14">
           <div>
-            <p ref={labelRef} className="text-xs font-bold uppercase tracking-widest text-primary mb-4">
+            <p ref={labelRef} className="section-label mb-4" style={{ color: 'var(--ds-accent)' }}>
               Portfolio
             </p>
-            <h2
-              ref={headingRef}
-              className="font-display text-5xl md:text-6xl font-bold text-neutral-900 dark:text-white leading-tight"
-            >
-              Showcasing My Most
-              <br />
-              Recent Projects
+            <h2 ref={headingRef} className="section-heading">
+              Selected work
             </h2>
           </div>
 
-          {/* Filter tab group */}
-          <div className="flex flex-shrink-0 bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-full p-1 gap-1">
+          {/* Filter tabs — no rounded pills, flat, architectural */}
+          <div className="flex flex-shrink-0 gap-0" style={{ border: '1px solid var(--ds-border)' }}>
             {tabs.map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActive(tab)}
                 aria-pressed={active === tab}
-                className={`px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200 cursor-pointer ${
-                  active === tab
-                    ? 'bg-primary text-white shadow-md shadow-primary/30'
-                    : 'text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white'
-                }`}
+                className="px-5 py-2.5 text-sm font-medium transition-all duration-200 cursor-pointer"
+                style={{
+                  background: active === tab ? 'var(--ds-accent)' : 'transparent',
+                  color: active === tab ? 'var(--ds-bg)' : 'var(--ds-text-3)',
+                  borderRight: tab !== tabs[tabs.length - 1] ? '1px solid var(--ds-border)' : 'none',
+                }}
               >
                 {tab}
               </button>
@@ -397,10 +381,10 @@ const Projects = () => {
           <ProjectSkeleton />
         ) : filtered.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-24 text-center">
-            <p className="text-neutral-500 dark:text-neutral-500 text-sm">No projects in this category yet.</p>
+            <p className="text-sm" style={{ color: 'var(--ds-text-3)' }}>No projects in this category yet.</p>
           </div>
         ) : (
-          <div ref={gridRef} className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+          <div ref={gridRef} className="grid sm:grid-cols-2 md:grid-cols-3 gap-3">
             {filtered.map((p) => (
               <ProjectCard
                 key={p.id}

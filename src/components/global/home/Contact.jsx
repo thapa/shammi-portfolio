@@ -11,11 +11,9 @@ const contactInfo = [
 ]
 
 const socials = [
-  { Icon: FaGithub,    label: 'GitHub',    href: 'https://github.com/shammithapa' },
-  { Icon: FaLinkedin,  label: 'LinkedIn',  href: 'https://linkedin.com/in/shammithapa' },
-  { Icon: FaXTwitter,  label: 'X',         href: 'https://x.com/shammithapa' },
-  { Icon: FaInstagram, label: 'Instagram', href: 'https://instagram.com/shammithapa' },
-  { Icon: FaYoutube,   label: 'YouTube',   href: 'https://youtube.com/@shammithapa' },
+  { label: 'LinkedIn', href: 'https://linkedin.com/in/shammithapa' },
+  { label: 'GitHub', href: 'https://github.com/shammithapa' },
+  { label: 'Twitter', href: 'https://x.com/shammithapa' },
 ]
 
 const budgetOptions = [
@@ -35,12 +33,6 @@ const projectTypeOptions = [
   'Other',
 ]
 
-const inputClass =
-  'w-full bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 rounded-xl px-4 py-3 text-sm text-neutral-900 dark:text-white placeholder-neutral-400 dark:placeholder-neutral-600 focus:outline-none focus:border-primary transition-colors'
-
-const labelClass =
-  'text-xs font-bold uppercase tracking-widest text-neutral-600 dark:text-neutral-400 block mb-2'
-
 const Contact = () => {
   const [form, setForm] = useState({
     name: '',
@@ -49,13 +41,12 @@ const Contact = () => {
     budget: '',
     projectType: '',
   })
-  const [status, setStatus] = useState('idle') // idle | sending | sent | error
+  const [status, setStatus] = useState('idle')
   const [errorMsg, setErrorMsg] = useState('')
 
   const sectionRef = useRef(null)
   const labelRef = useRef(null)
-  const line1Ref = useRef(null)
-  const line2Ref = useRef(null)
+  const headingRef = useRef(null)
   const infoRef = useRef(null)
   const formRef = useRef(null)
 
@@ -68,17 +59,12 @@ const Contact = () => {
         scrollTrigger: { trigger: labelRef.current, ...st },
       })
 
-      // Big display chars
-      const split1 = new SplitText(line1Ref.current, { type: 'chars' })
-      const split2 = new SplitText(line2Ref.current, { type: 'chars' })
-
-      const tl = gsap.timeline({
-        scrollTrigger: { trigger: line1Ref.current, ...st },
+      const split = new SplitText(headingRef.current, { type: 'words' })
+      gsap.from(split.words, {
+        y: 48, opacity: 0, duration: 0.8, stagger: 0.06, ease: 'power3.out',
+        scrollTrigger: { trigger: headingRef.current, ...st },
       })
-      tl.from(split1.chars, { y: 80, opacity: 0, duration: 0.8, stagger: 0.025, ease: 'power3.out' })
-        .from(split2.chars, { y: 80, opacity: 0, duration: 0.8, stagger: 0.025, ease: 'power3.out' }, '-=0.55')
 
-      // Contact info items
       const infoItems = infoRef.current?.children
       if (infoItems?.length) {
         gsap.from(infoItems, {
@@ -87,7 +73,6 @@ const Contact = () => {
         })
       }
 
-      // Form panel
       gsap.from(formRef.current, {
         y: 40, opacity: 0, duration: 0.8, ease: 'power3.out',
         scrollTrigger: { trigger: formRef.current, start: 'top 85%', once: true },
@@ -130,73 +115,79 @@ const Contact = () => {
   }
 
   return (
-    <section ref={sectionRef} id="contact" className="relative overflow-hidden bg-white dark:bg-[#0E0E0E] py-24 md:py-32 transition-colors duration-300">
-      {/* BG decorations */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div
-          className="absolute inset-0 opacity-[0.025] dark:opacity-[0.035]"
-          style={{
-            backgroundImage: 'linear-gradient(#5c51fe 1px, transparent 1px), linear-gradient(90deg, #5c51fe 1px, transparent 1px)',
-            backgroundSize: '72px 72px',
-          }}
-        />
-      </div>
-
-      <div className="max-w-7xl mx-auto px-6">
-        {/* Large display heading */}
+    <section
+      ref={sectionRef}
+      id="contact"
+      className="relative overflow-hidden py-24 md:py-32 transition-colors duration-300"
+      style={{ background: 'var(--ds-bg)', borderTop: '1px solid var(--ds-border)' }}
+    >
+      <div className="max-w-[1200px] mx-auto px-6 md:px-10">
+        {/* Heading */}
         <div className="mb-10">
-          <p ref={labelRef} className="text-xs font-bold uppercase tracking-widest text-neutral-500 dark:text-neutral-400 mb-6">
-            Get In Touch
+          <p ref={labelRef} className="section-label mb-6">
+            Contact
           </p>
-          <h2 className="font-display font-black leading-none text-white">
-            <span ref={line1Ref} className="block text-neutral-900 dark:text-white" style={{ fontSize: 'clamp(36px, 5vw, 68px)' }}>
-              Have a project 
-            </span>
-            <span ref={line2Ref} className="block text-primary" style={{ fontSize: 'clamp(36px, 5vw, 68px)' }}>
-              in mind?
-            </span>
+          <h2
+            ref={headingRef}
+            className="section-heading mb-4"
+          >
+            Have a project in mind?
           </h2>
+          <p
+            className="body-text mb-10"
+          >
+            Currently taking on new projects. I reply within 24 hours.
+          </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-16 items-start">
+        <div className="grid lg:grid-cols-[1fr,460px] gap-16 items-start">
           {/* Left: contact info */}
           <div>
-            <p className="text-neutral-500 dark:text-neutral-400 text-lg leading-relaxed mb-10">
-               Send me the details and I will get back to you within 24 hours.
-            </p>
+
             <div ref={infoRef} className="flex flex-col gap-6">
               {contactInfo.map(({ Icon, label, value, href }) => (
                 <div key={label} className="flex items-center gap-4">
-                  <div className="w-11 h-11 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center flex-shrink-0">
-                    <Icon size={16} className="text-primary" />
+                  <div
+                    className="w-10 h-10 flex items-center justify-center flex-shrink-0"
+                    style={{ border: '1px solid var(--ds-border)', color: 'var(--ds-accent)' }}
+                  >
+                    <Icon size={16} />
                   </div>
                   <div>
-                    <p className="text-xs text-neutral-500 dark:text-neutral-400 uppercase tracking-widest font-semibold mb-0.5">
+                    <p className="text-[0.6875rem] uppercase tracking-widest font-medium mb-0.5" style={{ color: 'var(--ds-text-3)' }}>
                       {label}
                     </p>
                     {href ? (
-                      <a href={href} className="text-neutral-900 dark:text-white hover:text-primary transition-colors font-medium">
+                      <a
+                        href={href}
+                        className="font-medium transition-colors duration-150"
+                        style={{ color: 'var(--ds-text-1)' }}
+                        onMouseEnter={(e) => e.target.style.color = 'var(--ds-accent)'}
+                        onMouseLeave={(e) => e.target.style.color = 'var(--ds-text-1)'}
+                      >
                         {value}
                       </a>
                     ) : (
-                      <p className="text-neutral-900 dark:text-white font-medium">{value}</p>
+                      <p className="font-medium" style={{ color: 'var(--ds-text-1)' }}>{value}</p>
                     )}
                   </div>
                 </div>
               ))}
 
-              {/* Social icons */}
-              <div className="flex items-center gap-3 pt-2">
-                {socials.map(({ Icon, label, href }) => (
+              {/* Social links — text only, no icons (one-accent purity) */}
+              <div className="flex gap-6 pt-4" style={{ borderTop: '1px solid var(--ds-border)' }}>
+                {socials.map(({ label, href }) => (
                   <a
                     key={label}
                     href={href}
                     target="_blank"
                     rel="noreferrer"
-                    aria-label={label}
-                    className="w-11 h-11 rounded-full border border-neutral-200 dark:border-neutral-800 flex items-center justify-center text-neutral-400 hover:bg-primary/10 hover:border-primary/40 hover:text-primary transition-all duration-200"
+                    className="text-[0.8125rem] tracking-[0.04em] transition-colors duration-150"
+                    style={{ color: 'var(--ds-text-3)' }}
+                    onMouseEnter={(e) => e.target.style.color = 'var(--ds-text-1)'}
+                    onMouseLeave={(e) => e.target.style.color = 'var(--ds-text-3)'}
                   >
-                    <Icon size={16} />
+                    {label}
                   </a>
                 ))}
               </div>
@@ -204,25 +195,37 @@ const Contact = () => {
           </div>
 
           {/* Right: form */}
-          <div ref={formRef} className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl p-8 shadow-sm dark:shadow-none">
+          <div
+            ref={formRef}
+            style={{
+              background: 'var(--ds-bg-surface)',
+              border: '1px solid var(--ds-border)',
+            }}
+          >
             {status === 'sent' ? (
-              <div className="flex flex-col items-center justify-center py-12 text-center">
-                <HiCheckCircle size={48} className="text-primary mb-4" />
-                <h3 className="text-xl font-bold text-neutral-900 dark:text-white mb-2">Message Sent!</h3>
-                <p className="text-neutral-500 dark:text-neutral-400 text-sm">
+              <div className="flex flex-col items-center justify-center py-12 text-center p-8">
+                <div
+                  className="w-11 h-11 flex items-center justify-center mb-4 text-xl"
+                  style={{ border: '1px solid var(--ds-accent)', color: 'var(--ds-accent)' }}
+                >
+                  ✓
+                </div>
+                <h3 className="text-lg font-medium mb-2" style={{ color: 'var(--ds-text-1)' }}>Message Sent</h3>
+                <p className="text-sm" style={{ color: 'var(--ds-text-2)' }}>
                   Thanks for reaching out. I&apos;ll get back to you soon.
                 </p>
                 <button
                   onClick={() => setStatus('idle')}
-                  className="mt-6 text-sm text-primary font-semibold hover:underline cursor-pointer"
+                  className="mt-6 text-sm font-medium cursor-pointer transition-colors"
+                  style={{ color: 'var(--ds-accent)' }}
                 >
                   Send another message
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-                <div>
-                  <label htmlFor="contact-name" className={labelClass}>Your Name</label>
+              <form onSubmit={handleSubmit} className="flex flex-col p-8" style={{ gap: '20px' }}>
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="contact-name" className="section-label">Name</label>
                   <input
                     id="contact-name"
                     type="text"
@@ -230,13 +233,13 @@ const Contact = () => {
                     value={form.name}
                     onChange={handleChange}
                     required
-                    placeholder="John Doe"
-                    className={inputClass}
+                    placeholder="Your name"
+                    className="form-input"
                   />
                 </div>
 
-                <div>
-                  <label htmlFor="contact-email" className={labelClass}>Email Address</label>
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="contact-email" className="section-label">Email</label>
                   <input
                     id="contact-email"
                     type="email"
@@ -244,13 +247,13 @@ const Contact = () => {
                     value={form.email}
                     onChange={handleChange}
                     required
-                    placeholder="john@example.com"
-                    className={inputClass}
+                    placeholder="you@example.com"
+                    className="form-input"
                   />
                 </div>
 
-                <div>
-                  <label htmlFor="contact-phone" className={labelClass}>Phone Number</label>
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="contact-phone" className="section-label">Phone</label>
                   <input
                     id="contact-phone"
                     type="tel"
@@ -259,64 +262,57 @@ const Contact = () => {
                     onChange={handleChange}
                     required
                     placeholder="+1 234 567 8900"
-                    className={inputClass}
+                    className="form-input"
                   />
                 </div>
 
-                <div className="grid sm:grid-cols-2 gap-5">
-                  <div>
-                    <label htmlFor="contact-budget" className={labelClass}>Budget</label>
+                <div className="grid sm:grid-cols-2" style={{ gap: '20px' }}>
+                  <div className="flex flex-col gap-2">
+                    <label htmlFor="contact-budget" className="section-label">Budget</label>
                     <select
                       id="contact-budget"
                       name="budget"
                       value={form.budget}
                       onChange={handleChange}
                       required
-                      className={`${inputClass} cursor-pointer`}
+                      className="form-input cursor-pointer"
                     >
-                      <option value="" disabled className="bg-white dark:bg-neutral-900">
-                        Select budget
-                      </option>
+                      <option value="" disabled>Select budget</option>
                       {budgetOptions.map((o) => (
-                        <option key={o} value={o} className="bg-white dark:bg-neutral-900">
-                          {o}
-                        </option>
+                        <option key={o} value={o}>{o}</option>
                       ))}
                     </select>
                   </div>
 
-                  <div>
-                    <label htmlFor="contact-type" className={labelClass}>Project Type</label>
+                  <div className="flex flex-col gap-2">
+                    <label htmlFor="contact-type" className="section-label">Project Type</label>
                     <select
                       id="contact-type"
                       name="projectType"
                       value={form.projectType}
                       onChange={handleChange}
                       required
-                      className={`${inputClass} cursor-pointer`}
+                      className="form-input cursor-pointer"
                     >
-                      <option value="" disabled className="bg-white dark:bg-neutral-900">
-                        Select type
-                      </option>
+                      <option value="" disabled>Select type</option>
                       {projectTypeOptions.map((o) => (
-                        <option key={o} value={o} className="bg-white dark:bg-neutral-900">
-                          {o}
-                        </option>
+                        <option key={o} value={o}>{o}</option>
                       ))}
                     </select>
                   </div>
                 </div>
 
                 {status === 'error' && (
-                  <p className="text-red-600 dark:text-red-400 text-sm">{errorMsg}</p>
+                  <p className="text-sm" style={{ color: 'oklch(55% 0.15 25)' }}>{errorMsg}</p>
                 )}
 
                 <button
                   type="submit"
                   disabled={status === 'sending'}
-                  className="inline-flex items-center justify-center gap-2 bg-primary text-white text-sm font-bold px-6 py-3 rounded-full hover:bg-primary-light transition-colors cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
+                  className="btn-primary w-full disabled:opacity-60 disabled:cursor-not-allowed"
+                  style={{ marginTop: '8px' }}
                 >
-                  {status === 'sending' ? 'Sending…' : <>Send Message <HiArrowRight size={16} /></>}
+                  {status === 'sending' ? 'Sending…' : <>Send Message <HiArrowRight size={14} /></>}
                 </button>
               </form>
             )}

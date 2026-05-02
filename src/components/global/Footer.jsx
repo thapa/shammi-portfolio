@@ -1,31 +1,42 @@
 const navLinks = [
-  { label: 'Home', href: '#home' },
   { label: 'About', href: '#about' },
   { label: 'Services', href: '#services' },
-  { label: 'Projects', href: '#projects' },
+  { label: 'Work', href: '#projects' },
   { label: 'Contact', href: '#contact' },
 ]
 
 const Footer = () => {
   return (
-    <footer className="bg-neutral-100 dark:bg-[#0E0E0E] border-t border-neutral-200 dark:border-white/5 py-8 transition-colors duration-300">
-      <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
-        <a href="#home" className="font-display text-neutral-900 dark:text-white font-bold text-lg">
-          Shammi.
-        </a>
-        <nav className="flex flex-wrap justify-center gap-6">
+    <footer
+      className="py-7 transition-colors duration-300"
+      style={{
+        background: 'var(--ds-bg)',
+        borderTop: '1px solid var(--ds-border)',
+      }}
+    >
+      <div className="max-w-[1200px] mx-auto px-6 md:px-10 flex flex-col md:flex-row items-center justify-between gap-4">
+        <span
+          className="text-sm font-medium tracking-[0.04em]"
+          style={{ color: 'var(--ds-text-1)' }}
+        >
+          Shammi Thapa
+        </span>
+        <nav className="flex flex-wrap justify-center gap-7">
           {navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="text-neutral-500 dark:text-neutral-600 text-xs hover:text-neutral-900 dark:hover:text-neutral-400 transition-colors"
+              className="font-display text-[0.75rem] tracking-[0.04em] transition-colors duration-150"
+              style={{ color: 'var(--ds-text-3)' }}
+              onMouseEnter={(e) => e.target.style.color = 'var(--ds-text-2)'}
+              onMouseLeave={(e) => e.target.style.color = 'var(--ds-text-3)'}
             >
               {link.label}
             </a>
           ))}
         </nav>
-        <p className="text-neutral-400 dark:text-neutral-700 text-xs">
-          &copy; {new Date().getFullYear()} Shammi Thapa. All rights reserved.
+        <p className="text-xs" style={{ color: 'var(--ds-text-3)' }}>
+          &copy; {new Date().getFullYear()} Shammi Thapa
         </p>
       </div>
     </footer>

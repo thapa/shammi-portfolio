@@ -7,8 +7,11 @@ const SkillSkeleton = () => (
     {Array.from({ length: 9 }).map((_, i) => (
       <div
         key={i}
-        className="h-8 rounded-full bg-neutral-200 dark:bg-neutral-800 animate-pulse"
-        style={{ width: `${60 + (i % 3) * 20}px` }}
+        className="h-8 animate-pulse"
+        style={{
+          width: `${60 + (i % 3) * 20}px`,
+          background: 'var(--ds-bg-elevated)',
+        }}
       />
     ))}
   </div>
@@ -17,15 +20,15 @@ const SkillSkeleton = () => (
 const TimelineSkeleton = () => (
   <div className="flex flex-col">
     {Array.from({ length: 3 }).map((_, i) => (
-      <div key={i} className={`py-6 ${i !== 0 ? 'border-t border-neutral-200 dark:border-neutral-800' : ''}`}>
+      <div key={i} className="py-6" style={{ borderTop: i !== 0 ? '1px solid var(--ds-border)' : 'none' }}>
         <div className="flex justify-between mb-2">
           <div>
-            <div className="h-5 w-40 bg-neutral-200 dark:bg-neutral-800 rounded animate-pulse mb-1" />
-            <div className="h-4 w-28 bg-neutral-100 dark:bg-neutral-800 rounded animate-pulse" />
+            <div className="h-5 w-40 animate-pulse mb-1" style={{ background: 'var(--ds-bg-elevated)' }} />
+            <div className="h-4 w-28 animate-pulse" style={{ background: 'var(--ds-bg-elevated)' }} />
           </div>
-          <div className="h-4 w-20 bg-neutral-100 dark:bg-neutral-800 rounded animate-pulse" />
+          <div className="h-4 w-20 animate-pulse" style={{ background: 'var(--ds-bg-elevated)' }} />
         </div>
-        <div className="h-4 w-full bg-neutral-100 dark:bg-neutral-800 rounded animate-pulse mt-2" />
+        <div className="h-4 w-full animate-pulse mt-2" style={{ background: 'var(--ds-bg-elevated)' }} />
       </div>
     ))}
   </div>
@@ -43,7 +46,7 @@ const About = () => {
   const expLabelRef = useRef(null)
   const expListRef = useRef(null)
 
-  // Header + bio + labels — always present
+  // Header + bio + labels
   useEffect(() => {
     const ctx = gsap.context(() => {
       const st = { start: 'top 82%', once: true }
@@ -80,44 +83,56 @@ const About = () => {
     const ctx = gsap.context(() => {
       const skillTags = skillsRef.current?.querySelectorAll('span')
       if (skillTags?.length) {
-        gsap.from(skillTags, {
-          y: 16, opacity: 0, duration: 0.5, stagger: 0.04, ease: 'power2.out',
-          scrollTrigger: { trigger: skillsRef.current, start: 'top 88%', once: true },
-        })
+        gsap.fromTo(skillTags, 
+          { y: 16, opacity: 0 },
+          {
+            y: 0, opacity: 1, duration: 0.5, stagger: 0.04, ease: 'power2.out',
+            scrollTrigger: { 
+              trigger: sectionRef.current, 
+              start: 'top 80%', 
+              once: true 
+            },
+          }
+        )
       }
 
       const expRows = expListRef.current?.children
       if (expRows?.length) {
-        gsap.from(expRows, {
-          x: -24, opacity: 0, duration: 0.6, stagger: 0.12, ease: 'power3.out',
-          scrollTrigger: { trigger: expListRef.current, start: 'top 85%', once: true },
-        })
+        gsap.fromTo(expRows, 
+          { x: -24, opacity: 0 },
+          {
+            x: 0, opacity: 1, duration: 0.6, stagger: 0.12, ease: 'power3.out',
+            scrollTrigger: { 
+              trigger: sectionRef.current, 
+              start: 'top 80%', 
+              once: true 
+            },
+          }
+        )
       }
     }, sectionRef)
 
-    return () => ctx.revert()
+    // Force a refresh after a small delay to catch layout changes from previous sections
+    const timeout = setTimeout(() => {
+      ScrollTrigger.refresh()
+    }, 100)
+
+    return () => {
+      ctx.revert()
+      clearTimeout(timeout)
+    }
   }, [loading])
 
   return (
     <section
       ref={sectionRef}
       id="about"
-      className="relative overflow-hidden bg-neutral-50 dark:bg-neutral-900 py-24 md:py-32 transition-colors duration-300"
+      className="relative overflow-hidden py-24 md:py-32 transition-colors duration-300"
+      style={{ background: 'var(--ds-bg)', borderTop: '1px solid var(--ds-border)' }}
     >
-      {/* BG decorations */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div
-          className="absolute inset-0 opacity-[0.025] dark:opacity-[0.035]"
-          style={{
-            backgroundImage: 'linear-gradient(#5c51fe 1px, transparent 1px), linear-gradient(90deg, #5c51fe 1px, transparent 1px)',
-            backgroundSize: '72px 72px',
-          }}
-        />
-      </div>
-
-      <div className="max-w-7xl mx-auto px-6">
-        <p ref={labelRef} className="text-xs font-bold uppercase tracking-widest text-neutral-500 dark:text-neutral-400 mb-4">
-          About Me
+      <div className="max-w-[1200px] mx-auto px-6 md:px-10">
+        <p ref={labelRef} className="section-label mb-6">
+          About
         </p>
 
         <div className="grid lg:grid-cols-2 gap-16 items-start">
@@ -125,26 +140,27 @@ const About = () => {
           <div>
             <h2
               ref={headingRef}
-              className="font-display text-5xl md:text-6xl font-bold text-neutral-900 dark:text-white leading-tight mb-8"
+              className="section-heading mb-8"
             >
-              Crafting digital experiences since 2012
+              About
             </h2>
-            <p ref={bioRef} className="text-neutral-600 dark:text-neutral-400 text-lg leading-relaxed mb-10">
-              Full-stack web developer with{' '}
-              <strong className="text-neutral-900 dark:text-white font-semibold">
-                10+ years of experience
-              </strong>
-              . Freelancing since 2018 with{' '}
-              <strong className="text-neutral-900 dark:text-white font-semibold">
-                200+ projects
-              </strong>{' '}
-              delivered across WordPress, Shopify, Wix, and Webflow. I specialize
-              in turning design mockups into fast, accessible, and pixel-perfect
-              websites.
-            </p>
+            <div
+              ref={bioRef}
+              className="body-text flex flex-col gap-5 mb-10"
+            >
+              <p>
+                I'm a CRO specialist and full-stack web developer. Ten years in, what I do is pretty simple: I find where your store is leaking money, and I rebuild the parts that are causing it.
+              </p>
+              <p>
+                Most "redesigns" I get called in to fix were beautiful and broken. Pretty homepages. Slow checkouts. Forms nobody finished. Most of the time, the fix isn't more design. It's reading the data and being willing to ship the unsexy version when the unsexy version wins.
+              </p>
+              <p>
+                I've worked with brands in fashion, supplements, consumer goods, and SaaS. Some scrappy, some doing eight figures. Same approach either way: start with the funnel, find the leak, prove the fix.
+              </p>
+            </div>
 
             <div>
-              <p ref={skillsLabelRef} className="text-xs font-bold uppercase tracking-widest text-neutral-500 dark:text-neutral-400 mb-3">
+              <p ref={skillsLabelRef} className="section-label mb-3">
                 Skills &amp; Tech
               </p>
               {loading ? (
@@ -154,7 +170,19 @@ const About = () => {
                   {skills.map((s) => (
                     <span
                       key={s.id}
-                      className="border border-neutral-200 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 text-sm font-medium px-3 py-1.5 rounded-full hover:border-primary hover:bg-primary/8 hover:text-primary dark:hover:border-primary dark:hover:text-primary transition-all duration-200 cursor-default"
+                      className="text-sm font-medium px-3 py-1.5 transition-all duration-200 cursor-default"
+                      style={{
+                        border: '1px solid var(--ds-border)',
+                        color: 'var(--ds-text-2)',
+                      }}
+                      onMouseEnter={(e) => {
+                        e.target.style.borderColor = 'var(--ds-accent)'
+                        e.target.style.color = 'var(--ds-accent)'
+                      }}
+                      onMouseLeave={(e) => {
+                        e.target.style.borderColor = 'var(--ds-border)'
+                        e.target.style.color = 'var(--ds-text-2)'
+                      }}
                     >
                       {s.name}
                     </span>
@@ -166,7 +194,7 @@ const About = () => {
 
           {/* Right: experience timeline */}
           <div>
-            <p ref={expLabelRef} className="text-xs font-bold uppercase tracking-widest text-neutral-500 dark:text-neutral-400 mb-6">
+            <p ref={expLabelRef} className="section-label mb-6">
               Experience
             </p>
             {loading ? (
@@ -176,18 +204,24 @@ const About = () => {
                 {experience.map((t, i) => (
                   <div
                     key={t.id}
-                    className={`py-6 ${i !== 0 ? 'border-t border-neutral-200 dark:border-neutral-800' : ''}`}
+                    className="py-6"
+                    style={{ borderTop: i !== 0 ? '1px solid var(--ds-border)' : 'none' }}
                   >
                     <div className="flex justify-between items-start gap-4 mb-2">
                       <div>
-                        <p className="font-semibold text-neutral-900 dark:text-white">{t.role}</p>
-                        <p className="text-sm text-primary font-medium">{t.company}</p>
+                        <p className="font-medium" style={{ color: 'var(--ds-text-1)' }}>{t.role}</p>
+                        <p className="text-sm font-medium" style={{ color: 'var(--ds-accent)' }}>{t.company}</p>
                       </div>
-                      <span className="text-xs text-neutral-500 dark:text-neutral-400 shrink-0 pt-0.5">
+                      <span
+                        className="text-xs shrink-0 pt-0.5 tabular-nums"
+                        style={{ color: 'var(--ds-text-3)' }}
+                      >
                         {t.period}
                       </span>
                     </div>
-                    <p className="text-sm text-neutral-500 dark:text-neutral-500 leading-relaxed">
+                    <p
+                      className="body-text"
+                    >
                       {t.description}
                     </p>
                   </div>

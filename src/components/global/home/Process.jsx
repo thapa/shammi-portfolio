@@ -6,10 +6,9 @@ const ProcessSkeleton = () => (
   <div className="grid grid-cols-1 md:grid-cols-5 gap-10">
     {Array.from({ length: 5 }).map((_, i) => (
       <div key={i} className="flex flex-col items-start">
-        <div className="w-16 h-16 rounded-full bg-neutral-200 dark:bg-neutral-800 animate-pulse mb-6" />
-        <div className="h-5 w-20 bg-neutral-200 dark:bg-neutral-800 rounded animate-pulse mb-2" />
-        <div className="h-4 w-full bg-neutral-100 dark:bg-neutral-800 rounded animate-pulse" />
-        <div className="h-4 w-3/4 bg-neutral-100 dark:bg-neutral-800 rounded animate-pulse mt-1" />
+        <div className="w-16 h-16 animate-pulse mb-6" style={{ background: 'var(--ds-bg-elevated)' }} />
+        <div className="h-5 w-20 animate-pulse mb-2" style={{ background: 'var(--ds-bg-elevated)' }} />
+        <div className="h-4 w-full animate-pulse" style={{ background: 'var(--ds-bg-elevated)' }} />
       </div>
     ))}
   </div>
@@ -77,33 +76,23 @@ const Process = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-hidden bg-neutral-50 dark:bg-neutral-900 py-24 md:py-32 transition-colors duration-300"
+      className="relative overflow-hidden py-24 md:py-32 transition-colors duration-300"
+      style={{ background: 'var(--ds-bg-surface)', borderTop: '1px solid var(--ds-border)' }}
     >
-      {/* BG decorations */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div
-          className="absolute inset-0 opacity-[0.025] dark:opacity-[0.035]"
-          style={{
-            backgroundImage: 'linear-gradient(#5c51fe 1px, transparent 1px), linear-gradient(90deg, #5c51fe 1px, transparent 1px)',
-            backgroundSize: '72px 72px',
-          }}
-        />
-      </div>
-
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-[1200px] mx-auto px-6 md:px-10">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-20">
           <div>
-            <p ref={labelRef} className="text-xs font-bold uppercase tracking-widest text-neutral-500 dark:text-neutral-400 mb-4">
-              How I Work
+            <p ref={labelRef} className="section-label mb-4">
+              Process
             </p>
             <h2
               ref={headingRef}
-              className="font-display text-4xl md:text-5xl font-bold text-neutral-900 dark:text-white leading-tight max-w-lg"
+              className="section-heading max-w-lg"
             >
-              A Methodical Process For Maximum Results
+              A methodical process for maximum results
             </h2>
           </div>
-          <p ref={subtitleRef} className="text-neutral-500 dark:text-neutral-500 text-sm max-w-xs leading-relaxed">
+          <p ref={subtitleRef} className="body-text max-w-xs">
             A proven five-step workflow that delivers quality, on time, every time.
           </p>
         </div>
@@ -114,20 +103,30 @@ const Process = () => {
           <div className="relative">
             <div
               ref={lineRef}
-              className="hidden md:block absolute top-8 left-8 right-8 h-px bg-neutral-200 dark:bg-neutral-800 z-0"
+              className="hidden md:block absolute top-8 left-8 right-8 h-px z-0"
+              style={{ background: 'var(--ds-border)' }}
             />
             <div ref={stepsRef} className="grid grid-cols-1 md:grid-cols-5 gap-10 relative z-10">
               {processSteps.map((step) => (
                 <div key={step.id} className="flex flex-col items-start">
-                  <div className="w-16 h-16 rounded-full border-2 border-neutral-200 dark:border-neutral-700 bg-white dark:bg-[#0E0E0E] flex items-center justify-center mb-6 flex-shrink-0">
-                    <span className="font-display text-sm font-bold text-neutral-900 dark:text-white">
+                  <div
+                    className="w-16 h-16 flex items-center justify-center mb-6 flex-shrink-0"
+                    style={{
+                      border: '1px solid var(--ds-border)',
+                      background: 'var(--ds-bg)',
+                    }}
+                  >
+                    <span
+                      className="font-display text-xs"
+                      style={{ color: 'var(--ds-text-1)', letterSpacing: '0.06em' }}
+                    >
                       {step.num}
                     </span>
                   </div>
-                  <h3 className="font-semibold text-neutral-900 dark:text-white mb-2">
+                  <h3 className="font-medium mb-2" style={{ color: 'var(--ds-text-1)' }}>
                     {step.title}
                   </h3>
-                  <p className="text-sm text-neutral-500 dark:text-neutral-500 leading-relaxed">
+                  <p className="body-text">
                     {step.description}
                   </p>
                 </div>

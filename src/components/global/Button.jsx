@@ -1,15 +1,17 @@
 const Button = ({ label, href, icon: Icon, variant = 'primary', onClick, type = 'button' }) => {
-  const base =
-    'inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-sm transition-all duration-200 cursor-pointer'
+  const base = variant === 'primary' 
+    ? 'btn-primary' 
+    : 'inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-sm transition-all duration-200 cursor-pointer'
+    
   const variants = {
-    primary: 'bg-primary text-white hover:bg-primary-light',
+    primary: '',
     outline:
       'border border-neutral-300 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 hover:border-neutral-900 dark:hover:border-white hover:text-neutral-900 dark:hover:text-white',
     'outline-dark':
       'border border-[#0E0E0E] text-[#0E0E0E] hover:bg-[#0E0E0E] hover:text-white',
   }
 
-  const classes = `${base} ${variants[variant] ?? variants.primary}`
+  const classes = variant === 'primary' ? base : `${base} ${variants[variant] ?? ''}`
 
   if (href) {
     return (

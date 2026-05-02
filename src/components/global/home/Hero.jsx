@@ -106,7 +106,7 @@ const Hero = () => {
               <div className="flex flex-wrap gap-3 mb-8">
                 <a
                   href="#contact"
-                  className="inline-flex items-center gap-2 bg-primary text-white text-sm font-bold px-6 py-3 rounded-full hover:bg-primary-light transition-colors"
+                  className="btn-primary"
                 >
                   Hire Me <HiArrowRight size={15} />
                 </a>

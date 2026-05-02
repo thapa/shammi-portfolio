@@ -155,13 +155,13 @@ const ChatWidget = () => {
       {/* ── Chat Panel ─────────────────────────────────────────── */}
       {isOpen && (
         <div
-          className="fixed bottom-24 right-6 z-[9990] flex flex-col rounded-2xl border border-white/10 bg-[#0E0E0E] shadow-2xl overflow-hidden"
-          style={{ width: '360px', maxWidth: 'calc(100vw - 32px)', height: '520px' }}
+          className="fixed bottom-24 right-6 z-[9990] flex flex-col overflow-hidden"
+          style={{ width: '360px', maxWidth: 'calc(100vw - 32px)', height: '520px', background: 'var(--ds-bg-surface)', border: '1px solid var(--ds-border)' }}
         >
           {/* Header */}
           <div className="flex items-center justify-between px-5 py-4 border-b border-white/10 flex-shrink-0">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-full bg-primary flex items-center justify-center font-display font-bold text-[#0E0E0E] text-sm flex-shrink-0">
+              <div className="w-9 h-9 flex items-center justify-center font-display text-sm flex-shrink-0" style={{ background: 'var(--ds-accent)', color: 'var(--ds-bg)' }}>
                 S
               </div>
               <div>
@@ -232,7 +232,7 @@ const ChatWidget = () => {
                 <button
                   type="submit"
                   disabled={formSaving}
-                  className="inline-flex items-center justify-center gap-2 w-full bg-primary text-white text-sm font-bold py-3 rounded-full hover:bg-primary-light transition-colors disabled:opacity-60"
+                  className="btn-primary w-full disabled:opacity-60"
                 >
                   {formSaving ? 'Starting…' : <>Start Chat <HiArrowRight size={15} /></>}
                 </button>
@@ -248,11 +248,14 @@ const ChatWidget = () => {
                     className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
                   >
                     <div
-                      className={`max-w-[82%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
-                        msg.role === 'user'
-                          ? 'bg-primary text-white font-medium rounded-br-sm'
-                          : 'bg-neutral-900 text-neutral-200 rounded-bl-sm border border-white/5'
+                      className={`max-w-[82%] px-4 py-2.5 text-sm leading-relaxed ${
+                        msg.role === 'user' ? 'font-medium' : ''
                       }`}
+                      style={{
+                        background: msg.role === 'user' ? 'var(--ds-accent)' : 'var(--ds-bg-elevated)',
+                        color: msg.role === 'user' ? 'var(--ds-bg)' : 'var(--ds-text-1)',
+                        border: msg.role !== 'user' ? '1px solid var(--ds-border)' : 'none',
+                      }}
                     >
                       {msg.content}
                     </div>
@@ -278,7 +281,8 @@ const ChatWidget = () => {
                 <button
                   onClick={sendMessage}
                   disabled={!input.trim() || sending}
-                  className="w-10 h-10 rounded-full bg-primary flex items-center justify-center flex-shrink-0 hover:bg-primary-light transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                  className="w-10 h-10 flex items-center justify-center flex-shrink-0 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                  style={{ background: 'var(--ds-accent)', color: 'var(--ds-bg)' }}
                   aria-label="Send message"
                 >
                   <HiArrowRight size={16} className="text-white" />
@@ -292,7 +296,8 @@ const ChatWidget = () => {
       {/* ── Floating toggle button ─────────────────────────────── */}
       <button
         onClick={() => isOpen ? handleClose() : setIsOpen(true)}
-        className="fixed bottom-6 right-6 z-[9991] w-14 h-14 rounded-full bg-primary shadow-xl flex items-center justify-center hover:bg-primary-light transition-colors"
+        className="fixed bottom-6 right-6 z-[9991] w-14 h-14 flex items-center justify-center transition-colors"
+        style={{ background: 'var(--ds-accent)', color: 'var(--ds-bg)' }}
         aria-label="Chat with Shammi's AI"
       >
         {isOpen ? (

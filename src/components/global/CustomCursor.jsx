@@ -68,8 +68,8 @@ const CustomCursor = () => {
       } else if (next === 'view') {
         ring.style.width = '80px'
         ring.style.height = '80px'
-        ring.style.backgroundColor = '#5c51fe'
-        ring.style.borderColor = '#5c51fe'
+        ring.style.backgroundColor = 'var(--ds-accent)'
+        ring.style.borderColor = 'var(--ds-accent)'
         ring.style.opacity = '1'
         dot.style.opacity = '0'
         label.style.opacity = '1'
@@ -117,22 +117,22 @@ const CustomCursor = () => {
       {/* Dot — fast, exact */}
       <div
         ref={dotRef}
-        className="fixed top-0 left-0 z-[9999] pointer-events-none w-2 h-2 rounded-full bg-primary"
+        className="fixed top-0 left-0 z-[9999] pointer-events-none w-2 h-2"
         style={{
+          background: 'var(--ds-accent)',
           transform: 'translate(-200px, -200px) translate(-50%, -50%)',
           transition: 'opacity 0.15s ease',
-          boxShadow: '0 0 8px rgba(92,81,254,0.6)',
         }}
       />
 
       {/* Ring — lagged, scales on state change */}
       <div
         ref={ringRef}
-        className="fixed top-0 left-0 z-[9998] pointer-events-none rounded-full border-2 flex items-center justify-center"
+        className="fixed top-0 left-0 z-[9998] pointer-events-none border flex items-center justify-center"
         style={{
           width: '36px',
           height: '36px',
-          borderColor: 'rgba(92,81,254,0.9)',
+          borderColor: 'var(--ds-accent)',
           backgroundColor: 'transparent',
           transform: 'translate(-200px, -200px) translate(-50%, -50%)',
           transition:
