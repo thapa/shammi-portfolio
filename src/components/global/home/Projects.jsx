@@ -211,13 +211,13 @@ const ProjectCard = ({ project: p, onClick }) => {
     >
       {/* Left Info Area */}
       <div
-        className="w-full md:w-[60%] p-8 md:p-8 lg:p-8 flex flex-col justify-between relative z-10"
+        className="w-full md:w-[60%] p-4 md:p-8 lg:p-8 flex flex-col justify-between relative z-10"
         style={{ borderRight: '1px solid var(--ds-border)' }}
       >
         <div>
           {/* Category Badge */}
           <span
-            className="text-[0.65rem] font-bold tracking-[0.15em] uppercase px-3 py-1.5 mb-8 inline-block"
+            className="text-[0.65rem] font-bold tracking-[0.15em] uppercase px-3 py-1.5 mb-4 md:mb-8 inline-block"
             style={{ color: 'var(--ds-accent)', border: '1px solid var(--ds-border)', background: 'var(--ds-bg)' }}
           >
             {p.category}
@@ -225,24 +225,24 @@ const ProjectCard = ({ project: p, onClick }) => {
 
           {/* Title */}
           <h3
-            className="font-display text-3xl sm:text-4xl lg:text-[2.75rem] uppercase tracking-tighter mb-8 leading-none"
+            className="font-display text-2xl sm:text-3xl lg:text-[2rem] uppercase tracking-tighter mb-0 md:mb-8 leading-none"
             style={{ color: 'var(--ds-text-1)' }}
           >
             {p.title}
           </h3>
 
           {/* Divider */}
-          <div className="w-full h-px mb-8 transition-colors duration-300 group-hover:bg-[var(--ds-accent)]" style={{ background: 'var(--ds-border)' }} />
+          <div className="hidden md:block w-full h-px mb-8 transition-colors duration-300 group-hover:bg-[var(--ds-accent)]" style={{ background: 'var(--ds-border)' }} />
 
           {/* Description */}
-          <p className="text-sm md:text-base leading-relaxed mb-12 max-w-lg" style={{ color: 'var(--ds-text-2)' }}>
+          <p className="hidden md:block text-sm md:text-base leading-relaxed mb-12 max-w-lg" style={{ color: 'var(--ds-text-2)' }}>
             {p.description}
           </p>
         </div>
 
         {/* Tech Stack */}
         {p.tech_stack?.length > 0 && (
-          <div className="mt-auto">
+          <div className="hidden md:block mt-auto">
             <p className="text-[0.65rem] font-bold tracking-[0.15em] uppercase mb-4" style={{ color: 'var(--ds-accent)' }}>
               Tech Stack
             </p>
@@ -262,7 +262,7 @@ const ProjectCard = ({ project: p, onClick }) => {
       </div>
 
       {/* Right Image Area */}
-      <div className="w-full md:w-[40%] relative min-h-[300px] md:min-h-0 overflow-hidden" style={{ background: 'var(--ds-bg-elevated)' }}>
+      <div className="w-full md:w-[40%] relative h-[220px] md:h-auto md:min-h-0 overflow-hidden" style={{ background: 'var(--ds-bg-elevated)' }}>
         <div className="absolute inset-0 flex items-center justify-center p-8 z-0">
           <span className="font-display text-4xl md:text-6xl leading-none select-none text-center" style={{ color: 'var(--ds-text-3)', opacity: 0.1 }}>
             {p.title}
