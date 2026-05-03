@@ -197,24 +197,74 @@ const ProjectCard = ({ project: p, onClick }) => {
     <button
       onClick={onClick}
       data-cursor="view"
-      className="group relative text-left overflow-hidden transition-all duration-300 ease-out cursor-pointer focus:outline-none w-full"
+      className="group relative flex flex-col md:flex-row text-left overflow-hidden transition-all duration-300 ease-out cursor-pointer focus:outline-none w-full"
       style={{
         background: 'var(--ds-bg-surface)',
         border: '1px solid var(--ds-border)',
       }}
       onMouseEnter={(e) => {
         e.currentTarget.style.borderColor = 'var(--ds-accent)'
-        e.currentTarget.style.transform = 'translateY(-3px)'
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.borderColor = 'var(--ds-border)'
-        e.currentTarget.style.transform = 'translateY(0)'
       }}
     >
-      {/* Image area */}
-      <div className="relative aspect-[4/3] overflow-hidden" style={{ background: 'var(--ds-bg-elevated)' }}>
-        <div className="absolute inset-0 flex items-end p-4 z-0">
-          <span className="font-display text-2xl leading-none select-none" style={{ color: 'var(--ds-text-3)', opacity: 0.2 }}>
+      {/* Left Info Area */}
+      <div
+        className="w-full md:w-[60%] p-8 md:p-8 lg:p-8 flex flex-col justify-between relative z-10"
+        style={{ borderRight: '1px solid var(--ds-border)' }}
+      >
+        <div>
+          {/* Category Badge */}
+          <span
+            className="text-[0.65rem] font-bold tracking-[0.15em] uppercase px-3 py-1.5 mb-8 inline-block"
+            style={{ color: 'var(--ds-accent)', border: '1px solid var(--ds-border)', background: 'var(--ds-bg)' }}
+          >
+            {p.category}
+          </span>
+
+          {/* Title */}
+          <h3
+            className="font-display text-3xl sm:text-4xl lg:text-[2.75rem] uppercase tracking-tighter mb-8 leading-none"
+            style={{ color: 'var(--ds-text-1)' }}
+          >
+            {p.title}
+          </h3>
+
+          {/* Divider */}
+          <div className="w-full h-px mb-8 transition-colors duration-300 group-hover:bg-[var(--ds-accent)]" style={{ background: 'var(--ds-border)' }} />
+
+          {/* Description */}
+          <p className="text-sm md:text-base leading-relaxed mb-12 max-w-lg" style={{ color: 'var(--ds-text-2)' }}>
+            {p.description}
+          </p>
+        </div>
+
+        {/* Tech Stack */}
+        {p.tech_stack?.length > 0 && (
+          <div className="mt-auto">
+            <p className="text-[0.65rem] font-bold tracking-[0.15em] uppercase mb-4" style={{ color: 'var(--ds-accent)' }}>
+              Tech Stack
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {p.tech_stack.map((tech) => (
+                <span
+                  key={tech}
+                  className="text-xs px-3 py-1.5"
+                  style={{ border: '1px solid var(--ds-border)', color: 'var(--ds-text-2)', background: 'var(--ds-bg)' }}
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Right Image Area */}
+      <div className="w-full md:w-[40%] relative min-h-[300px] md:min-h-0 overflow-hidden" style={{ background: 'var(--ds-bg-elevated)' }}>
+        <div className="absolute inset-0 flex items-center justify-center p-8 z-0">
+          <span className="font-display text-4xl md:text-6xl leading-none select-none text-center" style={{ color: 'var(--ds-text-3)', opacity: 0.1 }}>
             {p.title}
           </span>
         </div>
@@ -224,7 +274,7 @@ const ProjectCard = ({ project: p, onClick }) => {
             src={imgSrc ?? undefined}
             alt={p.title}
             loading="lazy"
-            className={`absolute inset-0 w-full h-full object-cover object-center transition-all duration-500 group-hover:scale-[1.03] ${imgSrc && !imgLoading ? 'opacity-100' : 'opacity-0'}`}
+            className={`absolute inset-0 w-full h-full object-cover object-center transition-all duration-700 ease-out group-hover:scale-105 ${imgSrc && !imgLoading ? 'opacity-100' : 'opacity-0'}`}
           />
         )}
 
@@ -232,41 +282,8 @@ const ProjectCard = ({ project: p, onClick }) => {
           <div className="absolute inset-0 animate-pulse" style={{ background: 'var(--ds-bg-elevated)' }} />
         )}
 
-        {/* Overlay on hover */}
-        <div
-          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-280 flex flex-col justify-end p-5"
-          style={{ background: 'oklch(9% 0.008 220 / 0.78)' }}
-        >
-          <span className="text-[0.6875rem] font-medium tracking-widest uppercase mb-1.5" style={{ color: 'var(--ds-accent)' }}>
-            {p.category}
-          </span>
-          <span className="text-base" style={{ color: 'oklch(93% 0.005 220)' }}>
-            {p.title}
-          </span>
-        </div>
-      </div>
-
-      {/* Info */}
-      <div className="p-5 flex flex-col gap-3">
-        <div>
-          <h3
-            className="font-medium text-base leading-snug transition-colors duration-200"
-            style={{ color: 'var(--ds-text-1)' }}
-          >
-            {p.title}
-          </h3>
-          <p className="text-xs line-clamp-2 leading-relaxed mt-1.5" style={{ color: 'var(--ds-text-3)' }}>
-            {p.description}
-          </p>
-        </div>
-
-        {/* CTA row */}
-        <div
-          className="flex items-center gap-1 text-xs font-medium opacity-0 group-hover:opacity-100 transition-all duration-200"
-          style={{ color: 'var(--ds-accent)' }}
-        >
-          View Project <HiArrowRight size={12} />
-        </div>
+        {/* Subtle Hover Overlay */}
+        <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-300 pointer-events-none" style={{ background: 'var(--ds-accent)' }} />
       </div>
     </button>
   )
@@ -274,15 +291,31 @@ const ProjectCard = ({ project: p, onClick }) => {
 
 // ─── Skeletons ─────────────────────────────────────────────────────────────
 const ProjectSkeleton = () => (
-  <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-3">
-    {Array.from({ length: 6 }).map((_, i) => (
-      <div key={i} className="overflow-hidden" style={{ border: '1px solid var(--ds-border)', background: 'var(--ds-bg-surface)' }}>
-        <div className="aspect-[4/3] animate-pulse" style={{ background: 'var(--ds-bg-elevated)' }} />
-        <div className="p-5">
-          <div className="h-4 w-36 animate-pulse mb-2" style={{ background: 'var(--ds-bg-elevated)' }} />
-          <div className="h-3 w-full animate-pulse mb-1" style={{ background: 'var(--ds-bg-elevated)' }} />
-          <div className="h-3 w-3/4 animate-pulse" style={{ background: 'var(--ds-bg-elevated)' }} />
+  <div className="flex flex-col gap-10">
+    {Array.from({ length: 3 }).map((_, i) => (
+      <div key={i} className="flex flex-col md:flex-row overflow-hidden min-h-[400px]" style={{ border: '1px solid var(--ds-border)', background: 'var(--ds-bg-surface)' }}>
+        {/* Left Side Skeleton */}
+        <div className="w-full md:w-[60%] p-8 md:p-12 lg:p-16 flex flex-col justify-between" style={{ borderRight: '1px solid var(--ds-border)' }}>
+          <div>
+            <div className="h-6 w-24 animate-pulse mb-8" style={{ background: 'var(--ds-bg-elevated)' }} />
+            <div className="h-10 w-3/4 animate-pulse mb-4" style={{ background: 'var(--ds-bg-elevated)' }} />
+            <div className="h-10 w-1/2 animate-pulse mb-8" style={{ background: 'var(--ds-bg-elevated)' }} />
+            <div className="w-full h-px mb-8 animate-pulse" style={{ background: 'var(--ds-bg-elevated)' }} />
+            <div className="h-4 w-full animate-pulse mb-3" style={{ background: 'var(--ds-bg-elevated)' }} />
+            <div className="h-4 w-5/6 animate-pulse mb-3" style={{ background: 'var(--ds-bg-elevated)' }} />
+            <div className="h-4 w-4/6 animate-pulse" style={{ background: 'var(--ds-bg-elevated)' }} />
+          </div>
+          <div className="mt-12">
+            <div className="h-3 w-20 animate-pulse mb-4" style={{ background: 'var(--ds-bg-elevated)' }} />
+            <div className="flex gap-2">
+              <div className="h-8 w-16 animate-pulse" style={{ background: 'var(--ds-bg-elevated)' }} />
+              <div className="h-8 w-20 animate-pulse" style={{ background: 'var(--ds-bg-elevated)' }} />
+              <div className="h-8 w-24 animate-pulse" style={{ background: 'var(--ds-bg-elevated)' }} />
+            </div>
+          </div>
         </div>
+        {/* Right Side Skeleton */}
+        <div className="w-full md:w-[40%] animate-pulse" style={{ background: 'var(--ds-bg-elevated)' }} />
       </div>
     ))}
   </div>
@@ -333,11 +366,11 @@ const Projects = () => {
     gsap.fromTo(
       cards,
       { y: 48, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.7, stagger: 0.08, ease: 'power3.out', delay: 0.1 }
+      { y: 0, opacity: 1, duration: 0.7, stagger: 0.15, ease: 'power3.out', delay: 0.1 }
     )
 
     return () => gsap.killTweensOf(cards)
-  }, [loading])
+  }, [loading, active]) // Also re-trigger animation when category tab changes!
 
   return (
     <section
@@ -384,7 +417,7 @@ const Projects = () => {
             <p className="text-sm" style={{ color: 'var(--ds-text-3)' }}>No projects in this category yet.</p>
           </div>
         ) : (
-          <div ref={gridRef} className="grid sm:grid-cols-2 md:grid-cols-3 gap-3">
+          <div ref={gridRef} className="flex flex-col gap-10">
             {filtered.map((p) => (
               <ProjectCard
                 key={p.id}

@@ -60,13 +60,12 @@ const Header = ({ isDark, toggleTheme }) => {
             onClick={toggleTheme}
             className="w-10 h-10 flex items-center justify-center transition-colors duration-150"
             style={{
-              border: '1px solid var(--ds-border)',
               color: 'var(--ds-text-3)',
               background: 'transparent',
             }}
             aria-label="Toggle theme"
           >
-            {isDark ? <HiSun size={15} /> : <HiMoon size={15} />}
+            {isDark ? <HiSun size={20} /> : <HiMoon size={20} />}
           </button>
           <a
             href="#contact"

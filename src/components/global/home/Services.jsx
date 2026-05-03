@@ -78,7 +78,7 @@ const Services = () => {
     const ctx = gsap.context(() => {
       const items = listRef.current
       const cards = gsap.utils.toArray('.service-slide')
-      
+
       // Horizontal Scroll Animation
       const mm = gsap.matchMedia()
       mm.add("(min-width: 768px)", () => {
@@ -130,8 +130,8 @@ const Services = () => {
 
         {/* Horizontal Cards Container */}
         <div className="relative z-10 w-full flex-1 flex items-start overflow-visible">
-          <div 
-            ref={listRef} 
+          <div
+            ref={listRef}
             className="flex flex-nowrap gap-8 md:gap-12 px-6 md:px-10 lg:pl-[calc((100vw-1200px)/2+2.5rem)] scrollbar-hide overflow-x-auto md:overflow-visible pb-32"
             style={{ width: 'max-content' }}
           >
@@ -140,7 +140,7 @@ const Services = () => {
                 key={s.num}
                 className="service-slide w-[85vw] md:w-[1200px] shrink-0"
               >
-                <div className="liquid-glass rounded-2xl p-8 md:p-12 w-full transition-all duration-300">
+                <div className="liquid-glass p-8 md:p-12 w-full transition-all duration-300">
                   <div className="grid md:grid-cols-[56px,1fr] gap-x-12 gap-y-10 items-start">
                     <span className="section-label pt-1 text-[var(--ds-accent)] tabular-nums">
                       {s.num}
@@ -148,8 +148,8 @@ const Services = () => {
 
                     <div className="flex flex-col gap-12">
                       <div>
-                        <h3 
-                          className="text-2xl font-medium mb-4" 
+                        <h3
+                          className="text-2xl font-medium mb-4"
                           style={{ fontFamily: 'var(--ds-font-display)', color: 'var(--ds-text-1)' }}
                         >
                           {s.title}

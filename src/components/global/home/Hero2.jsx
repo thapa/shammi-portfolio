@@ -76,7 +76,7 @@ const Hero2 = () => {
           <h1
             className="font-display uppercase mb-10"
             style={{
-              fontSize: 'clamp(2.75rem, 8.5vw, 6rem)',
+              fontSize: 'clamp(2rem, 8vw, 6rem)',
               fontWeight: 300,
               lineHeight: 0.95,
               letterSpacing: '-0.03em',

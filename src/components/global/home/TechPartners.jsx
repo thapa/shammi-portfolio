@@ -3,23 +3,23 @@ import { gsap } from '../../../lib/gsap'
 
 // ─── Partner logos — text-only, monochrome, single accent ─────────────────────
 const partners = [
-  { id: 'shopify',      name: 'Shopify' },
-  { id: 'shopifyplus',  name: 'Shopify Plus' },
-  { id: 'vwo',          name: 'VWO' },
-  { id: 'judgeme',       name: 'Judge.me' },
-  { id: 'klaviyo',      name: 'Klaviyo' },
-  { id: 'lionwheel',    name: 'LionWheel' },
-  { id: 'loloyal',      name: 'Loloyal' },
-  { id: 'gelato',       name: 'Gelato' },
-  { id: 'yotpo',        name: 'Yotpo' },
-  { id: 'recharge',     name: 'Recharge' },
+  { id: 'shopify', name: 'Shopify' },
+  { id: 'shopifyplus', name: 'Shopify Plus' },
+  { id: 'vwo', name: 'VWO' },
+  { id: 'judgeme', name: 'Judge.me' },
+  { id: 'klaviyo', name: 'Klaviyo' },
+  { id: 'lionwheel', name: 'LionWheel' },
+  { id: 'loloyal', name: 'Loloyal' },
+  { id: 'gelato', name: 'Gelato' },
+  { id: 'yotpo', name: 'Yotpo' },
+  { id: 'recharge', name: 'Recharge' },
 ]
 
 // ─── Component ────────────────────────────────────────────────────────────────
 const TechPartners = () => {
   const sectionRef = useRef(null)
   const headingRef = useRef(null)
-  const gridRef   = useRef(null)
+  const gridRef = useRef(null)
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -54,7 +54,7 @@ const TechPartners = () => {
             <span style={{ color: 'var(--ds-accent)' }}>best tech.</span>
           </h2>
           <p
-            className="text-sm leading-relaxed max-w-sm"
+            className="body-text leading-relaxed max-w-sm"
             style={{ color: 'var(--ds-text-2)' }}
           >
             Partnered with leading platforms in the Shopify ecosystem to deliver the best possible results.

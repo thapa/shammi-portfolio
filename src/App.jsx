@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { ContentProvider } from './context/ContentContext'
-import { ScrollTrigger } from './lib/gsap'
+import { gsap, ScrollTrigger } from './lib/gsap'
+import { ReactLenis } from 'lenis/react'
 import CustomCursor from './components/global/CustomCursor'
 import Header from './components/global/Header'
 import Hero from './components/global/home/Hero'
@@ -43,23 +44,39 @@ function Portfolio() {
     return () => clearTimeout(id)
   }, [])
 
+  const lenisRef = useRef(null)
+
+  useEffect(() => {
+    function update(time) {
+      lenisRef.current?.lenis?.raf(time * 1000)
+    }
+
+    gsap.ticker.add(update)
+
+    return () => {
+      gsap.ticker.remove(update)
+    }
+  }, [])
+
   return (
-    <ContentProvider>
-      <CustomCursor />
-      <Header isDark={dark} toggleTheme={toggleTheme} />
-      <main>
-        {/* <Hero /> */}
-        <Hero2 />
-        <About />
-        <Services />
-        <Process />
-        <TechPartners />
-        <Projects />
-        <Contact />
-      </main>
-      <Footer />
-      <ChatWidget />
-    </ContentProvider>
+    <ReactLenis root ref={lenisRef} autoRaf={false} options={{ lerp: 0.08 }}>
+      <ContentProvider>
+        <CustomCursor />
+        <Header isDark={dark} toggleTheme={toggleTheme} />
+        <main>
+          {/* <Hero /> */}
+          <Hero2 />
+          <About />
+          <Services />
+          <Process />
+          <TechPartners />
+          <Projects />
+          <Contact />
+        </main>
+        <Footer />
+        <ChatWidget />
+      </ContentProvider>
+    </ReactLenis>
   )
 }
 
