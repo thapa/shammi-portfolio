@@ -88,6 +88,14 @@ GROQ_API_KEY
 
 **Database changes:** Whenever new tables or seed data are needed, create a new `.sql` file (e.g., `add-table-name.sql`) rather than running queries directly. The user will execute it manually in the Supabase SQL editor.
 
+## Codebase Exploration Rule
+
+**Always read `graphify-out/GRAPH_REPORT.md` first** before exploring the codebase. It contains a pre-generated knowledge graph — god nodes, component relationships, community clusters — giving an instant architectural map.
+
+1. Read `graphify-out/GRAPH_REPORT.md` first
+2. Then do targeted reads on only the files relevant to the task
+3. Skip broad Explore agents — they are redundant when the graph report exists
+
 ## Deployment
 
 Deployed on Vercel. The `vercel.json` rewrites all non-`/api` routes to `index.html` for SPA behavior. Screenshot function has a 60-second max duration.

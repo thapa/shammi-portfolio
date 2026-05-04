@@ -1,0 +1,89 @@
+- generic [ref=e2]:
+  - generic:
+    - generic: View
+  - banner [ref=e736]:
+    - generic [ref=e737]:
+      - link "Shammi Thapa" [ref=e738]:
+        - /url: "#home"
+      - navigation [ref=e739]:
+        - link "About" [ref=e740]:
+          - /url: "#about"
+        - link "Services" [ref=e741]:
+          - /url: "#services"
+        - link "Work" [ref=e742]:
+          - /url: "#projects"
+        - link "Contact" [ref=e743]:
+          - /url: "#contact"
+      - generic [ref=e744]:
+        - button "Toggle theme" [ref=e745]:
+          - img [ref=e746]
+        - link "Hire Me" [ref=e748]:
+          - /url: "#contact"
+  - main [ref=e749]:
+    - generic [ref=e750]:
+      - generic [ref=e752]:
+        - generic [ref=e753]:
+          - paragraph [ref=e754]: Project
+          - generic [ref=e755]: Unplugged
+        - generic [ref=e756]:
+          - paragraph [ref=e757]: Category
+          - generic [ref=e758]: Shopify
+        - generic [ref=e759]:
+          - paragraph [ref=e760]: Role
+          - generic [ref=e761]: Web Development
+        - generic [ref=e762]:
+          - paragraph [ref=e763]: Live Site
+          - link "View Live" [ref=e765]:
+            - /url: https://unplugged.com/
+            - text: View Live
+            - img [ref=e766]
+      - generic [ref=e769]:
+        - link "All Projects" [ref=e770]:
+          - /url: /#projects
+          - img [ref=e771]
+          - text: All Projects
+        - generic [ref=e773]:
+          - generic [ref=e775]:
+            - generic [ref=e776]: "01"
+            - heading "Unplugged" [level=1] [ref=e777]:
+              - generic [ref=e778]: Unplugged
+          - paragraph [ref=e780]: Consumer electronics brand on Shopify Plus. Custom checkout flow, theme block development, A/B testing on product and cart pages, and technical SEO implementation including structured data.
+      - generic [ref=e782]:
+        - generic [ref=e783]:
+          - paragraph [ref=e784]: Desktop
+          - generic [ref=e785]:
+            - generic [ref=e787]: Unplugged
+            - img "Unplugged" [ref=e788]
+        - paragraph [ref=e790]: Mobile
+      - generic [ref=e794]:
+        - paragraph [ref=e795]: Built With
+        - generic [ref=e796]:
+          - generic [ref=e797]: Shopify Plus
+          - generic [ref=e798]: Shopify Checkout Customization
+          - generic [ref=e799]: CRO
+          - generic [ref=e800]: AB Testing
+          - generic [ref=e801]: SEO
+      - generic [ref=e803]:
+        - link "All Projects" [ref=e804]:
+          - /url: /#projects
+          - img [ref=e805]
+          - text: All Projects
+        - link "Next Project Vixen & Fox" [ref=e807]:
+          - /url: /project/4b3b3d44-428c-4a72-8377-f7701efeb66c
+          - generic [ref=e808]:
+            - paragraph [ref=e809]: Next Project
+            - paragraph [ref=e810]: Vixen & Fox
+          - img [ref=e812]
+  - contentinfo [ref=e814]:
+    - generic [ref=e815]:
+      - generic [ref=e816]: Shammi Thapa
+      - navigation [ref=e817]:
+        - link "About" [ref=e818]:
+          - /url: "#about"
+        - link "Services" [ref=e819]:
+          - /url: "#services"
+        - link "Work" [ref=e820]:
+          - /url: "#projects"
+        - link "Contact" [ref=e821]:
+          - /url: "#contact"
+      - paragraph [ref=e822]: © 2026 Shammi Thapa

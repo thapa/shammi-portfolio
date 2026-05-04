@@ -16,6 +16,7 @@ import Contact from './components/global/home/Contact'
 import Footer from './components/global/Footer'
 import ChatWidget from './components/global/ChatWidget'
 import AdminApp from './admin/AdminApp'
+import CaseStudy from './pages/CaseStudy'
 
 // ── Portfolio site ────────────────────────────────────────────────────────────
 function Portfolio() {
@@ -80,12 +81,55 @@ function Portfolio() {
   )
 }
 
+// ── Case Study page (same shell as Portfolio) ────────────────────────────────
+function CaseStudyPage() {
+  const [dark, setDark] = useState(() => {
+    if (typeof window === 'undefined') return false
+    const saved = localStorage.getItem('theme')
+    if (saved) return saved === 'dark'
+    return window.matchMedia('(prefers-color-scheme: dark)').matches
+  })
+
+  useEffect(() => {
+    const root = document.documentElement
+    root.classList.toggle('dark', dark)
+    localStorage.setItem('theme', dark ? 'dark' : 'light')
+  }, [dark])
+
+  const lenisRef = useRef(null)
+
+  useEffect(() => {
+    function update(time) { lenisRef.current?.lenis?.raf(time * 1000) }
+    gsap.ticker.add(update)
+    return () => gsap.ticker.remove(update)
+  }, [])
+
+  useEffect(() => {
+    const id = setTimeout(() => ScrollTrigger.refresh(), 500)
+    return () => clearTimeout(id)
+  }, [])
+
+  return (
+    <ReactLenis root ref={lenisRef} autoRaf={false} options={{ lerp: 0.08 }}>
+      <ContentProvider>
+        <CustomCursor />
+        <Header isDark={dark} toggleTheme={() => setDark((d) => !d)} />
+        <main>
+          <CaseStudy />
+        </main>
+        <Footer />
+      </ContentProvider>
+    </ReactLenis>
+  )
+}
+
 // ── Root with routing ─────────────────────────────────────────────────────────
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/admin/*" element={<AdminApp />} />
+        <Route path="/project/:id" element={<CaseStudyPage />} />
         <Route path="/*" element={<Portfolio />} />
       </Routes>
     </BrowserRouter>

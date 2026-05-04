@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { createPortal } from 'react-dom'
+import { Link } from 'react-router-dom'
 import { HiExternalLink, HiX, HiArrowRight } from 'react-icons/hi'
 import { useContent } from '../../../context/ContentContext'
 import { getOrFetchScreenshot, getOrFetchMobileScreenshot } from '../../../lib/screenshotbase'
@@ -157,7 +158,7 @@ const ProjectModal = ({ project: p, onClose }) => {
             </div>
           </div>
 
-          <div className="pt-2" style={{ borderTop: '1px solid var(--ds-border)' }}>
+          <div className="pt-2 flex flex-wrap items-center gap-3" style={{ borderTop: '1px solid var(--ds-border)' }}>
             <a
               href={p.url}
               target="_blank"
@@ -166,6 +167,24 @@ const ProjectModal = ({ project: p, onClose }) => {
             >
               Visit Live Site <HiExternalLink size={15} />
             </a>
+            <Link
+              to={`/project/${p.id}`}
+              className="inline-flex items-center gap-2 px-7 py-[14px] text-xs font-display uppercase tracking-[0.06em] transition-colors"
+              style={{
+                border: '1px solid var(--ds-border)',
+                color: 'var(--ds-text-2)',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = 'var(--ds-accent)'
+                e.currentTarget.style.color = 'var(--ds-accent)'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = 'var(--ds-border)'
+                e.currentTarget.style.color = 'var(--ds-text-2)'
+              }}
+            >
+              Case Study <HiArrowRight size={14} />
+            </Link>
           </div>
         </div>
       </div>

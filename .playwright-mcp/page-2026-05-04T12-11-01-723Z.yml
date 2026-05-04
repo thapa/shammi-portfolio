@@ -1,0 +1,577 @@
+- generic [ref=e1]:
+  - generic [ref=e2]:
+    - generic:
+      - generic: View
+    - banner [ref=e3]:
+      - generic [ref=e4]:
+        - link "Shammi Thapa" [ref=e5]:
+          - /url: "#home"
+        - navigation [ref=e6]:
+          - link "About" [ref=e7]:
+            - /url: "#about"
+          - link "Services" [ref=e8]:
+            - /url: "#services"
+          - link "Work" [ref=e9]:
+            - /url: "#projects"
+          - link "Contact" [ref=e10]:
+            - /url: "#contact"
+        - generic [ref=e11]:
+          - button "Toggle theme" [ref=e12]:
+            - img [ref=e13]
+          - link "Hire Me" [ref=e15]:
+            - /url: "#contact"
+    - main [ref=e16]:
+      - generic [ref=e17]:
+        - generic:
+          - generic: +47% CVR
+          - generic: ROAS 4.2x
+          - generic: 3.2% CR
+          - generic: CTR 6.8%
+          - generic: LTV $240
+          - generic: +12% uplift
+          - generic: AOV +$31
+          - generic: CPC −22%
+          - generic: 14% A/B win
+          - generic: ROAS 5.1x
+        - generic [ref=e18]:
+          - generic [ref=e19]:
+            - paragraph [ref=e20]:
+              - generic [ref=e22]: CRO Specialist. Shopify & WordPress Developer. Available for projects.
+            - heading "Conversions don't happen by accident." [level=1] [ref=e23]:
+              - text: Conversions don't happen by
+              - emphasis [ref=e24]: accident.
+            - paragraph [ref=e25]: I build Shopify stores, WordPress sites, and CRO programs that turn traffic into revenue. The work is part code, part psychology, and the only number I care about is the one on your dashboard.
+            - generic [ref=e26]:
+              - link "Start a project" [ref=e27]:
+                - /url: "#contact"
+                - text: Start a project
+                - img [ref=e28]
+              - link "View selected work" [ref=e30]:
+                - /url: "#projects"
+          - generic [ref=e33]:
+            - generic [ref=e446]:
+              - generic [ref=e447]: 200+
+              - generic [ref=e448]: Projects Delivered
+            - generic [ref=e449]:
+              - generic [ref=e450]: 10+
+              - generic [ref=e451]: Years Experience
+            - generic [ref=e452]:
+              - generic [ref=e453]: "4"
+              - generic [ref=e454]: Companies
+        - generic [ref=e43]: Scroll
+      - generic [ref=e45]:
+        - paragraph [ref=e46]: About
+        - generic [ref=e47]:
+          - generic [ref=e48]:
+            - heading "About" [level=2] [ref=e49]:
+              - generic [ref=e50]: About
+            - generic [ref=e51]:
+              - paragraph [ref=e52]: "I'm a CRO specialist and full-stack web developer. Ten years in, what I do is pretty simple: I find where your store is leaking money, and I rebuild the parts that are causing it."
+              - paragraph [ref=e53]: Most "redesigns" I get called in to fix were beautiful and broken. Pretty homepages. Slow checkouts. Forms nobody finished. Most of the time, the fix isn't more design. It's reading the data and being willing to ship the unsexy version when the unsexy version wins.
+              - paragraph [ref=e54]: "I've worked with brands in fashion, supplements, consumer goods, and SaaS. Some scrappy, some doing eight figures. Same approach either way: start with the funnel, find the leak, prove the fix."
+            - generic [ref=e55]:
+              - paragraph [ref=e56]: Skills & Tech
+              - generic [ref=e455]:
+                - generic [ref=e456]: JavaScript
+                - generic [ref=e457]: WordPress
+                - generic [ref=e458]: Shopify
+                - generic [ref=e459]: WooCommerce
+                - generic [ref=e460]: Elementor
+                - generic [ref=e461]: HTML / CSS
+                - generic [ref=e462]: Bootstrap
+                - generic [ref=e463]: jQuery
+                - generic [ref=e464]: Webflow
+                - generic [ref=e465]: Wix
+                - generic [ref=e466]: AI Development
+          - generic [ref=e67]:
+            - paragraph [ref=e68]: Experience
+            - generic [ref=e467]:
+              - generic [ref=e468]:
+                - generic [ref=e469]:
+                  - generic [ref=e470]:
+                    - paragraph [ref=e471]: Freelance Web Developer
+                    - paragraph [ref=e472]: Self-Employed
+                  - generic [ref=e473]: 2018 – Present
+                - paragraph [ref=e474]: 200+ projects delivered for clients worldwide across WordPress, Shopify, Wix, and Webflow.
+              - generic [ref=e475]:
+                - generic [ref=e476]:
+                  - generic [ref=e477]:
+                    - paragraph [ref=e478]: Project Manager
+                    - paragraph [ref=e479]: Superior Web Experts
+                  - generic [ref=e480]: 2015 – 2018
+                - paragraph [ref=e481]: Led web development projects, managed client communications and delivery timelines.
+              - generic [ref=e482]:
+                - generic [ref=e483]:
+                  - generic [ref=e484]:
+                    - paragraph [ref=e485]: Web Developer / PM
+                    - paragraph [ref=e486]: MKTechSoft
+                  - generic [ref=e487]: 2012 – 2015
+                - paragraph [ref=e488]: Built and maintained WordPress and custom web solutions; handled project management duties.
+      - generic [ref=e93]:
+        - generic [ref=e95]:
+          - generic [ref=e96]:
+            - paragraph [ref=e97]: Services
+            - heading "What I do." [level=2] [ref=e98]
+          - paragraph [ref=e99]: "Every engagement starts with one question: what is stopping your visitors from buying? Then we go answer it."
+        - generic [ref=e101]:
+          - generic [ref=e104]:
+            - generic [ref=e105]: "01"
+            - generic [ref=e106]:
+              - generic [ref=e107]:
+                - heading "CRO Audit" [level=3] [ref=e108]
+                - paragraph [ref=e109]: "A full forensic review of your funnel: heatmaps, session recordings, form analytics, and exit data, synthesized into a prioritized roadmap of high-impact fixes."
+                - generic [ref=e110]:
+                  - generic [ref=e111]: Heatmaps
+                  - generic [ref=e112]: Session Recording
+                  - generic [ref=e113]: A/B Testing
+                  - generic [ref=e114]: GA4
+              - generic [ref=e115]:
+                - generic [ref=e116]:
+                  - generic [ref=e117]: Objective
+                  - paragraph [ref=e118]: The audit isolates where qualified visitors lose confidence, momentum, or clarity. You get a ranked backlog with impact, effort, evidence, and the exact page-level changes needed for testing or implementation.
+                - generic [ref=e119]:
+                  - generic [ref=e120]: Includes
+                  - list [ref=e121]:
+                    - listitem [ref=e122]:
+                      - generic [ref=e124]: Analytics review across acquisition, product, cart, checkout, and lead capture flows.
+                    - listitem [ref=e125]:
+                      - generic [ref=e127]: Session-pattern analysis with recurring objections and friction points grouped by page.
+                    - listitem [ref=e128]:
+                      - generic [ref=e130]: Prioritized experiment roadmap with copy, layout, and measurement recommendations.
+          - generic [ref=e133]:
+            - generic [ref=e134]: "02"
+            - generic [ref=e135]:
+              - generic [ref=e136]:
+                - heading "CRO Strategy & Testing" [level=3] [ref=e137]
+                - paragraph [ref=e138]: An ongoing testing program for stores with enough traffic to learn from. Hypotheses, builds, QA, and post-test analysis run end to end.
+                - generic [ref=e139]:
+                  - generic [ref=e140]: A/B Testing
+                  - generic [ref=e141]: VWO
+                  - generic [ref=e142]: Optimizely
+                  - generic [ref=e143]: Hypothesis Design
+              - generic [ref=e144]:
+                - generic [ref=e145]:
+                  - generic [ref=e146]: Objective
+                  - paragraph [ref=e147]: I run tests when there is a real question worth answering, not to keep the dashboard busy. Each test ships with a written hypothesis, a sample-size target, and a decision rule, so the result is something you can act on the day it closes.
+                - generic [ref=e148]:
+                  - generic [ref=e149]: Includes
+                  - list [ref=e150]:
+                    - listitem [ref=e151]:
+                      - generic [ref=e153]: Quarterly test roadmap built from audit findings and live performance data.
+                    - listitem [ref=e154]:
+                      - generic [ref=e156]: Hypothesis design, variant build, and QA across desktop, mobile, and tablet.
+                    - listitem [ref=e157]:
+                      - generic [ref=e159]: Statistical readout with winner rationale, segment breakdowns, and follow-up tests queued up.
+          - generic [ref=e162]:
+            - generic [ref=e163]: "03"
+            - generic [ref=e164]:
+              - generic [ref=e165]:
+                - heading "Shopify Development" [level=3] [ref=e166]
+                - paragraph [ref=e167]: "Custom Shopify and Shopify Plus builds tuned for conversion: clean Liquid, fast pages, and PDP and checkout flows that move real volume."
+                - generic [ref=e168]:
+                  - generic [ref=e169]: Shopify Themes
+                  - generic [ref=e170]: Liquid
+                  - generic [ref=e171]: Checkout
+                  - generic [ref=e172]: Conversion Flows
+              - generic [ref=e173]:
+                - generic [ref=e174]:
+                  - generic [ref=e175]: Objective
+                  - paragraph [ref=e176]: I build for stores that already make money and want to make more, not for vanity metrics. Performance is treated as a conversion lever from day one, not a separate audit you have to commission later.
+                - generic [ref=e177]:
+                  - generic [ref=e178]: Includes
+                  - list [ref=e179]:
+                    - listitem [ref=e180]:
+                      - generic [ref=e182]: Custom theme development with reusable sections and merchandising controls editors can actually use.
+                    - listitem [ref=e183]:
+                      - generic [ref=e185]: PDP, cart, and checkout optimization on Shopify Plus, including checkout extensibility work.
+                    - listitem [ref=e186]:
+                      - generic [ref=e188]: Core Web Vitals, image pipelines, and third-party script load tightened up before launch.
+          - generic [ref=e191]:
+            - generic [ref=e192]: "04"
+            - generic [ref=e193]:
+              - generic [ref=e194]:
+                - heading "WordPress Development" [level=3] [ref=e195]
+                - paragraph [ref=e196]: Fast, well-structured WordPress builds with content models that hold up six months and three editors later.
+                - generic [ref=e197]:
+                  - generic [ref=e198]: Custom Themes
+                  - generic [ref=e199]: ACF
+                  - generic [ref=e200]: Core Web Vitals
+                  - generic [ref=e201]: WooCommerce
+              - generic [ref=e202]:
+                - generic [ref=e203]:
+                  - generic [ref=e204]: Objective
+                  - paragraph [ref=e205]: ACF Pro, custom blocks, and a clean Gutenberg editing experience for the team that has to update the site every week. Accessibility and SEO are part of the build, not a phase two.
+                - generic [ref=e206]:
+                  - generic [ref=e207]: Includes
+                  - list [ref=e208]:
+                    - listitem [ref=e209]:
+                      - generic [ref=e211]: Custom theme development with ACF Pro, custom blocks, and reusable patterns.
+                    - listitem [ref=e212]:
+                      - generic [ref=e214]: WooCommerce builds covering product, cart, and checkout customization for real catalogs.
+                    - listitem [ref=e215]:
+                      - generic [ref=e217]: Performance, accessibility, and on-page SEO shipped on the same release as the design.
+          - generic [ref=e220]:
+            - generic [ref=e221]: "05"
+            - generic [ref=e222]:
+              - generic [ref=e223]:
+                - heading "Landing Page Design" [level=3] [ref=e224]
+                - paragraph [ref=e225]: Standalone landing pages designed for paid traffic and built to be tested. Hand-coded, lightweight, and ready to plug into your testing stack.
+                - generic [ref=e226]:
+                  - generic [ref=e227]: Conversion Copy
+                  - generic [ref=e228]: A/B Variants
+                  - generic [ref=e229]: HTML / CSS
+                  - generic [ref=e230]: Analytics
+              - generic [ref=e231]:
+                - generic [ref=e232]:
+                  - generic [ref=e233]: Objective
+                  - paragraph [ref=e234]: Pages start at the smallest viable version and earn their way to being a full-blown experiment. You get a page that looks like the design but acts like a salesperson—fast, direct, and focused on the next step.
+                - generic [ref=e235]:
+                  - generic [ref=e236]: Includes
+                  - list [ref=e237]:
+                    - listitem [ref=e238]:
+                      - generic [ref=e240]: Conversion-focused copy and design optimized for specific acquisition channels.
+                    - listitem [ref=e241]:
+                      - generic [ref=e243]: Direct-to-code implementation for 90+ lighthouse scores and total layout control.
+                    - listitem [ref=e244]:
+                      - generic [ref=e246]: Event tracking and analytics instrumentation to capture every scroll and click.
+      - generic [ref=e248]:
+        - generic [ref=e249]:
+          - generic [ref=e250]:
+            - paragraph [ref=e251]: Process
+            - heading "A methodical process for maximum results" [level=2] [ref=e252]:
+              - generic [ref=e253]: A
+              - generic [ref=e254]: methodical
+              - generic [ref=e255]: process
+              - generic [ref=e256]: for
+              - generic [ref=e257]: maximum
+              - generic [ref=e258]: results
+          - paragraph [ref=e259]: A proven five-step workflow that delivers quality, on time, every time.
+        - generic [ref=e491]:
+          - generic [ref=e492]:
+            - generic [ref=e494]: "01"
+            - heading "Discovery" [level=3] [ref=e495]
+            - paragraph [ref=e496]: "Initial consultation to define project scope, goals, target audience, and technical requirements. Deliverable: project brief and scope document."
+          - generic [ref=e497]:
+            - generic [ref=e499]: "02"
+            - heading "Planning" [level=3] [ref=e500]
+            - paragraph [ref=e501]: Sitemap, wireframes, and technical architecture. Technology selection and timeline estimation. Client sign-off before development begins.
+          - generic [ref=e502]:
+            - generic [ref=e504]: "03"
+            - heading "Development" [level=3] [ref=e505]
+            - paragraph [ref=e506]: Iterative build with staged progress reviews. Clean, documented code following platform best practices. Regular updates via staging links.
+          - generic [ref=e507]:
+            - generic [ref=e509]: "04"
+            - heading "Quality Assurance" [level=3] [ref=e510]
+            - paragraph [ref=e511]: Cross-browser testing (Chrome, Safari, Firefox, Edge). Mobile responsiveness verification. Performance benchmarking against Core Web Vitals targets.
+          - generic [ref=e512]:
+            - generic [ref=e514]: "05"
+            - heading "Launch & Handover" [level=3] [ref=e515]
+            - paragraph [ref=e516]: Production deployment, DNS configuration, CMS walkthrough for your team, and two weeks of post-launch support for bug fixes and adjustments.
+      - generic [ref=e282]:
+        - generic [ref=e283]:
+          - paragraph [ref=e284]: Partners
+          - heading "Working with the best tech." [level=2] [ref=e285]
+          - paragraph [ref=e286]: Partnered with leading platforms in the Shopify ecosystem to deliver the best possible results.
+        - generic [ref=e287]:
+          - generic [ref=e289]: Shopify
+          - generic [ref=e291]: Shopify Plus
+          - generic [ref=e293]: VWO
+          - generic [ref=e295]: Judge.me
+          - generic [ref=e297]: Klaviyo
+          - generic [ref=e299]: LionWheel
+          - generic [ref=e301]: Loloyal
+          - generic [ref=e303]: Gelato
+          - generic [ref=e305]: Yotpo
+          - generic [ref=e307]: Recharge
+      - generic [ref=e309]:
+        - generic [ref=e310]:
+          - generic [ref=e311]:
+            - paragraph [ref=e312]: Portfolio
+            - heading "Selected work" [level=2] [ref=e313]:
+              - generic [ref=e314]: Selected
+              - generic [ref=e315]: work
+          - generic [ref=e316]:
+            - button "All" [pressed] [ref=e317]
+            - button "WordPress" [ref=e318]
+            - button "Shopify" [ref=e319]
+        - generic [ref=e517]:
+          - button "Shopify Unplugged Consumer electronics brand on Shopify Plus. Custom checkout flow, theme block development, A/B testing on product and cart pages, and technical SEO implementation including structured data. Tech Stack Shopify Plus Shopify Checkout Customization CRO AB Testing SEO Unplugged Unplugged" [active] [ref=e518]:
+            - generic [ref=e519]:
+              - generic [ref=e520]:
+                - generic [ref=e521]: Shopify
+                - heading "Unplugged" [level=3] [ref=e522]
+                - paragraph [ref=e524]: Consumer electronics brand on Shopify Plus. Custom checkout flow, theme block development, A/B testing on product and cart pages, and technical SEO implementation including structured data.
+              - generic [ref=e525]:
+                - paragraph [ref=e526]: Tech Stack
+                - generic [ref=e527]:
+                  - generic [ref=e528]: Shopify Plus
+                  - generic [ref=e529]: Shopify Checkout Customization
+                  - generic [ref=e530]: CRO
+                  - generic [ref=e531]: AB Testing
+                  - generic [ref=e532]: SEO
+            - generic [ref=e533]:
+              - generic [ref=e535]: Unplugged
+              - img "Unplugged" [ref=e536]
+          - button "Shopify Vixen & Fox Australian fashion retailer. Custom Shopify theme with lookbook-style collections, AU/NZ shipping integration, and product catalog filtering. Tech Stack Shopify Liquid JavaScript CSS Shopify APIs Vixen & Fox Vixen & Fox" [ref=e537]:
+            - generic [ref=e538]:
+              - generic [ref=e539]:
+                - generic [ref=e540]: Shopify
+                - heading "Vixen & Fox" [level=3] [ref=e541]
+                - paragraph [ref=e543]: Australian fashion retailer. Custom Shopify theme with lookbook-style collections, AU/NZ shipping integration, and product catalog filtering.
+              - generic [ref=e544]:
+                - paragraph [ref=e545]: Tech Stack
+                - generic [ref=e546]:
+                  - generic [ref=e547]: Shopify
+                  - generic [ref=e548]: Liquid
+                  - generic [ref=e549]: JavaScript
+                  - generic [ref=e550]: CSS
+                  - generic [ref=e551]: Shopify APIs
+            - generic [ref=e552]:
+              - generic [ref=e554]: Vixen & Fox
+              - img "Vixen & Fox" [ref=e555]
+          - button "WordPress FloPoWer Corporate website with WooCommerce integration and custom fields. Tech Stack WordPress PHP MySQL JavaScript CSS Elementor WPML FloPoWer FloPoWer" [ref=e556]:
+            - generic [ref=e557]:
+              - generic [ref=e558]:
+                - generic [ref=e559]: WordPress
+                - heading "FloPoWer" [level=3] [ref=e560]
+                - paragraph [ref=e562]: Corporate website with WooCommerce integration and custom fields.
+              - generic [ref=e563]:
+                - paragraph [ref=e564]: Tech Stack
+                - generic [ref=e565]:
+                  - generic [ref=e566]: WordPress
+                  - generic [ref=e567]: PHP
+                  - generic [ref=e568]: MySQL
+                  - generic [ref=e569]: JavaScript
+                  - generic [ref=e570]: CSS
+                  - generic [ref=e571]: Elementor
+                  - generic [ref=e572]: WPML
+            - generic [ref=e573]:
+              - generic [ref=e575]: FloPoWer
+              - img "FloPoWer" [ref=e576]
+          - button "WordPress SJ Win Injury Law Law firm website with custom WordPress theme and advanced UI components. Tech Stack WordPress PHP MySQL JavaScript CSS Elementor SJ Win Injury Law SJ Win Injury Law" [ref=e577]:
+            - generic [ref=e578]:
+              - generic [ref=e579]:
+                - generic [ref=e580]: WordPress
+                - heading "SJ Win Injury Law" [level=3] [ref=e581]
+                - paragraph [ref=e583]: Law firm website with custom WordPress theme and advanced UI components.
+              - generic [ref=e584]:
+                - paragraph [ref=e585]: Tech Stack
+                - generic [ref=e586]:
+                  - generic [ref=e587]: WordPress
+                  - generic [ref=e588]: PHP
+                  - generic [ref=e589]: MySQL
+                  - generic [ref=e590]: JavaScript
+                  - generic [ref=e591]: CSS
+                  - generic [ref=e592]: Elementor
+            - generic [ref=e593]:
+              - generic [ref=e595]: SJ Win Injury Law
+              - img "SJ Win Injury Law" [ref=e596]
+          - button "Shopify Planet Protein DTC plant-based protein brand. Custom Shopify theme with product nutrition modules, subscription integration for recurring orders, and collection filtering via Shopify APIs. Tech Stack Shopify Liquid JavaScript CSS Shopify APIs Planet Protein Planet Protein" [ref=e597]:
+            - generic [ref=e598]:
+              - generic [ref=e599]:
+                - generic [ref=e600]: Shopify
+                - heading "Planet Protein" [level=3] [ref=e601]
+                - paragraph [ref=e603]: DTC plant-based protein brand. Custom Shopify theme with product nutrition modules, subscription integration for recurring orders, and collection filtering via Shopify APIs.
+              - generic [ref=e604]:
+                - paragraph [ref=e605]: Tech Stack
+                - generic [ref=e606]:
+                  - generic [ref=e607]: Shopify
+                  - generic [ref=e608]: Liquid
+                  - generic [ref=e609]: JavaScript
+                  - generic [ref=e610]: CSS
+                  - generic [ref=e611]: Shopify APIs
+            - generic [ref=e612]:
+              - generic [ref=e614]: Planet Protein
+              - img "Planet Protein" [ref=e615]
+          - button "WordPress Authority Partners IT consulting firm. Custom WordPress build with Elementor, HubSpot CRM integration for lead capture, and responsive design optimized for enterprise-level positioning. Tech Stack Wordpress Elementor Hubspot Responsive Custom Elements Speed Optimization Authority Partners Authority Partners" [ref=e616]:
+            - generic [ref=e617]:
+              - generic [ref=e618]:
+                - generic [ref=e619]: WordPress
+                - heading "Authority Partners" [level=3] [ref=e620]
+                - paragraph [ref=e622]: IT consulting firm. Custom WordPress build with Elementor, HubSpot CRM integration for lead capture, and responsive design optimized for enterprise-level positioning.
+              - generic [ref=e623]:
+                - paragraph [ref=e624]: Tech Stack
+                - generic [ref=e625]:
+                  - generic [ref=e626]: Wordpress
+                  - generic [ref=e627]: Elementor
+                  - generic [ref=e628]: Hubspot
+                  - generic [ref=e629]: Responsive
+                  - generic [ref=e630]: Custom Elements
+                  - generic [ref=e631]: Speed Optimization
+            - generic [ref=e632]:
+              - generic [ref=e634]: Authority Partners
+              - img "Authority Partners" [ref=e635]
+          - button "Shopify Heritage Store Heritage skincare brand with a large product catalog. Custom Shopify sections for ingredient highlights and usage guides. Collection page performance optimization and product page cross-sell implementation. Tech Stack Shopify Liquid JavaScript CSS Shopify APIs Heritage Store Heritage Store" [ref=e636]:
+            - generic [ref=e637]:
+              - generic [ref=e638]:
+                - generic [ref=e639]: Shopify
+                - heading "Heritage Store" [level=3] [ref=e640]
+                - paragraph [ref=e642]: Heritage skincare brand with a large product catalog. Custom Shopify sections for ingredient highlights and usage guides. Collection page performance optimization and product page cross-sell implementation.
+              - generic [ref=e643]:
+                - paragraph [ref=e644]: Tech Stack
+                - generic [ref=e645]:
+                  - generic [ref=e646]: Shopify
+                  - generic [ref=e647]: Liquid
+                  - generic [ref=e648]: JavaScript
+                  - generic [ref=e649]: CSS
+                  - generic [ref=e650]: Shopify APIs
+            - generic [ref=e651]:
+              - generic [ref=e653]: Heritage Store
+              - img "Heritage Store" [ref=e654]
+          - button "WordPress Quandary CG Creative agency site built on WordPress with custom page templates. Tech Stack WordPress PHP MySQL JavaScript CSS Elementor Quandary CG Quandary CG" [ref=e655]:
+            - generic [ref=e656]:
+              - generic [ref=e657]:
+                - generic [ref=e658]: WordPress
+                - heading "Quandary CG" [level=3] [ref=e659]
+                - paragraph [ref=e661]: Creative agency site built on WordPress with custom page templates.
+              - generic [ref=e662]:
+                - paragraph [ref=e663]: Tech Stack
+                - generic [ref=e664]:
+                  - generic [ref=e665]: WordPress
+                  - generic [ref=e666]: PHP
+                  - generic [ref=e667]: MySQL
+                  - generic [ref=e668]: JavaScript
+                  - generic [ref=e669]: CSS
+                  - generic [ref=e670]: Elementor
+            - generic [ref=e671]:
+              - generic [ref=e673]: Quandary CG
+              - img "Quandary CG" [ref=e674]
+          - button "Shopify Gibson Look Menswear brand store built on Shopify Plus with custom sections. Tech Stack Shopify Liquid JavaScript CSS Shopify APIs Gibson Look Gibson Look" [ref=e675]:
+            - generic [ref=e676]:
+              - generic [ref=e677]:
+                - generic [ref=e678]: Shopify
+                - heading "Gibson Look" [level=3] [ref=e679]
+                - paragraph [ref=e681]: Menswear brand store built on Shopify Plus with custom sections.
+              - generic [ref=e682]:
+                - paragraph [ref=e683]: Tech Stack
+                - generic [ref=e684]:
+                  - generic [ref=e685]: Shopify
+                  - generic [ref=e686]: Liquid
+                  - generic [ref=e687]: JavaScript
+                  - generic [ref=e688]: CSS
+                  - generic [ref=e689]: Shopify APIs
+            - generic [ref=e690]:
+              - generic [ref=e692]: Gibson Look
+              - img "Gibson Look" [ref=e693]
+      - generic [ref=e373]:
+        - generic [ref=e374]:
+          - paragraph [ref=e375]: Contact
+          - heading "Have a project in mind?" [level=2] [ref=e376]:
+            - generic [ref=e377]: Have
+            - generic [ref=e378]: a
+            - generic [ref=e379]: project
+            - generic [ref=e380]: in
+            - generic [ref=e381]: mind?
+          - paragraph [ref=e382]: Currently taking on new projects. I reply within 24 hours.
+        - generic [ref=e383]:
+          - generic [ref=e385]:
+            - generic [ref=e386]:
+              - img [ref=e388]
+              - generic [ref=e391]:
+                - paragraph [ref=e392]: Email
+                - link "thapa.shammi@gmail.com" [ref=e393]:
+                  - /url: mailto:thapa.shammi@gmail.com
+            - generic [ref=e394]:
+              - img [ref=e396]
+              - generic [ref=e398]:
+                - paragraph [ref=e399]: Phone
+                - link "+91 9988191688" [ref=e400]:
+                  - /url: tel:+919988191688
+            - generic [ref=e401]:
+              - img [ref=e403]
+              - generic [ref=e405]:
+                - paragraph [ref=e406]: Location
+                - paragraph [ref=e407]: India
+            - generic [ref=e408]:
+              - link "LinkedIn" [ref=e409]:
+                - /url: https://linkedin.com/in/shammithapa
+              - link "GitHub" [ref=e410]:
+                - /url: https://github.com/shammithapa
+              - link "Twitter" [ref=e411]:
+                - /url: https://x.com/shammithapa
+          - generic [ref=e413]:
+            - generic [ref=e414]:
+              - generic [ref=e415]: Name
+              - textbox "Name" [ref=e416]:
+                - /placeholder: Your name
+            - generic [ref=e417]:
+              - generic [ref=e418]: Email
+              - textbox "Email" [ref=e419]:
+                - /placeholder: you@example.com
+            - generic [ref=e420]:
+              - generic [ref=e421]: Phone
+              - textbox "Phone" [ref=e422]:
+                - /placeholder: +1 234 567 8900
+            - generic [ref=e423]:
+              - generic [ref=e424]:
+                - generic [ref=e425]: Budget
+                - combobox "Budget" [ref=e426]:
+                  - option "Select budget" [disabled] [selected]
+                  - option "Under $500"
+                  - option "$500 – $1,000"
+                  - option "$1,000 – $5,000"
+                  - option "$5,000 – $10,000"
+                  - option "$10,000+"
+              - generic [ref=e427]:
+                - generic [ref=e428]: Project Type
+                - combobox "Project Type" [ref=e429]:
+                  - option "Select type" [disabled] [selected]
+                  - option "WordPress Development"
+                  - option "Shopify Development"
+                  - option "Web Development"
+                  - option "E-commerce Store"
+                  - option "Website Redesign"
+                  - option "Other"
+            - button "Send Message" [ref=e430]:
+              - text: Send Message
+              - img [ref=e431]
+    - contentinfo [ref=e433]:
+      - generic [ref=e434]:
+        - generic [ref=e435]: Shammi Thapa
+        - navigation [ref=e436]:
+          - link "About" [ref=e437]:
+            - /url: "#about"
+          - link "Services" [ref=e438]:
+            - /url: "#services"
+          - link "Work" [ref=e439]:
+            - /url: "#projects"
+          - link "Contact" [ref=e440]:
+            - /url: "#contact"
+        - paragraph [ref=e441]: © 2026 Shammi Thapa
+    - button "Chat with Shammi's AI" [ref=e442]:
+      - img [ref=e443]
+  - generic [ref=e696]:
+    - generic [ref=e697]:
+      - generic [ref=e698]:
+        - generic [ref=e699]: Shopify
+        - heading "Unplugged" [level=2] [ref=e700]
+      - button "Close" [ref=e701]:
+        - img [ref=e702]
+    - generic [ref=e704]:
+      - paragraph [ref=e705]: Consumer electronics brand on Shopify Plus. Custom checkout flow, theme block development, A/B testing on product and cart pages, and technical SEO implementation including structured data.
+      - generic [ref=e706]:
+        - paragraph [ref=e707]: Tech Stack
+        - generic [ref=e708]:
+          - generic [ref=e709]: Shopify Plus
+          - generic [ref=e710]: Shopify Checkout Customization
+          - generic [ref=e711]: CRO
+          - generic [ref=e712]: AB Testing
+          - generic [ref=e713]: SEO
+      - generic [ref=e714]:
+        - paragraph [ref=e715]: Screenshots
+        - generic [ref=e716]:
+          - generic [ref=e717]:
+            - paragraph [ref=e718]: Desktop
+            - generic [ref=e719]:
+              - generic [ref=e721]: Unplugged
+              - img "Unplugged" [ref=e722]
+          - paragraph [ref=e724]: Mobile
+      - generic [ref=e728]:
+        - link "Visit Live Site" [ref=e729]:
+          - /url: https://unplugged.com/
+          - text: Visit Live Site
+          - img [ref=e730]
+        - link "Case Study" [ref=e733]:
+          - /url: /project/30aaae01-cb55-4100-aadb-8dc99493a42c
+          - text: Case Study
+          - img [ref=e734]
