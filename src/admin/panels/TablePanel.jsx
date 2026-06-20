@@ -1,6 +1,17 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '../../lib/supabase'
-import { HiPlus, HiPencil, HiTrash, HiX, HiChevronUp, HiChevronDown } from 'react-icons/hi'
+import { HiPlus, HiPencil, HiTrash, HiChevronUp, HiChevronDown } from 'react-icons/hi'
+import { Button } from '../../components/ui/button'
+import { Input } from '../../components/ui/input'
+import { Textarea } from '../../components/ui/textarea'
+import { Label } from '../../components/ui/label'
+import { Skeleton } from '../../components/ui/skeleton'
+import {
+  Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
+} from '../../components/ui/table'
+import {
+  Dialog, DialogContent, DialogHeader, DialogTitle,
+} from '../../components/ui/dialog'
 
 // ── Generic row modal ─────────────────────────────────────────────────────────
 const RowModal = ({ row, fields, title, onClose, onSaved, table }) => {
@@ -24,7 +35,7 @@ const RowModal = ({ row, fields, title, onClose, onSaved, table }) => {
         f.key,
         f.type === 'tags'
           ? form[f.key].split(',').map(s => s.trim()).filter(Boolean)
-          : form[f.key]
+          : form[f.key],
       ])
     )
 
@@ -39,58 +50,57 @@ const RowModal = ({ row, fields, title, onClose, onSaved, table }) => {
   }
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4" onClick={onClose}>
-      <div className="bg-neutral-900 rounded-2xl w-full max-w-md border border-neutral-800" onClick={e => e.stopPropagation()}>
-        <div className="flex items-center justify-between px-6 py-5 border-b border-neutral-800">
-          <h2 className="text-white font-bold">{isEdit ? `Edit ${title}` : `Add ${title}`}</h2>
-          <button onClick={onClose} className="text-neutral-500 hover:text-white transition-colors"><HiX size={18} /></button>
-        </div>
+    <Dialog open onOpenChange={open => { if (!open) onClose() }}>
+      <DialogContent className="max-w-md bg-white text-slate-900">
+        <DialogHeader>
+          <DialogTitle>{isEdit ? `Edit ${title}` : `Add ${title}`}</DialogTitle>
+        </DialogHeader>
 
-        <form onSubmit={handleSave} className="p-6 flex flex-col gap-4">
+        <form onSubmit={handleSave} className="flex flex-col gap-4 pt-2">
           {fields.map(f => (
-            <div key={f.key}>
-              <label className="admin-label">
+            <div key={f.key} className="flex flex-col gap-1.5">
+              <Label htmlFor={f.key} className="text-xs font-semibold uppercase tracking-wider text-slate-500">
                 {f.label}
-                {f.type === 'tags' && <span className="normal-case font-normal opacity-50 ml-1">(comma-separated)</span>}
-              </label>
+                {f.type === 'tags' && (
+                  <span className="normal-case font-normal opacity-60 ml-1">(comma-separated)</span>
+                )}
+              </Label>
               {f.type === 'textarea' ? (
-                <textarea
-                  className="admin-input resize-none"
+                <Textarea
+                  id={f.key}
                   rows={3}
                   value={form[f.key]}
                   onChange={e => set(f.key, e.target.value)}
                   placeholder={f.placeholder || ''}
+                  className="resize-none text-sm"
                 />
               ) : (
-                <input
-                  className="admin-input"
+                <Input
+                  id={f.key}
                   value={form[f.key]}
                   onChange={e => set(f.key, e.target.value)}
                   placeholder={f.placeholder || ''}
+                  className="text-sm"
                 />
               )}
             </div>
           ))}
 
           <div className="flex gap-3 pt-2">
-            <button
+            <Button
               type="submit"
               disabled={saving}
-              className="flex-1 bg-primary text-white font-bold text-sm py-2.5 rounded-full hover:bg-primary-light transition-colors disabled:opacity-60"
+              className="flex-1 bg-primary text-primary-foreground hover:bg-primary-light"
             >
               {saving ? 'Saving…' : isEdit ? 'Save Changes' : `Add ${title}`}
-            </button>
-            <button
-              type="button"
-              onClick={onClose}
-              className="px-5 py-2.5 rounded-full border border-neutral-700 text-neutral-400 text-sm hover:border-neutral-500 transition-colors"
-            >
+            </Button>
+            <Button type="button" variant="outline" onClick={onClose} className="px-5">
               Cancel
-            </button>
+            </Button>
           </div>
         </form>
-      </div>
-    </div>
+      </DialogContent>
+    </Dialog>
   )
 }
 
@@ -111,7 +121,7 @@ const TablePanel = ({ table, title, fields, displayCols }) => {
   useEffect(() => { load() }, [table])
 
   const deleteRow = async (id) => {
-    if (!confirm(`Delete this ${title.toLowerCase()}?`)) return
+    if (!confirm(`Delete this ${title.toLowerCase().replace(/s$/, '')}?`)) return
     await supabase.from(table).delete().eq('id', id)
     setRows(r => r.filter(x => x.id !== id))
   }
@@ -142,87 +152,107 @@ const TablePanel = ({ table, title, fields, displayCols }) => {
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-white text-2xl font-bold">{title}</h1>
-          <p className="text-neutral-500 text-sm mt-0.5">{rows.length} entries</p>
+          <h1 className="text-slate-900 text-2xl font-bold">{title}</h1>
+          <p className="text-slate-400 text-sm mt-0.5">{rows.length} {rows.length === 1 ? 'entry' : 'entries'}</p>
         </div>
-        <button
+        <Button
           onClick={() => setModal('add')}
-          className="inline-flex items-center gap-2 bg-primary text-white font-bold text-sm px-5 py-2.5 rounded-full hover:bg-primary-light transition-colors"
+          className="bg-primary text-primary-foreground hover:bg-primary-light gap-1.5"
         >
-          <HiPlus size={16} /> Add {title.replace(/s$/, '')}
-        </button>
+          <HiPlus size={15} />
+          Add {title.replace(/s$/, '')}
+        </Button>
       </div>
 
       {/* Table */}
-      <div className="bg-neutral-900 rounded-2xl border border-neutral-800 overflow-hidden">
+      <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
         {loading ? (
-          <div className="p-8 text-center text-neutral-600 text-sm">Loading…</div>
+          <div className="p-4 flex flex-col gap-3">
+            {[...Array(3)].map((_, i) => (
+              <div key={i} className="flex gap-4 items-center">
+                <Skeleton className="h-8 w-12 rounded" />
+                <Skeleton className="h-8 flex-1 rounded" />
+                <Skeleton className="h-8 w-20 rounded" />
+              </div>
+            ))}
+          </div>
         ) : rows.length === 0 ? (
-          <div className="p-8 text-center text-neutral-600 text-sm">No entries yet.</div>
+          <div className="py-16 text-center">
+            <p className="text-slate-400 text-sm">No entries yet.</p>
+            <button
+              onClick={() => setModal('add')}
+              className="mt-3 text-primary text-sm hover:underline"
+            >
+              Add the first one
+            </button>
+          </div>
         ) : (
-          <table className="w-full">
-            <thead>
-              <tr className="border-b border-neutral-800">
-                <th className="admin-th w-16">Order</th>
+          <Table>
+            <TableHeader>
+              <TableRow className="bg-slate-50 hover:bg-slate-50">
+                <TableHead className="w-16 text-xs font-semibold uppercase tracking-wider text-slate-400">Order</TableHead>
                 {displayCols.map(col => (
-                  <th key={col} className="admin-th capitalize">{col.replace(/_/g, ' ')}</th>
+                  <TableHead key={col} className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+                    {col.replace(/_/g, ' ')}
+                  </TableHead>
                 ))}
-                <th className="admin-th w-24">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
+                <TableHead className="w-24 text-xs font-semibold uppercase tracking-wider text-slate-400">Actions</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
               {rows.map((row, index) => {
                 const isSaving = moving === index || moving === index - 1 || moving === index + 1
                 return (
-                  <tr key={row.id} className="border-b border-neutral-800/50 hover:bg-neutral-800/30 transition-colors">
-                    <td className="admin-td">
+                  <TableRow key={row.id} className="hover:bg-slate-50 transition-colors">
+                    <TableCell>
                       <div className="flex flex-col gap-0.5">
                         <button
                           onClick={() => moveRow(index, -1)}
                           disabled={index === 0 || isSaving}
-                          className="w-6 h-6 rounded flex items-center justify-center text-neutral-500 hover:text-white hover:bg-neutral-700 transition-colors disabled:opacity-25 disabled:cursor-not-allowed"
-                          title="Move up"
+                          className="w-6 h-6 rounded flex items-center justify-center text-slate-300 hover:text-slate-600 hover:bg-slate-100 transition-colors disabled:opacity-20 disabled:cursor-not-allowed"
                         >
                           <HiChevronUp size={14} />
                         </button>
                         <button
                           onClick={() => moveRow(index, 1)}
                           disabled={index === rows.length - 1 || isSaving}
-                          className="w-6 h-6 rounded flex items-center justify-center text-neutral-500 hover:text-white hover:bg-neutral-700 transition-colors disabled:opacity-25 disabled:cursor-not-allowed"
-                          title="Move down"
+                          className="w-6 h-6 rounded flex items-center justify-center text-slate-300 hover:text-slate-600 hover:bg-slate-100 transition-colors disabled:opacity-20 disabled:cursor-not-allowed"
                         >
                           <HiChevronDown size={14} />
                         </button>
                       </div>
-                    </td>
+                    </TableCell>
                     {displayCols.map((col, ci) => (
-                      <td key={col} className={`admin-td ${ci === 0 ? 'text-white font-medium' : 'text-neutral-400'}`}>
+                      <TableCell
+                        key={col}
+                        className={`text-sm ${ci === 0 ? 'text-slate-800 font-medium' : 'text-slate-500'}`}
+                      >
                         <span className="line-clamp-1">{displayValue(row, col)}</span>
-                      </td>
+                      </TableCell>
                     ))}
-                    <td className="admin-td">
+                    <TableCell>
                       <div className="flex items-center gap-1">
                         <button
                           onClick={() => setModal(row)}
-                          className="w-8 h-8 rounded-lg flex items-center justify-center text-neutral-500 hover:text-white hover:bg-neutral-700 transition-colors"
+                          className="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors"
                           title="Edit"
                         >
                           <HiPencil size={14} />
                         </button>
                         <button
                           onClick={() => deleteRow(row.id)}
-                          className="w-8 h-8 rounded-lg flex items-center justify-center text-neutral-500 hover:text-red-400 hover:bg-neutral-700 transition-colors"
+                          className="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-red-500 hover:bg-red-50 transition-colors"
                           title="Delete"
                         >
                           <HiTrash size={14} />
                         </button>
                       </div>
-                    </td>
-                  </tr>
+                    </TableCell>
+                  </TableRow>
                 )
               })}
-            </tbody>
-          </table>
+            </TableBody>
+          </Table>
         )}
       </div>
 

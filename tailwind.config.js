@@ -8,17 +8,50 @@ export default {
   theme: {
     extend: {
       colors: {
-        /* Design system accent — cold teal (OKLCH mapped to hex fallback) */
+        /* shadcn CSS variable mappings */
+        background: 'hsl(var(--background))',
+        foreground: 'hsl(var(--foreground))',
+        card: {
+          DEFAULT: 'hsl(var(--card))',
+          foreground: 'hsl(var(--card-foreground))',
+        },
+        popover: {
+          DEFAULT: 'hsl(var(--popover))',
+          foreground: 'hsl(var(--popover-foreground))',
+        },
+        primary: {
+          DEFAULT: 'hsl(var(--primary))',
+          foreground: 'hsl(var(--primary-foreground))',
+          light: 'hsl(var(--primary-light))',
+        },
+        secondary: {
+          DEFAULT: 'hsl(var(--secondary))',
+          foreground: 'hsl(var(--secondary-foreground))',
+        },
+        muted: {
+          DEFAULT: 'hsl(var(--muted))',
+          foreground: 'hsl(var(--muted-foreground))',
+        },
+        destructive: {
+          DEFAULT: 'hsl(var(--destructive))',
+          foreground: 'hsl(var(--destructive-foreground))',
+        },
+        border: 'hsl(var(--border))',
+        input: 'hsl(var(--input))',
+        ring: 'hsl(var(--ring))',
+        /* Design system tokens — portfolio site */
         accent: 'var(--ds-accent)',
         surface: 'var(--ds-bg-surface)',
         elevated: 'var(--ds-bg-elevated)',
       },
+      borderRadius: {
+        lg: 'var(--radius)',
+        md: 'calc(var(--radius) - 2px)',
+        sm: 'calc(var(--radius) - 4px)',
+      },
       fontFamily: {
         sans: ['"Space Grotesk"', '"Helvetica Neue"', 'Arial', 'sans-serif'],
         display: ['"Michroma"', '"Space Grotesk"', 'sans-serif'],
-      },
-      borderColor: {
-        DEFAULT: 'var(--ds-border)',
       },
       animation: {
         marquee: 'marquee 30s linear infinite',

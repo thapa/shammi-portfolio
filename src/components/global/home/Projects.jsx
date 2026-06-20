@@ -167,24 +167,26 @@ const ProjectModal = ({ project: p, onClose }) => {
             >
               Visit Live Site <HiExternalLink size={15} />
             </a>
-            <Link
-              to={`/project/${p.id}`}
-              className="inline-flex items-center gap-2 px-7 py-[14px] text-xs font-display uppercase tracking-[0.06em] transition-colors"
-              style={{
-                border: '1px solid var(--ds-border)',
-                color: 'var(--ds-text-2)',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = 'var(--ds-accent)'
-                e.currentTarget.style.color = 'var(--ds-accent)'
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = 'var(--ds-border)'
-                e.currentTarget.style.color = 'var(--ds-text-2)'
-              }}
-            >
-              Case Study <HiArrowRight size={14} />
-            </Link>
+            {p.slug && p.case_study_type && (
+              <Link
+                to={`/project/${p.slug}`}
+                className="inline-flex items-center gap-2 px-7 py-[14px] text-xs font-display uppercase tracking-[0.06em] transition-colors"
+                style={{
+                  border: '1px solid var(--ds-border)',
+                  color: 'var(--ds-text-2)',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = 'var(--ds-accent)'
+                  e.currentTarget.style.color = 'var(--ds-accent)'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = 'var(--ds-border)'
+                  e.currentTarget.style.color = 'var(--ds-text-2)'
+                }}
+              >
+                Case Study <HiArrowRight size={14} />
+              </Link>
+            )}
           </div>
         </div>
       </div>

@@ -1,16 +1,22 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useLayoutEffect } from 'react'
 import ProjectsPanel from './panels/ProjectsPanel'
 import TablePanel from './panels/TablePanel'
+import { Input } from '../components/ui/input'
+import { Button } from '../components/ui/button'
+import {
+  HiViewGrid, HiCog, HiStar, HiBriefcase, HiChartBar, HiClipboardList,
+  HiLogout, HiExternalLink,
+} from 'react-icons/hi'
 
 const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD || 'admin123'
 
 const NAV = [
-  { key: 'projects',  label: 'Projects' },
-  { key: 'services',  label: 'Services' },
-  { key: 'skills',    label: 'Skills' },
-  { key: 'experience',label: 'Experience' },
-  { key: 'stats',     label: 'Stats' },
-  { key: 'process',   label: 'Process Steps' },
+  { key: 'projects',   label: 'Projects',      Icon: HiViewGrid },
+  { key: 'services',   label: 'Services',       Icon: HiCog },
+  { key: 'skills',     label: 'Skills',         Icon: HiStar },
+  { key: 'experience', label: 'Experience',     Icon: HiBriefcase },
+  { key: 'stats',      label: 'Stats',          Icon: HiChartBar },
+  { key: 'process',    label: 'Process Steps',  Icon: HiClipboardList },
 ]
 
 // ── Login gate ────────────────────────────────────────────────────────────────
@@ -25,26 +31,32 @@ const LoginGate = ({ onAuth }) => {
   }
 
   return (
-    <div className="min-h-screen bg-neutral-950 flex items-center justify-center p-6">
-      <div className="w-full max-w-sm">
-        <h1 className="font-display text-3xl font-bold text-white mb-1">Admin Panel</h1>
-        <p className="text-neutral-500 text-sm mb-8">Shammi Portfolio CMS</p>
+    <div className="min-h-screen bg-slate-50 flex items-center justify-center p-6">
+      <div className="w-full max-w-sm bg-white rounded-2xl border border-slate-200 shadow-sm p-8">
+        <div className="mb-8">
+          <h1 className="font-display text-2xl font-bold text-slate-900 mb-1">Admin Panel</h1>
+          <p className="text-slate-500 text-sm">Shammi Portfolio CMS</p>
+        </div>
         <form onSubmit={submit} className="flex flex-col gap-4">
-          <input
-            type="password"
-            value={pw}
-            onChange={e => { setPw(e.target.value); setError(false) }}
-            placeholder="Enter password"
-            autoFocus
-            className="bg-neutral-900 border border-neutral-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-primary transition-colors"
-          />
-          {error && <p className="text-red-400 text-xs">Incorrect password</p>}
-          <button
+          <div>
+            <label className="text-xs font-semibold uppercase tracking-wider text-slate-500 block mb-2">
+              Password
+            </label>
+            <Input
+              type="password"
+              value={pw}
+              onChange={e => { setPw(e.target.value); setError(false) }}
+              placeholder="Enter password"
+              autoFocus
+            />
+            {error && <p className="text-red-500 text-xs mt-2">Incorrect password.</p>}
+          </div>
+          <Button
             type="submit"
-            className="bg-primary text-white font-bold text-sm py-3 rounded-full hover:bg-primary-light transition-colors"
+            className="w-full bg-primary text-primary-foreground hover:bg-primary-light transition-colors"
           >
             Sign In
-          </button>
+          </Button>
         </form>
       </div>
     </div>
@@ -56,9 +68,15 @@ const AdminApp = () => {
   const [authed, setAuthed] = useState(() => sessionStorage.getItem('admin_auth') === '1')
   const [active, setActive] = useState('projects')
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     document.body.classList.add('is-admin')
-    return () => document.body.classList.remove('is-admin')
+    const html = document.documentElement
+    const hadDark = html.classList.contains('dark')
+    html.classList.remove('dark')
+    return () => {
+      document.body.classList.remove('is-admin')
+      if (hadDark) html.classList.add('dark')
+    }
   }, [])
 
   if (!authed) return (
@@ -68,98 +86,115 @@ const AdminApp = () => {
   const logout = () => { sessionStorage.removeItem('admin_auth'); setAuthed(false) }
 
   return (
-    <div className="min-h-screen bg-neutral-950 flex">
+    <div className="min-h-screen bg-slate-50 flex">
       {/* Sidebar */}
-      <aside className="w-56 bg-neutral-900 border-r border-neutral-800 flex flex-col flex-shrink-0">
-        <div className="px-5 py-6 border-b border-neutral-800">
-          <a href="/" className="font-display text-white font-bold text-lg">Shammi.</a>
-          <p className="text-neutral-600 text-xs mt-0.5">Admin Panel</p>
+      <aside className="w-56 bg-white border-r border-slate-200 flex flex-col flex-shrink-0">
+        <div className="px-5 py-5 border-b border-slate-100">
+          <a href="/" className="font-display text-slate-900 font-bold text-lg leading-none block">
+            Shammi.
+          </a>
+          <p className="text-slate-400 text-xs mt-1">Content Management</p>
         </div>
-        <nav className="flex-1 p-3 flex flex-col gap-1">
-          {NAV.map(({ key, label }) => (
+
+        <nav className="flex-1 p-3 flex flex-col gap-0.5">
+          {NAV.map(({ key, label, Icon }) => (
             <button
               key={key}
               onClick={() => setActive(key)}
-              className={`w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+              className={`w-full text-left flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-colors ${
                 active === key
-                  ? 'bg-primary/15 text-primary'
-                  : 'text-neutral-400 hover:text-white hover:bg-neutral-800'
+                  ? 'bg-violet-50 text-violet-700 font-medium'
+                  : 'text-slate-500 hover:text-slate-900 hover:bg-slate-50'
               }`}
             >
+              <Icon size={15} className={active === key ? 'text-violet-500' : 'text-slate-400'} />
               {label}
             </button>
           ))}
         </nav>
-        <div className="p-3 border-t border-neutral-800">
+
+        <div className="p-3 border-t border-slate-100 flex flex-col gap-1">
+          <a
+            href="/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-slate-400 hover:text-slate-600 hover:bg-slate-50 transition-colors"
+          >
+            <HiExternalLink size={13} />
+            View site
+          </a>
           <button
             onClick={logout}
-            className="w-full text-left px-3 py-2.5 rounded-lg text-xs text-neutral-600 hover:text-neutral-400 transition-colors"
+            className="flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-slate-400 hover:text-red-500 hover:bg-red-50 transition-colors"
           >
+            <HiLogout size={13} />
             Sign out
           </button>
         </div>
       </aside>
 
       {/* Content */}
-      <main className="flex-1 overflow-auto p-8">
-        {active === 'projects'   && <ProjectsPanel />}
-        {active === 'services'   && (
-          <TablePanel
-            table="services"
-            title="Services"
-            fields={[
-              { key: 'num',         label: 'Number',      placeholder: '01' },
-              { key: 'title',       label: 'Title' },
-              { key: 'description', label: 'Description', type: 'textarea' },
-              { key: 'tags',        label: 'Tags',        type: 'tags', placeholder: 'WordPress, WooCommerce' },
-            ]}
-            displayCols={['num','title']}
-          />
-        )}
-        {active === 'skills' && (
-          <TablePanel
-            table="skills"
-            title="Skills"
-            fields={[{ key: 'name', label: 'Skill Name' }]}
-            displayCols={['name']}
-          />
-        )}
-        {active === 'experience' && (
-          <TablePanel
-            table="experience"
-            title="Experience"
-            fields={[
-              { key: 'role',        label: 'Role' },
-              { key: 'company',     label: 'Company' },
-              { key: 'period',      label: 'Period',       placeholder: '2020 – Present' },
-              { key: 'description', label: 'Description',  type: 'textarea' },
-            ]}
-            displayCols={['role','company','period']}
-          />
-        )}
-        {active === 'stats' && (
-          <TablePanel
-            table="stats"
-            title="Stats"
-            fields={[
-              { key: 'label', label: 'Label', placeholder: 'Projects Completed' },
-              { key: 'value', label: 'Value', placeholder: '200+' },
-            ]}
-            displayCols={['label','value']}
-          />
-        )}
-        {active === 'process' && (
-          <TablePanel
-            table="process_steps"
-            title="Process Steps"
-            fields={[
-              { key: 'num',         label: 'Step Number', placeholder: '01' },
-              { key: 'title',       label: 'Title' },
-              { key: 'description', label: 'Description', type: 'textarea' },
-            ]}
-            displayCols={['num','title']}
-          />
-        )}
+      <main className="flex-1 overflow-auto">
+        <div className="p-8">
+          {active === 'projects'   && <ProjectsPanel />}
+          {active === 'services'   && (
+            <TablePanel
+              table="services"
+              title="Services"
+              fields={[
+                { key: 'num',         label: 'Number',      placeholder: '01' },
+                { key: 'title',       label: 'Title' },
+                { key: 'description', label: 'Description', type: 'textarea' },
+                { key: 'tags',        label: 'Tags',        type: 'tags', placeholder: 'WordPress, WooCommerce' },
+              ]}
+              displayCols={['num','title']}
+            />
+          )}
+          {active === 'skills' && (
+            <TablePanel
+              table="skills"
+              title="Skills"
+              fields={[{ key: 'name', label: 'Skill Name' }]}
+              displayCols={['name']}
+            />
+          )}
+          {active === 'experience' && (
+            <TablePanel
+              table="experience"
+              title="Experience"
+              fields={[
+                { key: 'role',        label: 'Role' },
+                { key: 'company',     label: 'Company' },
+                { key: 'period',      label: 'Period',       placeholder: '2020 – Present' },
+                { key: 'description', label: 'Description',  type: 'textarea' },
+              ]}
+              displayCols={['role','company','period']}
+            />
+          )}
+          {active === 'stats' && (
+            <TablePanel
+              table="stats"
+              title="Stats"
+              fields={[
+                { key: 'label', label: 'Label', placeholder: 'Projects Completed' },
+                { key: 'value', label: 'Value', placeholder: '200+' },
+              ]}
+              displayCols={['label','value']}
+            />
+          )}
+          {active === 'process' && (
+            <TablePanel
+              table="process_steps"
+              title="Process Steps"
+              fields={[
+                { key: 'num',         label: 'Step Number', placeholder: '01' },
+                { key: 'title',       label: 'Title' },
+                { key: 'description', label: 'Description', type: 'textarea' },
+              ]}
+              displayCols={['num','title']}
+            />
+          )}
+        </div>
       </main>
     </div>
   )

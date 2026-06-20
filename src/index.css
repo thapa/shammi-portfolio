@@ -32,6 +32,26 @@
     /* Easing */
     --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
     --ease-quart: cubic-bezier(0.25, 1, 0.5, 1);
+    /* shadcn component variables */
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    --primary: 244 99% 66%;
+    --primary-light: 244 99% 72%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 244 99% 66%;
+    --radius: 0.5rem;
   }
 
   .dark {
@@ -62,6 +82,29 @@
     overflow-x: hidden;
     font-optical-sizing: auto;
     transition: background 240ms var(--ease-quart), color 240ms var(--ease-quart);
+  }
+
+  body.is-admin {
+    background: #f8fafc;
+    color: #0f172a;
+    transition: none;
+  }
+
+  /* Force all shadcn CSS vars to light values in admin — covers Radix Portals too */
+  html.dark body.is-admin,
+  html.dark body.is-admin * {
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
   }
 
   /* Focus styles — accent ring */
@@ -124,33 +167,6 @@
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
-}
-
-/* ── Admin panel utility classes ── */
-.admin-label {
-  @apply text-xs font-bold uppercase tracking-widest block mb-2;
-  color: var(--ds-text-3);
-}
-
-.admin-input {
-  @apply w-full rounded-none px-4 py-2.5 text-sm placeholder-neutral-600 focus:outline-none transition-colors;
-  background: var(--ds-bg-surface);
-  border: 1px solid var(--ds-border);
-  color: var(--ds-text-1);
-}
-
-.admin-input:focus {
-  border-color: var(--ds-accent);
-}
-
-.admin-th {
-  @apply px-4 py-3 text-left text-xs font-bold uppercase tracking-widest;
-  color: var(--ds-text-3);
-}
-
-.admin-td {
-  @apply px-4 py-3 text-sm;
-  color: var(--ds-text-2);
 }
 
 /* ── Button: Primary CTA ── */
