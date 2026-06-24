@@ -16,8 +16,6 @@
 // ── 1. AI SETTINGS ────────────────────────────────────────────────────────────
 export const AGENT_CONFIG = {
   // Which AI model to use.
-  // ▸ Zenmux        → requires ZENMUX_API_KEY in Vercel env vars (checked first)
-  //     'z-ai/glm-5.2'             → current test model
   // ▸ Groq (FREE)   → requires GROQ_API_KEY in Vercel env vars
   //     'llama-3.1-8b-instant'     → fastest responses
   //     'llama-3.3-70b-versatile'  → smarter, slightly slower
@@ -25,7 +23,6 @@ export const AGENT_CONFIG = {
   //     'gpt-4o-mini'  → cheap & fast
   //     'gpt-4o'       → best quality
   model: 'llama-3.3-70b-versatile',
-  zenmuxModel: 'z-ai/glm-5.2',
 
   // Maximum words per AI reply. Lower = faster. Keep between 200–500 for chat.
   maxTokens: 350,

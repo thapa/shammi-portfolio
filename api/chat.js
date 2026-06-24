@@ -8,19 +8,17 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'No messages provided' })
   }
 
-  // Determine API endpoint — priority: Zenmux → Groq → OpenAI
-  const apiKey = process.env.ZENMUX_API_KEY || process.env.GROQ_API_KEY || process.env.OPENAI_API_KEY
+  // Determine API endpoint — supports Groq (free) or OpenAI (paid)
+  const apiKey = process.env.GROQ_API_KEY || process.env.OPENAI_API_KEY
   if (!apiKey) {
-    return res.status(500).json({ error: 'No AI API key configured. Add ZENMUX_API_KEY, GROQ_API_KEY, or OPENAI_API_KEY to environment variables.' })
+    return res.status(500).json({ error: 'No AI API key configured. Add GROQ_API_KEY or OPENAI_API_KEY to environment variables.' })
   }
 
-  const apiUrl = process.env.ZENMUX_API_KEY
-    ? 'https://zenmux.ai/api/v1/chat/completions'
-    : process.env.OPENAI_API_KEY
-      ? 'https://api.openai.com/v1/chat/completions'
-      : 'https://api.groq.com/openai/v1/chat/completions'
+  const apiUrl = process.env.OPENAI_API_KEY
+    ? 'https://api.openai.com/v1/chat/completions'
+    : 'https://api.groq.com/openai/v1/chat/completions'
 
-  const model = process.env.ZENMUX_API_KEY ? AGENT_CONFIG.zenmuxModel : AGENT_CONFIG.model
+  const model = AGENT_CONFIG.model
 
   // Build system prompt with visitor context
   const userContext = `
