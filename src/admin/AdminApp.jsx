@@ -87,17 +87,17 @@ const AdminApp = () => {
   const logout = () => { sessionStorage.removeItem('admin_auth'); setAuthed(false) }
 
   return (
-    <div className="min-h-screen bg-slate-50 flex">
+    <div className="h-screen bg-slate-50 flex overflow-hidden">
       {/* Sidebar */}
-      <aside className="w-56 bg-white border-r border-slate-200 flex flex-col flex-shrink-0">
-        <div className="px-5 py-5 border-b border-slate-100">
+      <aside className="w-56 bg-white border-r border-slate-200 flex flex-col flex-shrink-0 h-full overflow-y-auto">
+        <div className="px-5 py-5 border-b border-slate-100 flex-shrink-0">
           <a href="/" className="font-display text-slate-900 font-bold text-lg leading-none block">
             Shammi.
           </a>
           <p className="text-slate-400 text-xs mt-1">Content Management</p>
         </div>
 
-        <nav className="flex-1 p-3 flex flex-col gap-0.5">
+        <nav className="flex-1 p-3 flex flex-col gap-0.5 overflow-y-auto">
           {NAV.map(({ key, label, Icon }) => (
             <NavLink
               key={key}
@@ -120,7 +120,7 @@ const AdminApp = () => {
           ))}
         </nav>
 
-        <div className="p-3 border-t border-slate-100 flex flex-col gap-1">
+        <div className="p-3 border-t border-slate-100 flex flex-col gap-1 flex-shrink-0">
           <a
             href="/"
             target="_blank"
@@ -141,7 +141,7 @@ const AdminApp = () => {
       </aside>
 
       {/* Content */}
-      <main className="flex-1 overflow-auto">
+      <main className="flex-1 h-full overflow-y-auto">
         <div className="p-8">
           <Routes>
             <Route index element={<Navigate to="/admin/projects" replace />} />

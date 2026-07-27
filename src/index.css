@@ -88,6 +88,23 @@
     background: #f8fafc;
     color: #0f172a;
     transition: none;
+    overflow: hidden;
+  }
+
+  /* Admin main content panel custom scrollbar */
+  .is-admin main::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  .is-admin main::-webkit-scrollbar-track {
+    background: #f1f5f9;
+  }
+  .is-admin main::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+  }
+  .is-admin main::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
   }
 
   /* Force all shadcn CSS vars to light values in admin — covers Radix Portals too */
