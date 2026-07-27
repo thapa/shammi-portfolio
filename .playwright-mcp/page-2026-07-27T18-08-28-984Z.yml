@@ -1,0 +1,100 @@
+- generic [active] [ref=f1e1]:
+  - generic [ref=f1e3]:
+    - complementary [ref=f1e4]:
+      - generic [ref=f1e5]:
+        - link "Shammi." [ref=f1e6] [cursor=pointer]:
+          - /url: /
+        - paragraph [ref=f1e7]: Content Management
+      - navigation [ref=f1e8]:
+        - link "Projects" [ref=f1e9] [cursor=pointer]:
+          - /url: /admin/projects
+        - link "Services" [ref=f1e12] [cursor=pointer]:
+          - /url: /admin/services
+        - link "Skills" [ref=f1e15] [cursor=pointer]:
+          - /url: /admin/skills
+        - link "Experience" [ref=f1e18] [cursor=pointer]:
+          - /url: /admin/experience
+        - link "Stats" [ref=f1e22] [cursor=pointer]:
+          - /url: /admin/stats
+        - link "Process Steps" [ref=f1e25] [cursor=pointer]:
+          - /url: /admin/process
+      - generic [ref=f1e29]:
+        - link "View site" [ref=f1e30] [cursor=pointer]:
+          - /url: /
+        - button "Sign out" [ref=f1e34] [cursor=pointer]
+    - main [ref=f1e37]
+  - button [ref=f1e48] [cursor=pointer]:
+    - generic:
+      - generic:
+        - button
+      - generic:
+        - button
+      - generic:
+        - button [disabled]
+      - generic:
+        - button [disabled]
+      - generic:
+        - button [disabled]
+      - generic:
+        - button [disabled]
+      - generic:
+        - button
+      - generic:
+        - button
+    - generic:
+      - generic:
+        - generic:
+          - generic:
+            - link:
+              - /url: https://agentation.com
+            - paragraph: v3.0.2
+            - button "Switch to light mode"
+          - generic:
+            - generic:
+              - generic: Output Detail
+              - button "Standard"
+            - generic:
+              - generic: React Components
+              - generic:
+                - checkbox [checked]
+            - generic:
+              - generic: Hide Until Restart
+              - generic:
+                - checkbox
+          - generic:
+            - generic: Marker Color
+            - generic:
+              - button "Indigo"
+              - button "Blue"
+              - button "Cyan"
+              - button "Green"
+              - button "Yellow"
+              - button "Orange"
+              - button "Red"
+          - generic:
+            - generic:
+              - generic:
+                - checkbox "Clear on copy/send"
+              - generic: Clear on copy/send
+            - generic:
+              - generic:
+                - checkbox "Block page interactions" [checked]
+              - generic: Block page interactions
+          - button "Manage MCP & Webhooks"
+        - generic:
+          - button "Manage MCP & Webhooks"
+          - generic:
+            - generic: MCP Connection
+            - paragraph:
+              - text: MCP connection allows agents to receive and act on annotations.
+              - link "Learn more":
+                - /url: https://agentation.dev/mcp
+          - generic:
+            - generic:
+              - generic: Webhooks
+              - generic:
+                - generic: Auto-Send
+                - generic:
+                  - checkbox "Auto-Send" [checked] [disabled]
+            - paragraph: The webhook URL will receive live annotation changes and annotation data.
+            - textbox "Webhook URL"

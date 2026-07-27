@@ -1,5 +1,7 @@
-import { useState, useEffect, useLayoutEffect } from 'react'
+import { useState, useLayoutEffect } from 'react'
+import { Routes, Route, NavLink, Navigate } from 'react-router-dom'
 import ProjectsPanel from './panels/ProjectsPanel'
+import ProjectForm from './panels/ProjectForm'
 import TablePanel from './panels/TablePanel'
 import { Input } from '../components/ui/input'
 import { Button } from '../components/ui/button'
@@ -66,7 +68,6 @@ const LoginGate = ({ onAuth }) => {
 // ── Admin shell ───────────────────────────────────────────────────────────────
 const AdminApp = () => {
   const [authed, setAuthed] = useState(() => sessionStorage.getItem('admin_auth') === '1')
-  const [active, setActive] = useState('projects')
 
   useLayoutEffect(() => {
     document.body.classList.add('is-admin')
@@ -98,18 +99,24 @@ const AdminApp = () => {
 
         <nav className="flex-1 p-3 flex flex-col gap-0.5">
           {NAV.map(({ key, label, Icon }) => (
-            <button
+            <NavLink
               key={key}
-              onClick={() => setActive(key)}
-              className={`w-full text-left flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-colors ${
-                active === key
-                  ? 'bg-violet-50 text-violet-700 font-medium'
-                  : 'text-slate-500 hover:text-slate-900 hover:bg-slate-50'
-              }`}
+              to={`/admin/${key}`}
+              className={({ isActive }) =>
+                `w-full text-left flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-colors ${
+                  isActive
+                    ? 'bg-violet-50 text-violet-700 font-medium'
+                    : 'text-slate-500 hover:text-slate-900 hover:bg-slate-50'
+                }`
+              }
             >
-              <Icon size={15} className={active === key ? 'text-violet-500' : 'text-slate-400'} />
-              {label}
-            </button>
+              {({ isActive }) => (
+                <>
+                  <Icon size={15} className={isActive ? 'text-violet-500' : 'text-slate-400'} />
+                  {label}
+                </>
+              )}
+            </NavLink>
           ))}
         </nav>
 
@@ -136,64 +143,88 @@ const AdminApp = () => {
       {/* Content */}
       <main className="flex-1 overflow-auto">
         <div className="p-8">
-          {active === 'projects'   && <ProjectsPanel />}
-          {active === 'services'   && (
-            <TablePanel
-              table="services"
-              title="Services"
-              fields={[
-                { key: 'num',         label: 'Number',      placeholder: '01' },
-                { key: 'title',       label: 'Title' },
-                { key: 'description', label: 'Description', type: 'textarea' },
-                { key: 'tags',        label: 'Tags',        type: 'tags', placeholder: 'WordPress, WooCommerce' },
-              ]}
-              displayCols={['num','title']}
+          <Routes>
+            <Route index element={<Navigate to="/admin/projects" replace />} />
+
+            <Route path="projects" element={<ProjectsPanel />} />
+            <Route path="projects/new" element={<ProjectForm />} />
+            <Route path="projects/:id/edit" element={<ProjectForm />} />
+
+            <Route
+              path="services"
+              element={
+                <TablePanel
+                  table="services"
+                  title="Services"
+                  fields={[
+                    { key: 'num',         label: 'Number',      placeholder: '01' },
+                    { key: 'title',       label: 'Title' },
+                    { key: 'description', label: 'Description', type: 'textarea' },
+                    { key: 'tags',        label: 'Tags',        type: 'tags', placeholder: 'WordPress, WooCommerce' },
+                  ]}
+                  displayCols={['num','title']}
+                />
+              }
             />
-          )}
-          {active === 'skills' && (
-            <TablePanel
-              table="skills"
-              title="Skills"
-              fields={[{ key: 'name', label: 'Skill Name' }]}
-              displayCols={['name']}
+            <Route
+              path="skills"
+              element={
+                <TablePanel
+                  table="skills"
+                  title="Skills"
+                  fields={[{ key: 'name', label: 'Skill Name' }]}
+                  displayCols={['name']}
+                />
+              }
             />
-          )}
-          {active === 'experience' && (
-            <TablePanel
-              table="experience"
-              title="Experience"
-              fields={[
-                { key: 'role',        label: 'Role' },
-                { key: 'company',     label: 'Company' },
-                { key: 'period',      label: 'Period',       placeholder: '2020 – Present' },
-                { key: 'description', label: 'Description',  type: 'textarea' },
-              ]}
-              displayCols={['role','company','period']}
+            <Route
+              path="experience"
+              element={
+                <TablePanel
+                  table="experience"
+                  title="Experience"
+                  fields={[
+                    { key: 'role',        label: 'Role' },
+                    { key: 'company',     label: 'Company' },
+                    { key: 'period',      label: 'Period',       placeholder: '2020 – Present' },
+                    { key: 'description', label: 'Description',  type: 'textarea' },
+                  ]}
+                  displayCols={['role','company','period']}
+                />
+              }
             />
-          )}
-          {active === 'stats' && (
-            <TablePanel
-              table="stats"
-              title="Stats"
-              fields={[
-                { key: 'label', label: 'Label', placeholder: 'Projects Completed' },
-                { key: 'value', label: 'Value', placeholder: '200+' },
-              ]}
-              displayCols={['label','value']}
+            <Route
+              path="stats"
+              element={
+                <TablePanel
+                  table="stats"
+                  title="Stats"
+                  fields={[
+                    { key: 'label', label: 'Label', placeholder: 'Projects Completed' },
+                    { key: 'value', label: 'Value', placeholder: '200+' },
+                  ]}
+                  displayCols={['label','value']}
+                />
+              }
             />
-          )}
-          {active === 'process' && (
-            <TablePanel
-              table="process_steps"
-              title="Process Steps"
-              fields={[
-                { key: 'num',         label: 'Step Number', placeholder: '01' },
-                { key: 'title',       label: 'Title' },
-                { key: 'description', label: 'Description', type: 'textarea' },
-              ]}
-              displayCols={['num','title']}
+            <Route
+              path="process"
+              element={
+                <TablePanel
+                  table="process_steps"
+                  title="Process Steps"
+                  fields={[
+                    { key: 'num',         label: 'Step Number', placeholder: '01' },
+                    { key: 'title',       label: 'Title' },
+                    { key: 'description', label: 'Description', type: 'textarea' },
+                  ]}
+                  displayCols={['num','title']}
+                />
+              }
             />
-          )}
+
+            <Route path="*" element={<Navigate to="/admin/projects" replace />} />
+          </Routes>
         </div>
       </main>
     </div>

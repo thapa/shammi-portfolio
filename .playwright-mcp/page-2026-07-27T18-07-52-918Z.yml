@@ -1,0 +1,146 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e19]:
+    - complementary [ref=e20]:
+      - generic [ref=e21]:
+        - link "Shammi." [ref=e22] [cursor=pointer]:
+          - /url: /
+        - paragraph [ref=e23]: Content Management
+      - navigation [ref=e24]:
+        - link "Projects" [ref=e25] [cursor=pointer]:
+          - /url: /admin/projects
+        - link "Services" [ref=e28] [cursor=pointer]:
+          - /url: /admin/services
+        - link "Skills" [ref=e31] [cursor=pointer]:
+          - /url: /admin/skills
+        - link "Experience" [ref=e34] [cursor=pointer]:
+          - /url: /admin/experience
+        - link "Stats" [ref=e38] [cursor=pointer]:
+          - /url: /admin/stats
+        - link "Process Steps" [ref=e41] [cursor=pointer]:
+          - /url: /admin/process
+      - generic [ref=e45]:
+        - link "View site" [ref=e46] [cursor=pointer]:
+          - /url: /
+        - button "Sign out" [ref=e50] [cursor=pointer]
+    - main [ref=e53]:
+      - generic [ref=e55]:
+        - generic [ref=e56]:
+          - link "Back to projects" [ref=e57] [cursor=pointer]:
+            - /url: /admin/projects
+          - heading "Add Project" [level=1] [ref=e60]
+          - paragraph [ref=e61]: Screenshots auto-generate once saved
+        - generic [ref=e62]:
+          - generic [ref=e63]:
+            - generic [ref=e64]:
+              - generic [ref=e65]: Title
+              - textbox "Title" [ref=e66]:
+                - /placeholder: Heritage Store
+            - generic [ref=e67]:
+              - generic [ref=e68]: Category
+              - combobox "Category" [ref=e69] [cursor=pointer]:
+                - generic: WordPress
+              - combobox [ref=e72]
+          - generic [ref=e73]:
+            - generic [ref=e74]: URL
+            - textbox "URL" [ref=e75]:
+              - /placeholder: https://example.com
+          - generic [ref=e76]:
+            - generic [ref=e77]: Custom Thumbnail
+            - button "+ Upload image" [ref=e78] [cursor=pointer]:
+              - generic [ref=e79]: +
+              - generic [ref=e80]: Upload image
+            - paragraph [ref=e81]: Overrides auto-generated desktop screenshot
+          - generic [ref=e82]:
+            - generic [ref=e83]:
+              - generic [ref=e84]: Description
+              - button "AI Generate" [disabled] [ref=e85]
+            - textbox "Description" [ref=e86]:
+              - /placeholder: Brief project description…
+          - generic [ref=e87]:
+            - generic [ref=e88]: Tech Stack (comma-separated)
+            - textbox "Tech Stack (comma-separated)" [ref=e89]:
+              - /placeholder: WordPress, WooCommerce, Elementor
+          - paragraph [ref=e92]: Case Study
+          - generic [ref=e94]:
+            - generic [ref=e95]: Template
+            - combobox "Template" [ref=e96] [cursor=pointer]:
+              - generic: None — no case study
+            - combobox [ref=e99]
+          - generic [ref=e100]:
+            - button "Add Project" [ref=e101] [cursor=pointer]
+            - button "Cancel" [ref=e102] [cursor=pointer]
+  - button [ref=e14] [cursor=pointer]:
+    - generic:
+      - generic:
+        - button
+      - generic:
+        - button
+      - generic:
+        - button [disabled]
+      - generic:
+        - button [disabled]
+      - generic:
+        - button [disabled]
+      - generic:
+        - button [disabled]
+      - generic:
+        - button
+      - generic:
+        - button
+    - generic:
+      - generic:
+        - generic:
+          - generic:
+            - link:
+              - /url: https://agentation.com
+            - paragraph: v3.0.2
+            - button "Switch to light mode"
+          - generic:
+            - generic:
+              - generic: Output Detail
+              - button "Standard"
+            - generic:
+              - generic: React Components
+              - generic:
+                - checkbox [checked]
+            - generic:
+              - generic: Hide Until Restart
+              - generic:
+                - checkbox
+          - generic:
+            - generic: Marker Color
+            - generic:
+              - button "Indigo"
+              - button "Blue"
+              - button "Cyan"
+              - button "Green"
+              - button "Yellow"
+              - button "Orange"
+              - button "Red"
+          - generic:
+            - generic:
+              - generic:
+                - checkbox "Clear on copy/send"
+              - generic: Clear on copy/send
+            - generic:
+              - generic:
+                - checkbox "Block page interactions" [checked]
+              - generic: Block page interactions
+          - button "Manage MCP & Webhooks"
+        - generic:
+          - button "Manage MCP & Webhooks"
+          - generic:
+            - generic: MCP Connection
+            - paragraph:
+              - text: MCP connection allows agents to receive and act on annotations.
+              - link "Learn more":
+                - /url: https://agentation.dev/mcp
+          - generic:
+            - generic:
+              - generic: Webhooks
+              - generic:
+                - generic: Auto-Send
+                - generic:
+                  - checkbox "Auto-Send" [checked] [disabled]
+            - paragraph: The webhook URL will receive live annotation changes and annotation data.
+            - textbox "Webhook URL"

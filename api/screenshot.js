@@ -1,17 +1,23 @@
+import crypto from 'crypto'
 import { createClient } from '@supabase/supabase-js'
 
-const BUCKET = 'project-screenshots'
-
 export default async function handler(req, res) {
-  if (req.method !== 'POST') return res.status(405).end()
+  if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' })
 
-  const { projectId, url, type = 'desktop' } = req.body
+  const { projectId, url, type = 'desktop' } = req.body || {}
   if (!projectId || !url) return res.status(400).json({ error: 'Missing projectId or url' })
 
   const isMobile = type === 'mobile'
   const apiKey = process.env.SCREENSHOTBASE_API_KEY || process.env.VITE_SCREENSHOTBASE_API_KEY
 
   if (!apiKey) return res.status(500).json({ error: 'Missing SCREENSHOTBASE_API_KEY' })
+
+  const cloudName = process.env.CLOUDINARY_CLOUD_NAME || process.env.VITE_CLOUDINARY_CLOUD_NAME
+  const cloudApiKey = process.env.CLOUDINARY_API_KEY
+  const cloudApiSecret = process.env.CLOUDINARY_API_SECRET
+  const uploadPreset = process.env.CLOUDINARY_UPLOAD_PRESET
+
+  if (!cloudName) return res.status(500).json({ error: 'Missing CLOUDINARY_CLOUD_NAME' })
 
   // ── 1. Fetch screenshot from ScreenshotBase ──────────────────────
   const params = new URLSearchParams({
@@ -41,30 +47,65 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: `Screenshot fetch failed: ${err.message}` })
   }
 
-  // ── 2. Upload to Supabase Storage ────────────────────────────────
+  // ── 2. Upload screenshot buffer to Cloudinary ────────────────────
+  let cloudinaryUrl
+  try {
+    const dataUri = `data:image/webp;base64,${imageBuffer.toString('base64')}`
+    const folder = 'project-screenshots'
+    const publicId = isMobile ? `${projectId}-mobile` : `${projectId}-desktop`
+    const timestamp = Math.floor(Date.now() / 1000)
+
+    const formData = new URLSearchParams()
+    formData.append('file', dataUri)
+    formData.append('folder', folder)
+    formData.append('public_id', publicId)
+    formData.append('overwrite', 'true')
+    formData.append('timestamp', timestamp.toString())
+
+    if (cloudApiKey && cloudApiSecret) {
+      // Order of signed parameters alphabetically: folder=..., overwrite=..., public_id=..., timestamp=...
+      const paramString = `folder=${folder}&overwrite=true&public_id=${publicId}&timestamp=${timestamp}${cloudApiSecret}`
+      const signature = crypto.createHash('sha1').update(paramString).digest('hex')
+      formData.append('api_key', cloudApiKey)
+      formData.append('signature', signature)
+    } else if (uploadPreset) {
+      formData.append('upload_preset', uploadPreset)
+    } else {
+      return res.status(500).json({ error: 'Missing Cloudinary API keys or upload preset' })
+    }
+
+    const cloudRes = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
+      method: 'POST',
+      body: formData,
+    })
+
+    const cloudText = await cloudRes.text()
+    let cloudData = {}
+    try { cloudData = cloudText ? JSON.parse(cloudText) : {} } catch { cloudData = { error: cloudText } }
+
+    if (!cloudRes.ok) {
+      return res.status(500).json({ error: `Cloudinary error: ${cloudData.error?.message || cloudData.error || 'Upload failed'}` })
+    }
+
+    cloudinaryUrl = cloudData.secure_url || cloudData.url
+  } catch (err) {
+    return res.status(500).json({ error: `Cloudinary upload exception: ${err.message}` })
+  }
+
+  // ── 3. Save Cloudinary URL back to projects table ───────────────
   const supabase = createClient(
     process.env.VITE_SUPABASE_URL,
     process.env.VITE_SUPABASE_ANON_KEY
   )
 
-  const fileName = isMobile ? `${projectId}-mobile.webp` : `${projectId}.webp`
   const dbField = isMobile ? 'mobile_screenshot_url' : 'screenshot_url'
 
-  const { error: uploadError } = await supabase.storage
-    .from(BUCKET)
-    .upload(fileName, imageBuffer, { contentType: 'image/webp', upsert: true })
-
-  if (uploadError) return res.status(500).json({ error: `Storage upload failed: ${uploadError.message}` })
-
-  const { data: { publicUrl } } = supabase.storage.from(BUCKET).getPublicUrl(fileName)
-
-  // ── 3. Save URL back to projects table ───────────────────────────
   const { error: dbError } = await supabase
     .from('projects')
-    .update({ [dbField]: publicUrl })
+    .update({ [dbField]: cloudinaryUrl })
     .eq('id', projectId)
 
   if (dbError) return res.status(500).json({ error: `DB update failed: ${dbError.message}` })
 
-  res.json({ url: publicUrl })
+  res.json({ url: cloudinaryUrl })
 }

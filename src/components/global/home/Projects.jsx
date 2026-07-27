@@ -4,32 +4,49 @@ import { Link } from 'react-router-dom'
 import { HiExternalLink, HiX, HiArrowRight } from 'react-icons/hi'
 import { useContent } from '../../../context/ContentContext'
 import { getOrFetchScreenshot, getOrFetchMobileScreenshot } from '../../../lib/screenshotbase'
+import { isVideoUrl } from '../../../lib/cloudinary'
 import { gsap, ScrollTrigger, SplitText } from '../../../lib/gsap'
 
 const tabs = ['All', 'WordPress', 'Shopify']
 
-// ─── Screenshot image with loading + fallback ──────────────────────────────
-const ScreenshotImage = ({ src, loading, error, fallbackTitle, className = '', objectPosition = 'top' }) => (
-  <div className={`relative overflow-hidden ${className}`} style={{ background: 'var(--ds-bg-elevated)' }}>
-    <div className="absolute inset-0 flex items-end p-4">
-      <span className="font-display text-2xl leading-none select-none" style={{ color: 'var(--ds-text-3)', opacity: 0.3 }}>
-        {fallbackTitle}
-      </span>
+// ─── Screenshot / Media display with loading + fallback (Image or Video) ────
+const ScreenshotImage = ({ src, loading, error, fallbackTitle, className = '', objectPosition = 'top' }) => {
+  const isVideo = isVideoUrl(src)
+
+  return (
+    <div className={`relative overflow-hidden ${className}`} style={{ background: 'var(--ds-bg-elevated)' }}>
+      <div className="absolute inset-0 flex items-end p-4">
+        <span className="font-display text-2xl leading-none select-none" style={{ color: 'var(--ds-text-3)', opacity: 0.3 }}>
+          {fallbackTitle}
+        </span>
+      </div>
+      {!error && src && (
+        isVideo ? (
+          <video
+            src={src}
+            autoPlay
+            loop
+            muted
+            playsInline
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${!loading ? 'opacity-100' : 'opacity-0'}`}
+            style={{ objectPosition }}
+          />
+        ) : (
+          <img
+            src={src}
+            alt={fallbackTitle}
+            loading="lazy"
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${!loading ? 'opacity-100' : 'opacity-0'}`}
+            style={{ objectPosition }}
+          />
+        )
+      )}
+      {loading && (
+        <div className="absolute inset-0 animate-pulse" style={{ background: 'var(--ds-bg-elevated)' }} />
+      )}
     </div>
-    {!error && (
-      <img
-        src={src ?? undefined}
-        alt={fallbackTitle}
-        loading="lazy"
-        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${src && !loading ? 'opacity-100' : 'opacity-0'}`}
-        style={{ objectPosition }}
-      />
-    )}
-    {loading && (
-      <div className="absolute inset-0 animate-pulse" style={{ background: 'var(--ds-bg-elevated)' }} />
-    )}
-  </div>
-)
+  )
+}
 
 // ─── Project modal ─────────────────────────────────────────────────────────
 const ProjectModal = ({ project: p, onClose }) => {
@@ -214,6 +231,8 @@ const ProjectCard = ({ project: p, onClick }) => {
     return () => { cancelled = true }
   }, [p.id])
 
+  const isVideo = isVideoUrl(imgSrc)
+
   return (
     <button
       onClick={onClick}
@@ -282,7 +301,7 @@ const ProjectCard = ({ project: p, onClick }) => {
         )}
       </div>
 
-      {/* Right Image Area */}
+      {/* Right Image/Video Area */}
       <div className="w-full md:w-[40%] relative h-[220px] md:h-auto md:min-h-0 overflow-hidden" style={{ background: 'var(--ds-bg-elevated)' }}>
         <div className="absolute inset-0 flex items-center justify-center p-8 z-0">
           <span className="font-display text-4xl md:text-6xl leading-none select-none text-center" style={{ color: 'var(--ds-text-3)', opacity: 0.1 }}>
@@ -290,13 +309,24 @@ const ProjectCard = ({ project: p, onClick }) => {
           </span>
         </div>
 
-        {!imgError && (
-          <img
-            src={imgSrc ?? undefined}
-            alt={p.title}
-            loading="lazy"
-            className={`absolute inset-0 w-full h-full object-cover object-center transition-all duration-700 ease-out group-hover:scale-105 ${imgSrc && !imgLoading ? 'opacity-100' : 'opacity-0'}`}
-          />
+        {!imgError && imgSrc && (
+          isVideo ? (
+            <video
+              src={imgSrc}
+              autoPlay
+              loop
+              muted
+              playsInline
+              className={`absolute inset-0 w-full h-full object-cover object-center transition-all duration-700 ease-out group-hover:scale-105 ${!imgLoading ? 'opacity-100' : 'opacity-0'}`}
+            />
+          ) : (
+            <img
+              src={imgSrc}
+              alt={p.title}
+              loading="lazy"
+              className={`absolute inset-0 w-full h-full object-cover object-center transition-all duration-700 ease-out group-hover:scale-105 ${!imgLoading ? 'opacity-100' : 'opacity-0'}`}
+            />
+          )
         )}
 
         {imgLoading && (
@@ -411,7 +441,7 @@ const Projects = () => {
             </h2>
           </div>
 
-          {/* Filter tabs — no rounded pills, flat, architectural */}
+          {/* Filter tabs */}
           <div className="flex flex-shrink-0 gap-0" style={{ border: '1px solid var(--ds-border)' }}>
             {tabs.map((tab) => (
               <button

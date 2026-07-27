@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import { HiArrowRight } from 'react-icons/hi'
+import { isVideoUrl } from '../lib/cloudinary'
 import { gsap, ScrollTrigger, SplitText } from '../lib/gsap'
 
 // ── Inline highlight ─────────────────────────────────────────────────────────
@@ -45,50 +46,66 @@ const Placeholder = ({ dark }) => {
 }
 
 // ── Browser frame ─────────────────────────────────────────────────────────────
-const BrowserFrame = ({ src, label, align = 'left', hideLabel = false }) => (
-  <div className="absolute inset-0 flex flex-col" style={{ background: 'var(--ds-bg-surface)' }}>
-    <div
-      className="flex items-center gap-3 px-3 md:px-4 h-11 flex-shrink-0"
-      style={{ background: 'oklch(20% 0.006 220)', borderBottom: '1px solid oklch(30% 0.006 220)' }}
-    >
-      <div className="flex items-center gap-1.5">
-        <span className="w-2.5 h-2.5 rounded-full" style={{ background: 'oklch(65% 0.21 28)' }} />
-        <span className="w-2.5 h-2.5 rounded-full" style={{ background: 'oklch(78% 0.16 88)' }} />
-        <span className="w-2.5 h-2.5 rounded-full" style={{ background: 'oklch(72% 0.16 150)' }} />
-      </div>
-      <div className="min-w-0 flex-1" />
-    </div>
+const BrowserFrame = ({ src, label, align = 'left', hideLabel = false }) => {
+  const isVideo = isVideoUrl(src)
 
-    <div className="relative flex-1 overflow-hidden">
-      {src ? (
-        <img
-          src={src}
-          alt={`${label} homepage hero test`}
-          draggable="false"
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{ objectPosition: 'top center' }}
-        />
-      ) : (
-        <Placeholder dark={false} />
-      )}
-      {!hideLabel && (
-        <span
-          className="absolute top-3 text-[9px] md:text-[10px] font-display uppercase"
-          style={{
-            [align]: '12px',
-            letterSpacing: '0.12em',
-            background: label === 'Variant' ? 'var(--ds-accent)' : 'oklch(96% 0.006 220)',
-            color: label === 'Variant' ? 'var(--ds-bg)' : 'oklch(18% 0.012 220)',
-            border: label === 'Variant' ? '1px solid var(--ds-accent)' : '1px solid oklch(78% 0.01 220)',
-            padding: '5px 10px',
-          }}
-        >
-          {label}
-        </span>
-      )}
+  return (
+    <div className="absolute inset-0 flex flex-col" style={{ background: 'var(--ds-bg-surface)' }}>
+      <div
+        className="flex items-center gap-3 px-3 md:px-4 h-11 flex-shrink-0"
+        style={{ background: 'oklch(20% 0.006 220)', borderBottom: '1px solid oklch(30% 0.006 220)' }}
+      >
+        <div className="flex items-center gap-1.5">
+          <span className="w-2.5 h-2.5 rounded-full" style={{ background: 'oklch(65% 0.21 28)' }} />
+          <span className="w-2.5 h-2.5 rounded-full" style={{ background: 'oklch(78% 0.16 88)' }} />
+          <span className="w-2.5 h-2.5 rounded-full" style={{ background: 'oklch(72% 0.16 150)' }} />
+        </div>
+        <div className="min-w-0 flex-1" />
+      </div>
+
+      <div className="relative flex-1 overflow-hidden">
+        {src ? (
+          isVideo ? (
+            <video
+              src={src}
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="absolute inset-0 w-full h-full object-cover"
+              style={{ objectPosition: 'top center' }}
+            />
+          ) : (
+            <img
+              src={src}
+              alt={`${label} homepage hero test`}
+              draggable="false"
+              className="absolute inset-0 w-full h-full object-cover"
+              style={{ objectPosition: 'top center' }}
+            />
+          )
+        ) : (
+          <Placeholder dark={false} />
+        )}
+        {!hideLabel && (
+          <span
+            className="absolute top-3 text-[9px] md:text-[10px] font-display uppercase"
+            style={{
+              [align]: '12px',
+              letterSpacing: '0.12em',
+              background: label === 'Variant' ? 'var(--ds-accent)' : 'oklch(96% 0.006 220)',
+              color: label === 'Variant' ? 'var(--ds-bg)' : 'oklch(18% 0.012 220)',
+              border: label === 'Variant' ? '1px solid var(--ds-accent)' : '1px solid oklch(78% 0.01 220)',
+              padding: '5px 10px',
+            }}
+          >
+            {label}
+          </span>
+        )}
+      </div>
     </div>
-  </div>
-)
+  )
+}
 
 // ── Drag-to-compare slider ───────────────────────────────────────────────────
 const CompareSlider = ({ beforeSrc, afterSrc }) => {

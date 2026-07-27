@@ -1,3 +1,5 @@
+import { safeParseResponse } from './cloudinary'
+
 // In-memory caches — persist for the browser session
 const desktopCache = new Map()
 const mobileCache = new Map()
@@ -10,11 +12,10 @@ const fetchViaServer = async (projectId, url, type) => {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ projectId, url, type }),
   })
+  const data = await safeParseResponse(res)
   if (!res.ok) {
-    const data = await res.json().catch(() => ({}))
     throw new Error(data.error || `Screenshot API error ${res.status}`)
   }
-  const data = await res.json()
   return data.url
 }
 

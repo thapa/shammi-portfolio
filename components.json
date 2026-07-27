@@ -10,11 +10,16 @@
     "cssVariables": true,
     "prefix": ""
   },
+  "iconLibrary": "lucide",
   "aliases": {
     "components": "src/components",
     "utils": "src/lib/utils",
     "ui": "src/components/ui",
     "lib": "src/lib",
     "hooks": "src/hooks"
+  },
+  "registries": {
+    "@magicui": "https://magicui.design/r/{name}",
+    "@solaceui": "https://www.solaceui.com/r/{name}.json"
   }
 }

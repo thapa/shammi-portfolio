@@ -1,7 +1,10 @@
 import { useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { HiArrowRight, HiArrowUpRight } from 'react-icons/hi2'
+import { isVideoUrl } from '../lib/cloudinary'
 import { gsap, ScrollTrigger, SplitText } from '../lib/gsap'
+import { Safari } from '../components/ui/safari'
+import { Iphone } from '../components/ui/iphone'
 
 // ── Inline highlight ─────────────────────────────────────────────────────────
 const Hl = ({ children }) => (
@@ -35,69 +38,6 @@ const Placeholder = ({ label }) => (
     <p style={{ fontSize: '9px', letterSpacing: '0.16em', textTransform: 'uppercase', color: 'oklch(48% 0.006 220)', fontFamily: '"Michroma", sans-serif' }}>
       {label}
     </p>
-  </div>
-)
-
-// ── Desktop browser chrome ───────────────────────────────────────────────────
-const DesktopFrame = ({ src }) => (
-  <div className="absolute inset-0 flex flex-col" style={{ background: 'var(--ds-bg-surface)' }}>
-    <div
-      className="flex items-center gap-3 px-3 md:px-4 h-10 flex-shrink-0"
-      style={{ background: 'oklch(20% 0.006 220)', borderBottom: '1px solid oklch(30% 0.006 220)' }}
-    >
-      <div className="flex items-center gap-1.5">
-        <span className="w-2.5 h-2.5 rounded-full" style={{ background: 'oklch(65% 0.21 28)' }} />
-        <span className="w-2.5 h-2.5 rounded-full" style={{ background: 'oklch(78% 0.16 88)' }} />
-        <span className="w-2.5 h-2.5 rounded-full" style={{ background: 'oklch(72% 0.16 150)' }} />
-      </div>
-      <div className="flex-1 h-5 rounded-sm" style={{ background: 'oklch(26% 0.005 220)', maxWidth: 240 }} />
-    </div>
-    <div className="relative flex-1 overflow-hidden">
-      {src ? (
-        <img
-          src={src}
-          alt="Desktop preview"
-          draggable="false"
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{ objectPosition: 'top center' }}
-        />
-      ) : (
-        <Placeholder label="Desktop screenshot" />
-      )}
-    </div>
-  </div>
-)
-
-// ── Mobile phone chrome ──────────────────────────────────────────────────────
-const MobileFrame = ({ src }) => (
-  <div
-    className="relative overflow-hidden flex-shrink-0"
-    style={{
-      width: '100%',
-      aspectRatio: '9 / 19',
-      border: '8px solid oklch(20% 0.006 220)',
-      borderRadius: 24,
-      background: 'oklch(20% 0.006 220)',
-      boxShadow: '0 0 0 1px oklch(30% 0.006 220)',
-    }}
-  >
-    <div
-      className="absolute top-0 left-1/2 z-10"
-      style={{ transform: 'translateX(-50%)', width: 80, height: 20, background: 'oklch(20% 0.006 220)', borderBottomLeftRadius: 12, borderBottomRightRadius: 12 }}
-    />
-    <div className="absolute inset-0 overflow-hidden" style={{ borderRadius: 16 }}>
-      {src ? (
-        <img
-          src={src}
-          alt="Mobile preview"
-          draggable="false"
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{ objectPosition: 'top center' }}
-        />
-      ) : (
-        <Placeholder label="Mobile screenshot" />
-      )}
-    </div>
   </div>
 )
 
@@ -239,15 +179,19 @@ const CaseStudyWeb = ({ project }) => {
         >
           ● Live site preview
         </p>
-        <div ref={previewRef} className="grid grid-cols-1 md:grid-cols-[1fr_160px] gap-6 items-center">
-          <div
-            className="relative overflow-hidden"
-            style={{ aspectRatio: '16 / 9', border: '1px solid var(--ds-border)', borderRadius: 8, background: 'var(--ds-bg-elevated)' }}
-          >
-            <DesktopFrame src={project.screenshot_url} />
-          </div>
+        <div ref={previewRef} className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-6 items-stretch">
+          <Safari
+            url={project.url}
+            {...(isVideoUrl(project.screenshot_url)
+              ? { videoSrc: project.screenshot_url }
+              : { imageSrc: project.screenshot_url })}
+            className="w-full"
+          />
           <div className="flex justify-center md:justify-end">
-            <MobileFrame src={project.mobile_screenshot_url} />
+            <Iphone
+              src={project.mobile_screenshot_url}
+              style={{ height: '100%', width: 'auto' }}
+            />
           </div>
         </div>
       </div>

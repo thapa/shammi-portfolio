@@ -1,0 +1,378 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e19]:
+    - complementary [ref=e20]:
+      - generic [ref=e21]:
+        - link "Shammi." [ref=e22] [cursor=pointer]:
+          - /url: /
+        - paragraph [ref=e23]: Content Management
+      - navigation [ref=e24]:
+        - link "Projects" [ref=e25] [cursor=pointer]:
+          - /url: /admin/projects
+        - link "Services" [ref=e28] [cursor=pointer]:
+          - /url: /admin/services
+        - link "Skills" [ref=e31] [cursor=pointer]:
+          - /url: /admin/skills
+        - link "Experience" [ref=e34] [cursor=pointer]:
+          - /url: /admin/experience
+        - link "Stats" [ref=e38] [cursor=pointer]:
+          - /url: /admin/stats
+        - link "Process Steps" [ref=e41] [cursor=pointer]:
+          - /url: /admin/process
+      - generic [ref=e45]:
+        - link "View site" [ref=e46] [cursor=pointer]:
+          - /url: /
+        - button "Sign out" [ref=e50] [cursor=pointer]
+    - main [ref=e53]:
+      - generic [ref=e103]:
+        - generic [ref=e104]:
+          - generic [ref=e105]:
+            - heading "Projects" [level=1] [ref=e106]
+            - paragraph [ref=e107]: 9 total · Screenshots auto-generate on add
+          - button "Add Project" [ref=e108] [cursor=pointer]
+        - table [ref=e111]:
+          - rowgroup [ref=e112]:
+            - row [ref=e113]:
+              - columnheader "Order" [ref=e114]
+              - columnheader "Title" [ref=e115]
+              - columnheader "Category" [ref=e116]
+              - columnheader "Slug / URL" [ref=e117]
+              - columnheader "Case Study" [ref=e118]
+              - columnheader "Screenshots" [ref=e119]
+              - columnheader "Actions" [ref=e120]
+          - rowgroup [ref=e121]:
+            - row [ref=e122]:
+              - cell [ref=e123]:
+                - generic [ref=e124]:
+                  - button [disabled] [ref=e125]
+                  - button [ref=e128] [cursor=pointer]
+              - cell "Vixen & Fox" [ref=e131]
+              - cell "Shopify" [ref=e132]
+              - cell "/project/vixen-fox https://vixenandfox.com.au" [ref=e134]:
+                - generic [ref=e135]:
+                  - generic [ref=e136]: /project/vixen-fox
+                  - link "https://vixenandfox.com.au" [ref=e137] [cursor=pointer]:
+                    - /url: https://vixenandfox.com.au
+              - cell "Web" [ref=e141]
+              - cell "Thumbnail Custom Desktop Saved Mobile Saved" [ref=e143]:
+                - generic [ref=e144]:
+                  - generic [ref=e145]:
+                    - generic [ref=e146]: Thumbnail
+                    - generic [ref=e147]: Custom
+                  - generic [ref=e148]:
+                    - generic [ref=e149]: Desktop
+                    - generic [ref=e150]: Saved
+                  - generic [ref=e151]:
+                    - generic [ref=e152]: Mobile
+                    - generic [ref=e153]: Saved
+              - cell [ref=e154]:
+                - generic [ref=e155]:
+                  - button "Edit" [ref=e156] [cursor=pointer]
+                  - button "Regenerate screenshots" [ref=e159] [cursor=pointer]
+                  - button "Delete" [ref=e162] [cursor=pointer]
+            - row [ref=e165]:
+              - cell [ref=e166]:
+                - generic [ref=e167]:
+                  - button [ref=e168] [cursor=pointer]
+                  - button [ref=e171] [cursor=pointer]
+              - cell "Unplugged" [ref=e174]
+              - cell "Shopify" [ref=e175]
+              - cell /project/unplugged https://unplugged.com/ [ref=e177]:
+                - generic [ref=e178]:
+                  - generic [ref=e179]: /project/unplugged
+                  - link "https://unplugged.com/" [ref=e180] [cursor=pointer]:
+                    - /url: https://unplugged.com/
+              - cell "—" [ref=e184]
+              - cell "Thumbnail Custom Desktop Saved Mobile Saved" [ref=e185]:
+                - generic [ref=e186]:
+                  - generic [ref=e187]:
+                    - generic [ref=e188]: Thumbnail
+                    - generic [ref=e189]: Custom
+                  - generic [ref=e190]:
+                    - generic [ref=e191]: Desktop
+                    - generic [ref=e192]: Saved
+                  - generic [ref=e193]:
+                    - generic [ref=e194]: Mobile
+                    - generic [ref=e195]: Saved
+              - cell [ref=e196]:
+                - generic [ref=e197]:
+                  - button "Edit" [ref=e198] [cursor=pointer]
+                  - button "Regenerate screenshots" [ref=e201] [cursor=pointer]
+                  - button "Delete" [ref=e204] [cursor=pointer]
+            - row [ref=e207]:
+              - cell [ref=e208]:
+                - generic [ref=e209]:
+                  - button [ref=e210] [cursor=pointer]
+                  - button [ref=e213] [cursor=pointer]
+              - cell "FloPoWer" [ref=e216]
+              - cell "WordPress" [ref=e217]
+              - cell "/project/flopower https://flopower.com" [ref=e219]:
+                - generic [ref=e220]:
+                  - generic [ref=e221]: /project/flopower
+                  - link "https://flopower.com" [ref=e222] [cursor=pointer]:
+                    - /url: https://flopower.com
+              - cell "—" [ref=e226]
+              - cell "Thumbnail None Desktop Saved Mobile Saved" [ref=e227]:
+                - generic [ref=e228]:
+                  - generic [ref=e229]:
+                    - generic [ref=e230]: Thumbnail
+                    - generic [ref=e231]: None
+                  - generic [ref=e232]:
+                    - generic [ref=e233]: Desktop
+                    - generic [ref=e234]: Saved
+                  - generic [ref=e235]:
+                    - generic [ref=e236]: Mobile
+                    - generic [ref=e237]: Saved
+              - cell [ref=e238]:
+                - generic [ref=e239]:
+                  - button "Edit" [ref=e240] [cursor=pointer]
+                  - button "Regenerate screenshots" [ref=e243] [cursor=pointer]
+                  - button "Delete" [ref=e246] [cursor=pointer]
+            - row [ref=e249]:
+              - cell [ref=e250]:
+                - generic [ref=e251]:
+                  - button [ref=e252] [cursor=pointer]
+                  - button [ref=e255] [cursor=pointer]
+              - cell "Planet Protein" [ref=e258]
+              - cell "Shopify" [ref=e259]
+              - cell /project/planet-protein https://planetprotein.com/ [ref=e261]:
+                - generic [ref=e262]:
+                  - generic [ref=e263]: /project/planet-protein
+                  - link "https://planetprotein.com/" [ref=e264] [cursor=pointer]:
+                    - /url: https://planetprotein.com/
+              - cell "—" [ref=e268]
+              - cell "Thumbnail Custom Desktop Saved Mobile Saved" [ref=e269]:
+                - generic [ref=e270]:
+                  - generic [ref=e271]:
+                    - generic [ref=e272]: Thumbnail
+                    - generic [ref=e273]: Custom
+                  - generic [ref=e274]:
+                    - generic [ref=e275]: Desktop
+                    - generic [ref=e276]: Saved
+                  - generic [ref=e277]:
+                    - generic [ref=e278]: Mobile
+                    - generic [ref=e279]: Saved
+              - cell [ref=e280]:
+                - generic [ref=e281]:
+                  - button "Edit" [ref=e282] [cursor=pointer]
+                  - button "Regenerate screenshots" [ref=e285] [cursor=pointer]
+                  - button "Delete" [ref=e288] [cursor=pointer]
+            - row [ref=e291]:
+              - cell [ref=e292]:
+                - generic [ref=e293]:
+                  - button [ref=e294] [cursor=pointer]
+                  - button [ref=e297] [cursor=pointer]
+              - cell "SJ Win Injury Law" [ref=e300]
+              - cell "WordPress" [ref=e301]
+              - cell "/project/sj-win-injury-law https://sjwinjurylaw.com" [ref=e303]:
+                - generic [ref=e304]:
+                  - generic [ref=e305]: /project/sj-win-injury-law
+                  - link "https://sjwinjurylaw.com" [ref=e306] [cursor=pointer]:
+                    - /url: https://sjwinjurylaw.com
+              - cell "—" [ref=e310]
+              - cell "Thumbnail Custom Desktop Saved Mobile Saved" [ref=e311]:
+                - generic [ref=e312]:
+                  - generic [ref=e313]:
+                    - generic [ref=e314]: Thumbnail
+                    - generic [ref=e315]: Custom
+                  - generic [ref=e316]:
+                    - generic [ref=e317]: Desktop
+                    - generic [ref=e318]: Saved
+                  - generic [ref=e319]:
+                    - generic [ref=e320]: Mobile
+                    - generic [ref=e321]: Saved
+              - cell [ref=e322]:
+                - generic [ref=e323]:
+                  - button "Edit" [ref=e324] [cursor=pointer]
+                  - button "Regenerate screenshots" [ref=e327] [cursor=pointer]
+                  - button "Delete" [ref=e330] [cursor=pointer]
+            - row [ref=e333]:
+              - cell [ref=e334]:
+                - generic [ref=e335]:
+                  - button [ref=e336] [cursor=pointer]
+                  - button [ref=e339] [cursor=pointer]
+              - cell "Heritage Store" [ref=e342]
+              - cell "Shopify" [ref=e343]
+              - cell "/project/heritage-store https://heritagestore.com" [ref=e345]:
+                - generic [ref=e346]:
+                  - generic [ref=e347]: /project/heritage-store
+                  - link "https://heritagestore.com" [ref=e348] [cursor=pointer]:
+                    - /url: https://heritagestore.com
+              - cell "—" [ref=e352]
+              - cell "Thumbnail None Desktop Saved Mobile Saved" [ref=e353]:
+                - generic [ref=e354]:
+                  - generic [ref=e355]:
+                    - generic [ref=e356]: Thumbnail
+                    - generic [ref=e357]: None
+                  - generic [ref=e358]:
+                    - generic [ref=e359]: Desktop
+                    - generic [ref=e360]: Saved
+                  - generic [ref=e361]:
+                    - generic [ref=e362]: Mobile
+                    - generic [ref=e363]: Saved
+              - cell [ref=e364]:
+                - generic [ref=e365]:
+                  - button "Edit" [ref=e366] [cursor=pointer]
+                  - button "Regenerate screenshots" [ref=e369] [cursor=pointer]
+                  - button "Delete" [ref=e372] [cursor=pointer]
+            - row [ref=e375]:
+              - cell [ref=e376]:
+                - generic [ref=e377]:
+                  - button [ref=e378] [cursor=pointer]
+                  - button [ref=e381] [cursor=pointer]
+              - cell "Authority Partners" [ref=e384]
+              - cell "WordPress" [ref=e385]
+              - cell /project/authority-partners https://authoritypartners.com/ [ref=e387]:
+                - generic [ref=e388]:
+                  - generic [ref=e389]: /project/authority-partners
+                  - link "https://authoritypartners.com/" [ref=e390] [cursor=pointer]:
+                    - /url: https://authoritypartners.com/
+              - cell "—" [ref=e394]
+              - cell "Thumbnail Custom Desktop Saved Mobile Saved" [ref=e395]:
+                - generic [ref=e396]:
+                  - generic [ref=e397]:
+                    - generic [ref=e398]: Thumbnail
+                    - generic [ref=e399]: Custom
+                  - generic [ref=e400]:
+                    - generic [ref=e401]: Desktop
+                    - generic [ref=e402]: Saved
+                  - generic [ref=e403]:
+                    - generic [ref=e404]: Mobile
+                    - generic [ref=e405]: Saved
+              - cell [ref=e406]:
+                - generic [ref=e407]:
+                  - button "Edit" [ref=e408] [cursor=pointer]
+                  - button "Regenerate screenshots" [ref=e411] [cursor=pointer]
+                  - button "Delete" [ref=e414] [cursor=pointer]
+            - row [ref=e417]:
+              - cell [ref=e418]:
+                - generic [ref=e419]:
+                  - button [ref=e420] [cursor=pointer]
+                  - button [ref=e423] [cursor=pointer]
+              - cell "Gibson Look" [ref=e426]
+              - cell "Shopify" [ref=e427]
+              - cell "/project/gibson-look https://gibsonlook.com" [ref=e429]:
+                - generic [ref=e430]:
+                  - generic [ref=e431]: /project/gibson-look
+                  - link "https://gibsonlook.com" [ref=e432] [cursor=pointer]:
+                    - /url: https://gibsonlook.com
+              - cell "—" [ref=e436]
+              - cell "Thumbnail None Desktop Saved Mobile Saved" [ref=e437]:
+                - generic [ref=e438]:
+                  - generic [ref=e439]:
+                    - generic [ref=e440]: Thumbnail
+                    - generic [ref=e441]: None
+                  - generic [ref=e442]:
+                    - generic [ref=e443]: Desktop
+                    - generic [ref=e444]: Saved
+                  - generic [ref=e445]:
+                    - generic [ref=e446]: Mobile
+                    - generic [ref=e447]: Saved
+              - cell [ref=e448]:
+                - generic [ref=e449]:
+                  - button "Edit" [ref=e450] [cursor=pointer]
+                  - button "Regenerate screenshots" [ref=e453] [cursor=pointer]
+                  - button "Delete" [ref=e456] [cursor=pointer]
+            - row [ref=e459]:
+              - cell [ref=e460]:
+                - generic [ref=e461]:
+                  - button [ref=e462] [cursor=pointer]
+                  - button [disabled] [ref=e465]
+              - cell "Quandary CG" [ref=e468]
+              - cell "WordPress" [ref=e469]
+              - cell "/project/quandary-cg https://quandarycg.com" [ref=e471]:
+                - generic [ref=e472]:
+                  - generic [ref=e473]: /project/quandary-cg
+                  - link "https://quandarycg.com" [ref=e474] [cursor=pointer]:
+                    - /url: https://quandarycg.com
+              - cell "—" [ref=e478]
+              - cell "Thumbnail None Desktop Saved Mobile Saved" [ref=e479]:
+                - generic [ref=e480]:
+                  - generic [ref=e481]:
+                    - generic [ref=e482]: Thumbnail
+                    - generic [ref=e483]: None
+                  - generic [ref=e484]:
+                    - generic [ref=e485]: Desktop
+                    - generic [ref=e486]: Saved
+                  - generic [ref=e487]:
+                    - generic [ref=e488]: Mobile
+                    - generic [ref=e489]: Saved
+              - cell [ref=e490]:
+                - generic [ref=e491]:
+                  - button "Edit" [ref=e492] [cursor=pointer]
+                  - button "Regenerate screenshots" [ref=e495] [cursor=pointer]
+                  - button "Delete" [ref=e498] [cursor=pointer]
+  - button [ref=e14] [cursor=pointer]:
+    - generic:
+      - generic:
+        - button
+      - generic:
+        - button
+      - generic:
+        - button [disabled]
+      - generic:
+        - button [disabled]
+      - generic:
+        - button [disabled]
+      - generic:
+        - button [disabled]
+      - generic:
+        - button
+      - generic:
+        - button
+    - generic:
+      - generic:
+        - generic:
+          - generic:
+            - link:
+              - /url: https://agentation.com
+            - paragraph: v3.0.2
+            - button "Switch to light mode"
+          - generic:
+            - generic:
+              - generic: Output Detail
+              - button "Standard"
+            - generic:
+              - generic: React Components
+              - generic:
+                - checkbox [checked]
+            - generic:
+              - generic: Hide Until Restart
+              - generic:
+                - checkbox
+          - generic:
+            - generic: Marker Color
+            - generic:
+              - button "Indigo"
+              - button "Blue"
+              - button "Cyan"
+              - button "Green"
+              - button "Yellow"
+              - button "Orange"
+              - button "Red"
+          - generic:
+            - generic:
+              - generic:
+                - checkbox "Clear on copy/send"
+              - generic: Clear on copy/send
+            - generic:
+              - generic:
+                - checkbox "Block page interactions" [checked]
+              - generic: Block page interactions
+          - button "Manage MCP & Webhooks"
+        - generic:
+          - button "Manage MCP & Webhooks"
+          - generic:
+            - generic: MCP Connection
+            - paragraph:
+              - text: MCP connection allows agents to receive and act on annotations.
+              - link "Learn more":
+                - /url: https://agentation.dev/mcp
+          - generic:
+            - generic:
+              - generic: Webhooks
+              - generic:
+                - generic: Auto-Send
+                - generic:
+                  - checkbox "Auto-Send" [checked] [disabled]
+            - paragraph: The webhook URL will receive live annotation changes and annotation data.
+            - textbox "Webhook URL"

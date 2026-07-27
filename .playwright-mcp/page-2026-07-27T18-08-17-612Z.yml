@@ -1,0 +1,219 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e19]:
+    - complementary [ref=e20]:
+      - generic [ref=e21]:
+        - link "Shammi." [ref=e22] [cursor=pointer]:
+          - /url: /
+        - paragraph [ref=e23]: Content Management
+      - navigation [ref=e24]:
+        - link "Projects" [ref=e25] [cursor=pointer]:
+          - /url: /admin/projects
+        - link "Services" [ref=e28] [cursor=pointer]:
+          - /url: /admin/services
+        - link "Skills" [ref=e31] [cursor=pointer]:
+          - /url: /admin/skills
+        - link "Experience" [ref=e34] [cursor=pointer]:
+          - /url: /admin/experience
+        - link "Stats" [ref=e38] [cursor=pointer]:
+          - /url: /admin/stats
+        - link "Process Steps" [ref=e41] [cursor=pointer]:
+          - /url: /admin/process
+      - generic [ref=e45]:
+        - link "View site" [ref=e46] [cursor=pointer]:
+          - /url: /
+        - button "Sign out" [ref=e50] [cursor=pointer]
+    - main [ref=e53]:
+      - generic [ref=e501]:
+        - generic [ref=e502]:
+          - link "Back to projects" [ref=e503] [cursor=pointer]:
+            - /url: /admin/projects
+          - heading "Edit Project" [level=1] [ref=e506]
+          - paragraph [ref=e507]: Vixen & Fox
+        - generic [ref=e508]:
+          - generic [ref=e509]:
+            - generic [ref=e510]:
+              - generic [ref=e511]: Title
+              - textbox "Title" [ref=e512]:
+                - /placeholder: Heritage Store
+                - text: Vixen & Fox
+            - generic [ref=e513]:
+              - generic [ref=e514]: Category
+              - combobox "Category" [ref=e515] [cursor=pointer]:
+                - generic: Shopify
+              - combobox [ref=e518]
+          - generic [ref=e519]:
+            - generic [ref=e520]: URL
+            - textbox "URL" [ref=e521]:
+              - /placeholder: https://example.com
+              - text: https://vixenandfox.com.au
+          - generic [ref=e522]:
+            - generic [ref=e523]: Custom Thumbnail
+            - generic [ref=e524]:
+              - img "Thumbnail" [ref=e525]
+              - button [ref=e526] [cursor=pointer]
+            - paragraph [ref=e529]: Overrides auto-generated desktop screenshot
+          - generic [ref=e530]:
+            - generic [ref=e531]:
+              - generic [ref=e532]: Description
+              - button "AI Generate" [ref=e533] [cursor=pointer]
+            - textbox "Description" [ref=e534]:
+              - /placeholder: Brief project description…
+              - text: Australian fashion retailer. Custom Shopify theme with lookbook-style collections, AU/NZ shipping integration, and product catalog filtering.
+          - generic [ref=e535]:
+            - generic [ref=e536]: Tech Stack (comma-separated)
+            - textbox "Tech Stack (comma-separated)" [ref=e537]:
+              - /placeholder: WordPress, WooCommerce, Elementor
+              - text: Shopify, Liquid, JavaScript, CSS, Shopify APIs
+          - paragraph [ref=e540]: Case Study
+          - generic [ref=e542]:
+            - generic [ref=e543]: Template
+            - combobox "Template" [ref=e544] [cursor=pointer]:
+              - generic: Web Project
+            - combobox [ref=e547]
+          - generic [ref=e548]:
+            - generic [ref=e549]:
+              - generic [ref=e550]: Slug
+              - textbox "Slug" [ref=e551]:
+                - /placeholder: project-name
+                - text: vixen-fox
+              - paragraph [ref=e552]: /project/vixen-fox
+            - generic [ref=e553]:
+              - generic [ref=e554]: Client Name
+              - textbox "Client Name" [ref=e555]:
+                - /placeholder: Brew & Bloom Coffee
+                - text: Vixen & Fox
+          - generic [ref=e556]:
+            - generic [ref=e557]:
+              - generic [ref=e558]: Timeline
+              - textbox "Timeline" [ref=e559]:
+                - /placeholder: Q1 2024 — 8 Weeks
+            - generic [ref=e560]:
+              - generic [ref=e561]: Duration
+              - textbox "Duration" [ref=e562]:
+                - /placeholder: 8 Weeks
+          - generic [ref=e563]:
+            - generic [ref=e564]: Role / Engagement
+            - textbox "Role / Engagement" [ref=e565]:
+              - /placeholder: Design & Development
+              - text: Development
+          - generic [ref=e566]:
+            - generic [ref=e567]: The Challenge
+            - textbox "The Challenge" [ref=e568]:
+              - /placeholder: What problem did the client have?
+          - generic [ref=e569]:
+            - generic [ref=e570]: The Approach
+            - textbox "The Approach" [ref=e571]:
+              - /placeholder: How did you solve it?
+          - generic [ref=e572]:
+            - generic [ref=e573]: Outcome
+            - textbox "Outcome" [ref=e574]:
+              - /placeholder: What was the result?
+              - text: jhjhj
+          - paragraph [ref=e577]: Results Section
+          - generic [ref=e579]:
+            - generic [ref=e580]: Results Headline
+            - textbox "Results Headline" [ref=e581]:
+              - /placeholder: Six weeks. One launch. Zero compromises.
+          - generic [ref=e582]:
+            - generic [ref=e583]: Results CTA
+            - textbox "Results CTA" [ref=e584]:
+              - /placeholder: Start a Project
+              - text: Start a Project
+          - generic [ref=e585]:
+            - generic [ref=e586]: Result Metrics
+            - button "Add Metric" [ref=e588] [cursor=pointer]
+          - paragraph [ref=e593]: Testimonial
+          - generic [ref=e595]:
+            - generic [ref=e596]: Quote
+            - textbox "Quote" [ref=e597]:
+              - /placeholder: What did the client say?
+              - text: ggjggg
+          - generic [ref=e598]:
+            - generic [ref=e599]:
+              - generic [ref=e600]: Author Name
+              - textbox "Author Name" [ref=e601]:
+                - /placeholder: Sarah Chen
+                - text: ghghgh
+            - generic [ref=e602]:
+              - generic [ref=e603]: Author Role
+              - textbox "Author Role" [ref=e604]:
+                - /placeholder: Owner, Brew & Bloom
+                - text: hghgjh
+          - generic [ref=e605]:
+            - button "Save Changes" [ref=e606] [cursor=pointer]
+            - button "Cancel" [ref=e607] [cursor=pointer]
+  - button [ref=e14] [cursor=pointer]:
+    - generic:
+      - generic:
+        - button
+      - generic:
+        - button
+      - generic:
+        - button [disabled]
+      - generic:
+        - button [disabled]
+      - generic:
+        - button [disabled]
+      - generic:
+        - button [disabled]
+      - generic:
+        - button
+      - generic:
+        - button
+    - generic:
+      - generic:
+        - generic:
+          - generic:
+            - link:
+              - /url: https://agentation.com
+            - paragraph: v3.0.2
+            - button "Switch to light mode"
+          - generic:
+            - generic:
+              - generic: Output Detail
+              - button "Standard"
+            - generic:
+              - generic: React Components
+              - generic:
+                - checkbox [checked]
+            - generic:
+              - generic: Hide Until Restart
+              - generic:
+                - checkbox
+          - generic:
+            - generic: Marker Color
+            - generic:
+              - button "Indigo"
+              - button "Blue"
+              - button "Cyan"
+              - button "Green"
+              - button "Yellow"
+              - button "Orange"
+              - button "Red"
+          - generic:
+            - generic:
+              - generic:
+                - checkbox "Clear on copy/send"
+              - generic: Clear on copy/send
+            - generic:
+              - generic:
+                - checkbox "Block page interactions" [checked]
+              - generic: Block page interactions
+          - button "Manage MCP & Webhooks"
+        - generic:
+          - button "Manage MCP & Webhooks"
+          - generic:
+            - generic: MCP Connection
+            - paragraph:
+              - text: MCP connection allows agents to receive and act on annotations.
+              - link "Learn more":
+                - /url: https://agentation.dev/mcp
+          - generic:
+            - generic:
+              - generic: Webhooks
+              - generic:
+                - generic: Auto-Send
+                - generic:
+                  - checkbox "Auto-Send" [checked] [disabled]
+            - paragraph: The webhook URL will receive live annotation changes and annotation data.
+            - textbox "Webhook URL"
