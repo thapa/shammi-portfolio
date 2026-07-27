@@ -9,8 +9,8 @@ export default async function handler(req, res) {
 
   const { name, email, phone, budget, projectType } = req.body
 
-  if (!name || !email || !phone || !budget || !projectType) {
-    return res.status(400).json({ error: 'All fields are required' })
+  if (!name || !email || !budget || !projectType) {
+    return res.status(400).json({ error: 'Name, email, budget and project type are required' })
   }
 
   try {
@@ -64,7 +64,11 @@ export default async function handler(req, res) {
                           <tr>
                             <td style="padding:24px 0;border-bottom:1px solid #f0f0f0;">
                               <p style="margin:0 0 4px;color:#999;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">Phone</p>
-                              <a href="tel:${phone}" style="color:#0E0E0E;font-size:16px;font-weight:600;text-decoration:none;">${phone}</a>
+                              ${
+                                phone
+                                  ? `<a href="tel:${phone}" style="color:#0E0E0E;font-size:16px;font-weight:600;text-decoration:none;">${phone}</a>`
+                                  : `<p style="margin:0;color:#999;font-size:16px;font-weight:500;">Not provided</p>`
+                              }
                             </td>
                           </tr>
 

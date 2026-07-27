@@ -17,11 +17,11 @@ const socials = [
 ]
 
 const budgetOptions = [
-  'Under $500',
-  '$500 – $1,000',
   '$1,000 – $5,000',
   '$5,000 – $10,000',
-  '$10,000+',
+  '$10,000 – $25,000',
+  '$25,000+',
+  'Not sure yet',
 ]
 
 const projectTypeOptions = [
@@ -253,14 +253,16 @@ const Contact = () => {
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="contact-phone" className="section-label">Phone</label>
+                  <label htmlFor="contact-phone" className="section-label">
+                    Phone{' '}
+                    <span className="normal-case font-normal tracking-normal opacity-60">(optional)</span>
+                  </label>
                   <input
                     id="contact-phone"
                     type="tel"
                     name="phone"
                     value={form.phone}
                     onChange={handleChange}
-                    required
                     placeholder="+1 234 567 8900"
                     className="form-input"
                   />

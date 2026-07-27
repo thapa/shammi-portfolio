@@ -89,9 +89,11 @@ const Process = () => {
 
           steps.forEach((step, i) => {
             const box = step.querySelector('.step-box')
+            const label = box?.querySelector('.font-display')
             if (box) {
               // Add a color tween precisely when the line reaches this box's percentage
-              scrubTl.to(box, { borderColor: 'var(--ds-accent)', duration: 0.1 }, i * stepInterval)
+              scrubTl.to(box, { borderColor: 'var(--ds-accent)', backgroundColor: 'var(--ds-accent)', duration: 0.1 }, i * stepInterval)
+              if (label) scrubTl.to(label, { color: '#ffffff', duration: 0.1 }, i * stepInterval)
             }
           })
         }
@@ -124,6 +126,7 @@ const Process = () => {
         steps.forEach((step) => {
           const dot = step.querySelector('.step-dot')
           const box = step.querySelector('.step-box')
+          const label = box?.querySelector('.font-display')
 
           if (dot) {
             ScrollTrigger.create({
@@ -131,11 +134,14 @@ const Process = () => {
               start: 'top 50%',
               onEnter: () => {
                 gsap.to(dot, { backgroundColor: 'var(--ds-accent)', borderColor: 'var(--ds-accent)', duration: 0.3 })
-                if (box) gsap.to(box, { borderColor: 'var(--ds-accent)', duration: 0.3 })
+                if (box) gsap.to(box, { borderColor: 'var(--ds-accent)', backgroundColor: 'var(--ds-accent)', duration: 0.3 })
+                if (label) gsap.to(label, { color: '#ffffff', duration: 0.3 })
               },
               onLeaveBack: () => {
+                const isDark = document.documentElement.classList.contains('dark')
                 gsap.to(dot, { backgroundColor: 'var(--ds-bg)', borderColor: 'var(--ds-border)', duration: 0.3 })
-                if (box) gsap.to(box, { borderColor: 'var(--ds-border)', duration: 0.3 })
+                if (box) gsap.to(box, { borderColor: 'var(--ds-border)', backgroundColor: isDark ? '#000000' : 'var(--ds-bg)', duration: 0.3 })
+                if (label) gsap.to(label, { color: isDark ? '#ffffff' : 'var(--ds-text-1)', duration: 0.3 })
               }
             })
           }
@@ -209,15 +215,12 @@ const Process = () => {
                   />
 
                   <div
-                    className="step-box w-16 h-16 flex items-center justify-center mb-6 flex-shrink-0 transition-colors duration-300"
-                    style={{
-                      border: '1px solid var(--ds-border)',
-                      background: 'var(--ds-bg)',
-                    }}
+                    className="step-box w-16 h-16 flex items-center justify-center mb-6 flex-shrink-0 transition-colors duration-300 bg-[var(--ds-bg)] dark:bg-black"
+                    style={{ border: '1px solid var(--ds-border)' }}
                   >
                     <span
-                      className="font-display text-xs"
-                      style={{ color: 'var(--ds-text-1)', letterSpacing: '0.06em' }}
+                      className="font-display text-xs text-[var(--ds-text-1)] dark:text-white"
+                      style={{ letterSpacing: '0.06em' }}
                     >
                       {step.num}
                     </span>

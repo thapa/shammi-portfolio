@@ -235,6 +235,38 @@
     animation: button-outline-spin 920ms linear infinite;
   }
 
+  /* Secondary pair for .btn-primary — same type & metrics, ghost surface */
+  .btn-outline {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-family: 'Michroma', 'Hanken Grotesk', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ds-text-2);
+    background: transparent;
+    padding: 13px 27px; /* 1px less than btn-primary to offset the border */
+    border: 1px solid var(--ds-border);
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 200ms var(--ease-quart), color 150ms, border-color 150ms;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .btn-outline:hover {
+    transform: translateY(-2px);
+    color: var(--ds-text-1);
+    border-color: var(--ds-accent);
+  }
+
+  .btn-outline:active {
+    transform: translateY(0);
+  }
+
   /* Section label — consistent across all sections */
   .section-label {
     font-size: 0.6875rem;
@@ -345,15 +377,5 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
-  }
-}
-
-/* Hide native cursor on mouse devices — custom cursor takes over (not on admin) */
-@media (pointer: fine) {
-
-  body:not(.is-admin) *,
-  body:not(.is-admin) *::before,
-  body:not(.is-admin) *::after {
-    cursor: none !important;
   }
 }

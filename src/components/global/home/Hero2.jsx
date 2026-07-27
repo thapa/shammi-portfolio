@@ -61,14 +61,9 @@ const Hero2 = () => {
 
         <div className="max-w-full">
           {/* Eyebrow */}
-          <p className="flex items-center gap-3 mb-8">
-            <span
-              className="w-1.5 h-1.5 rounded-full flex-shrink-0"
-              style={{ background: 'var(--ds-accent)', animation: 'blink 2.8s ease-in-out infinite' }}
-              aria-hidden="true"
-            />
+          <p className="mb-8">
             <span className="section-label" style={{ color: 'var(--ds-text-2)' }}>
-              CRO Specialist. Shopify &amp; WordPress Developer. Available for projects.
+              CRO-MINDED DEVELOPER · SHOPIFY & WORDPRESS
             </span>
           </p>
 
@@ -93,28 +88,31 @@ const Hero2 = () => {
           <p
             className="body-text mb-10 max-w-xl"
           >
-            I build Shopify stores, WordPress sites, and CRO programs that turn traffic into revenue.
-            The work is part code, part psychology, and the only number I care about is the one on your dashboard.
+            I've spent 10+ years building Shopify stores and WordPress sites. Now I build them to convert — part code, part psychology, and the only number I care about is the one on your dashboard.
           </p>
 
           {/* Actions */}
-          <div className="flex flex-wrap items-center gap-4 mb-16 md:mb-5">
-            <a href="#contact" className="btn-primary">
-              Start a project <HiArrowRight size={14} />
+          <div className="flex flex-wrap items-center gap-4 mb-4">
+            <a href="#projects" className="btn-primary">
+              See the results <HiArrowRight size={14} />
             </a>
-            <a
-              href="#projects"
-              className="relative inline-flex items-center gap-2 font-display text-xs uppercase tracking-[0.05em] px-5 py-3.5 transition-colors"
-              style={{
-                color: 'var(--ds-text-2)',
-                border: '1px solid var(--ds-border)',
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.color = 'var(--ds-text-1)'}
-              onMouseLeave={(e) => e.currentTarget.style.color = 'var(--ds-text-2)'}
-            >
-              View selected work
+            <a href="#contact" className="btn-outline">
+              Start a project
             </a>
           </div>
+
+          {/* Reassurance */}
+          <p
+            className="flex items-center gap-2.5 mb-16 md:mb-5 text-[0.8125rem]"
+            style={{ color: 'var(--ds-text-2)' }}
+          >
+            <span
+              className="w-1.5 h-1.5 rounded-full flex-shrink-0"
+              style={{ background: 'var(--ds-accent)', animation: 'blink 2.8s ease-in-out infinite' }}
+              aria-hidden="true"
+            />
+            Available now · Replies within 24 hours
+          </p>
         </div>
 
         {/* Stats Card - Right Aligned Horizontal */}

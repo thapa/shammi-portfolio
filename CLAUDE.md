@@ -61,7 +61,7 @@ AI assistant behavior is configured in `config/agentRules.js`.
 
 ### Styling
 
-- Primary color: `#5c51fe` (Tailwind alias: `primary`)
+- Primary color: `#007477` (Tailwind alias: `primary`)
 - Dark mode via `class` strategy (toggled by Header, persisted to localStorage)
 - Fonts: Inter (sans), Playfair Display (display)
 - Custom Tailwind animations: `marquee`, `scroll-up`, `scroll-down`

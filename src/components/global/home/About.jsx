@@ -142,20 +142,20 @@ const About = () => {
               ref={headingRef}
               className="section-heading mb-8"
             >
-              About
+              I BUILD. I OPTIMIZE.
             </h2>
             <div
               ref={bioRef}
               className="body-text flex flex-col gap-5 mb-10"
             >
               <p>
-                I'm a CRO specialist and full-stack web developer. Ten years in, what I do is pretty simple: I find where your store is leaking money, and I rebuild the parts that are causing it.
+                I'm a web developer with ten years in the build — WordPress first, then Shopify, with React and frontend work on the side. Along the way I got tired of shipping sites that looked great and converted poorly, so I went deep on CRO. That's how I work now: build it right, then find where it's losing revenue and fix it.
               </p>
               <p>
-                Most "redesigns" I get called in to fix were beautiful and broken. Pretty homepages. Slow checkouts. Forms nobody finished. Most of the time, the fix isn't more design. It's reading the data and being willing to ship the unsexy version when the unsexy version wins.
+                Most "redesigns" I'm called in on were beautiful and broken — polished homepages, slow checkouts, forms nobody completed. Usually the answer isn't more design. It's reading the data and shipping the version that performs, even when it's the less obvious one. AI runs through how I work now — researching faster, writing and refactoring code, pressure-testing CRO ideas before they go live — so I move through that loop in hours instead of days.
               </p>
               <p>
-                I've worked with brands in fashion, supplements, consumer goods, and SaaS. Some scrappy, some doing eight figures. Same approach either way: start with the funnel, find the leak, prove the fix.
+                The advantage of hiring a developer who does CRO is simple: I don't hand you a deck and walk away. I find the problem and ship the fix myself.
               </p>
             </div>
 

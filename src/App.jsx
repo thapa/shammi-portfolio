@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route, Navigate, useParams } from 'react-router-
 import { ContentProvider, useContent } from './context/ContentContext'
 import { gsap, ScrollTrigger } from './lib/gsap'
 import { ReactLenis } from 'lenis/react'
-import CustomCursor from './components/global/CustomCursor'
 import Header from './components/global/Header'
 import Hero2 from './components/global/home/Hero2'
 import TechPartners from './components/global/home/TechPartners'
@@ -57,7 +56,6 @@ function Portfolio() {
   return (
     <ReactLenis root ref={lenisRef} autoRaf={false} options={{ lerp: 0.08 }}>
       <ContentProvider>
-        <CustomCursor />
         <Header isDark={dark} toggleTheme={toggleTheme} />
         <main>
           <Hero2 />
@@ -126,7 +124,6 @@ function CaseStudyPage() {
   return (
     <ReactLenis root ref={lenisRef} autoRaf={false} options={{ lerp: 0.08 }}>
       <ContentProvider>
-        <CustomCursor />
         <Header isDark={dark} toggleTheme={() => setDark((d) => !d)} />
         <main>
           <CaseStudyRouter />
